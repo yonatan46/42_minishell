@@ -3,37 +3,91 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/23 12:43:34 by yonamog2          #+#    #+#              #
-#    Updated: 2022/12/23 16:32:08 by yonamog2         ###   ########.fr        #
+#    Created: Invalid Date        by              +#+  #+#    #+#              #
+#    Updated: 2023/01/27 15:01:17 by dkaratae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+
 NAME = minishell
 
-FILES = minishell.c ft_split.c ft_isprint.c ft_strlen.c ft_strdup.c ft_substr.c 
+FILES = 	minishell.c  \
+			for_print.c \
+			ft_checker_qoutes.c \
+			ft_copy_to_struct.c \
+			ft_lexer.c \
+			ft_redirection_utils.c \
+			ft_redirection.c \
+			ft_separate_struct.c \
+			ft_shell_utils.c \
+			ft_space.c \
+		
+LIBFT = libft/libft.a
 
-OBJ = $(FILES:.c=.o)
+CC = gcc -I/usr/local/include 
 
-CC = gcc  -I/usr/local/include 
+# CFLAGS = -Wextra -Wall -Werror -g
+CFLAGS = -Wextra -Wall -Werror -g -fsanitize=address
 
-CFLAGS = -Wall -Werror -Wextra 
+OBJS	=	$(FILES:%c=%o)
+
+%.o : %.c
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 all : $(NAME)
 
-%.o : %.c
-	$(CC) -c  $?
+$(NAME) : $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -L/usr/local/lib -lreadline -o $(NAME)
+	
+$(LIBFT):
+	make -C libft
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -lreadline -o $(NAME) 
+clean :
+	rm -f *.o
+	make clean -C libft
 
-clean:
-	rm -f $(OBJ)
+fclean : clean
+	make fclean -C libft
+	rm -rf $(NAME)
 
-fclean: clean
-	rm -f $(NAME)
+re : fclean all
 
-re: fclean all
+.PHONY: all clean fclean re 
 
-.PHONY: all clean fclean re
+
+# NAME = minishell
+
+# FILES = minishell.c 
+
+# LIBFT = libft/libft.a
+
+# OBJ = $(FILES:.c=.o)
+
+# CC = gcc  -I/usr/local/include 
+
+# CFLAGS = -Wall -Werror -Wextra 
+
+# all : $(NAME)
+
+# 	%.o : %.c
+# 	$(CC) -c  $?
+
+# $(NAME): $(OBJ) $(LIBFT)
+# 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -L/usr/local/lib -lreadline -o $(NAME) 
+
+# $(LIBFT):
+# 	make -C libft
+
+# clean:
+# 	rm -f $(OBJ)
+# 	make clean -C libft
+
+# fclean: clean
+# 	rm -f $(NAME)
+# 	make clean -C libft
+
+# re: fclean all
+
+# .PHONY: all clean fclean re

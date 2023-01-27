@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_shell_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 11:24:12 by yonamog2          #+#    #+#             */
-/*   Updated: 2022/09/23 09:56:15 by yonamog2         ###   ########.fr       */
+/*   Created: 2023/01/27 13:58:15 by dkaratae          #+#    #+#             */
+/*   Updated: 2023/01/27 14:57:16 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(int c)
+int	ft_isspace(char ch)
 {
-	if (c >= ' ' && c <= '~')
+	if (ch == ' ' || ch == '\n' || ch == '\t' || \
+		ch == '\v' || ch == '\f' || ch == '\r')
 		return (1);
 	return (0);
 }
+
+
+

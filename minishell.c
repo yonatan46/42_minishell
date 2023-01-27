@@ -3,137 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 12:43:37 by yonamog2          #+#    #+#             */
-/*   Updated: 2022/12/24 13:39:35 by yonamog2         ###   ########.fr       */
+/*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
+/*   Updated: 2023/01/27 16:09:11 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_func(char **args)
+int	ft_preparsing(char *str)
 {
-	int	size;
 	int	i;
 
 	i = 0;
-	size = 0;
-	while (args[size])
-		size++;
-	while (i < size)
-		free(args[i++]);
-	free(args);
-}
-
-int	search(char **envp)
-{
-	int	x;
-
-	x = -1;
-	while (envp[++x])
-		if (strnstr(envp[x], "PATH", 4) == NULL)
+	while ((ft_isspace(str[i])))
+		i++;
+	if (ft_check_red_not_three(str))
+		return (1);
+	if (str[i] == '|' || str[i] == ';')
+		return (1);
+	if (ft_check_qoutes(str))
+		return (1);
+	i = -1;
+	while (str[++i])
+		if (ft_check_sem_pipe(str, i))
 			return (1);
 	return (0);
 }
 
-void	free_short(char *path, char **path_split)
+int	main(int ac, char **av, char **env)
 {
-	free(path);
-	free_func(path_split);
-}
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	int		size1;
-	int		size2;
+	// char	**vars;
 	char	*str;
-	int		x;
-	int		y;
+	// char	*str1;
 
-	if (!s1 || !s2)
-		return (NULL);
-	size1 = ft_strlen(s1);
-	size2 = ft_strlen(s2);
-	x = -1;
-	y = 0;
-	str = malloc(sizeof(char) * (size1 + size2) + 1);
-	if (!str)
-		return (NULL);
-	while (s1[++x] != '\0')
-		str[x] = s1[x];
-	while (s2[y] != '\0')
-		str[x++] = s2[y++];
-	str[x] = '\0';
-	return (str);
-}
-
-char	*parsing(t_data *proc, char **envp, char *s)
-{
-	char	*path;
-	char	**path_split;
-
-	proc->x = 0;
-	if (search(envp) == 0)
-		return (NULL);
-	if (strnstr(s, "/", ft_strlen(s)))
-		return (s);
-	while (!strnstr(envp[proc->x], "PATH", 4))
-		proc->x++;
-	path_split = ft_split(envp[proc->x] + 5, ':');
-	proc->x = -1;
-	while (path_split[++proc->x] && (search(envp) == 1))
-	{
-		path = ft_strjoin(path_split[proc->x], "/");
-		proc->result = ft_strjoin(path, s);
-		if (access(proc->result, 0) == 0)
-		{
-			free_short(path, path_split);
-			return (proc->result);
-		}
-		free(proc->result);
-	}
-	free_short(path, path_split);
-	return (NULL);
-}
-
-void handl(int num)
-{
-	return ;
-}
-int main(int ac, char **av, char **env)
-{
 	(void)ac;
 	(void)av;
 	(void)env;
-	t_data vars;
-
-	signal(SIGINT, handl);
-	signal(SIGSEGV, handl);
-	signal(SIGABRT, handl);
-	signal(SIGHUP, handl);
-	signal(SIGPIPE, handl);
-	signal(SIGTSTP, handl);
 	while (1)
 	{
-		char *str = readline("minishell:> ");
-		if (strcmp(str, "exit") == 0)
-			exit(0);
-		add_history (str);
-		vars.res = ft_split(str, ' ');
-		parsing(&vars, env, vars.res[0]);
-		vars.res[0] = vars.result;
-		// printf("%s\n", vars.res[0]);
-		// printf("%s", vars.result);
-		// char **done = ft_split(str, ' ');
-		// int x = 0;
-		// while (vars.res[x])
-		// 	printf("%s\n", vars.res[x++]);
-		int id = fork();
-		if (id == 0)
-			if(execve(vars.res[0], vars.res, env) == -1)
-				perror("error ");
-		wait(0);
-		free(str);
+		str = readline("minishell:> ");
+		add_history(str);
+		if (ft_preparsing(str))
+		{
+			printf("Error\n");
+			continue ;
+		}
+		ft_lexer(str);
 	}
-	return(0);
+	return (0);
 }
+
+	// string: echo "hello      there" how are 'you 'doing? $USER |wc -l >outfile
+    // output: {echo, "hello      there", how, are, 'you 'doing?, pixel, |, wc, -l, >, outfile, NULL}
+	// echo "hello world | " | ls cat pwd "|" | export asdkasjdb '|'
+	// echo "hello world | " | ls cat pwd "|" | export asdkasjdb '|' | echo <<abc|ls >>abc|cmd <abc -la|>abc 
+	// printf("res: %s", getenv(""))
