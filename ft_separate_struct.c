@@ -12,31 +12,32 @@
 
 #include "minishell.h"
 
-void ft_copy_red_sign(t_data *f_struct, int i, int j, int r)
+void  ft_copy_red_sign(t_pipe *f_struct, int i, int j, int r)
 {
 	f_struct[i].red[r] = ft_calloc(sizeof(t_red), 1);
 	f_struct[i].red[r]->red_sign = ft_strdup(f_struct[i].f_cmd[j]);
 }
 
-void ft_copy_red_name(t_data *f_struct, int i, int j, int r)
+void ft_copy_red_name(t_pipe *f_struct, int i, int j, int r)
 {
 	if (f_struct[i].f_cmd[j])
 		f_struct[i].red[r]->red_name = ft_strdup(f_struct[i].f_cmd[j]);	
+	// printf("redL: %s\n", f_struct[i].f_cmd[j]);
 }
 
-void ft_count_struct(t_data *f_struct)
+void ft_count_struct(t_pipe *f_struct)
 {
 	int i;
 	int j;
 	int r;
-	int k;
+	// int k;
 	int g;
 	int count_all;
 	int count_red;
 	int flag;
 
 	i = 0;
-	k = 0;
+	// k = 0;
 		count_all = 0;
 	count_red = 0;
 	while (f_struct[i].f_cmd)
@@ -52,14 +53,17 @@ void ft_count_struct(t_data *f_struct)
 		if (count_red == 0)
 			f_struct[i].red = NULL;
 		else
-			f_struct[i].red = ft_calloc(sizeof(t_data), count_red);
+		{
+			f_struct[i].red = ft_calloc(sizeof(t_pipe), count_red);
+			f_struct[i].red_len = count_red;
+		}
 
 		if (count_all == 0)
 			f_struct[i].arg = NULL;
 		else
-			f_struct[i].arg = ft_calloc(sizeof(t_data), count_all);
-		// f_struct[i].red = ft_calloc(sizeof(t_data), count_red);
-		// f_struct[i].arg = ft_calloc(sizeof(t_data), count_all);
+			f_struct[i].arg = ft_calloc(sizeof(t_pipe), count_all + 1);
+		// f_struct[i].red = ft_calloc(sizeof(t_pipe), count_red);
+		// f_struct[i].arg = ft_calloc(sizeof(t_pipe), count_all);
 		
 
 		g = 0;
@@ -79,6 +83,11 @@ void ft_count_struct(t_data *f_struct)
 			}
 			else
 			{
+				if (g == 0)
+				{
+					f_struct[i].arg[g] = ft_strdup(f_struct[i].cmd);
+					g++;
+				}
 				f_struct[i].arg[g] = ft_strdup(f_struct[i].f_cmd[j]);
 				g++;
 			}

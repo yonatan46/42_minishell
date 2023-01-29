@@ -22,7 +22,7 @@ void print_2d(char **str)
 	}
 }
 
-void ft_print_cmd(t_data *f_struct)
+void ft_print_cmd(t_pipe *f_struct)
 {
 	int i;
 	int j;
@@ -31,6 +31,8 @@ void ft_print_cmd(t_data *f_struct)
 	while (f_struct[i].arg || f_struct[i].red)
 	{
 	printf("---------<Structure = %i>--------\n", i);
+	printf("---------<cmd_len     = %d>--------\n", f_struct[i].cmd_len);
+	printf("---------<red_len     = %d>--------\n", f_struct[i].red_len);
 		printf("CMD = %s\n", f_struct[i].cmd);	
 		j =	0;
 		while (f_struct[i].arg && f_struct[i].arg[j])
@@ -51,7 +53,7 @@ void ft_print_cmd(t_data *f_struct)
  }
 
 
-// void ft_print3(t_data *f_struct)
+// void ft_print3(t_pipe *f_struct)
 // {
 // 	int i;
 // 	int j;
@@ -70,7 +72,7 @@ void ft_print_cmd(t_data *f_struct)
 // 	}
 //  }
 
-// void ft_print5(t_data *f_struct)
+// void ft_print5(t_pipe *f_struct)
 // {
 // 	int i;
 // 	int j;
@@ -89,7 +91,7 @@ void ft_print_cmd(t_data *f_struct)
 //  }
 
 
-// void ft_print4(t_data *f_struct)
+// void ft_print4(t_pipe *f_struct)
 // {
 // 	int i;
 // 	int j;
@@ -107,7 +109,7 @@ void ft_print_cmd(t_data *f_struct)
 // 	}
 //  }
 
-// void ft_print_cmd(t_data *f_struct)
+// void ft_print_cmd(t_pipe *f_struct)
 // {
 // 	int i;
 

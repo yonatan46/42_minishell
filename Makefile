@@ -3,17 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+         #
+#    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: Invalid Date        by              +#+  #+#    #+#              #
-#    Updated: 2023/01/27 15:01:17 by dkaratae         ###   ########.fr        #
+#    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
+#    Updated: 2023/01/29 13:09:30 by yonamog2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME = minishell
 
-FILES = 	minishell.c  \
+.SILENT:
+
+FILES =		added.c pipex.c \
+			redirections.c \
+			ft_builtin.c \
+			ft_export.c \
+			ft_search.c \
+			ft_linkedlist.c \
+			minishell.c  \
 			for_print.c \
 			ft_checker_qoutes.c \
 			ft_copy_to_struct.c \
@@ -23,71 +30,50 @@ FILES = 	minishell.c  \
 			ft_separate_struct.c \
 			ft_shell_utils.c \
 			ft_space.c \
-		
-LIBFT = libft/libft.a
+# FILES = ft_input.c
+# FILES = try.c
+OBJ = $(FILES:.c=.o)
 
-CC = gcc -I/usr/local/include 
+#for mac
+CC = cc  -I/usr/local/Cellar/readline/8.1/include
+#for linux
+# CC = cc 
 
-# CFLAGS = -Wextra -Wall -Werror -g
-CFLAGS = -Wextra -Wall -Werror -g -fsanitize=address
-
-OBJS	=	$(FILES:%c=%o)
-
-%.o : %.c
-	$(CC) $(CFLAGS) -I. -c $< -o $@
+CFLAGS = -Wall -Werror -Wextra
 
 all : $(NAME)
-
-$(NAME) : $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -L/usr/local/lib -lreadline -o $(NAME)
+	tput setaf 3
+	printf "RUN Minishell\n"
+	tput setaf 7
+%.o : %.c
+	$(CC) -c $(CFLAGS) $?
 	
-$(LIBFT):
-	make -C libft
+$(NAME): $(OBJ)
+	tput setaf 3
+	printf "COMPILING!\n"
+	tput setaf 7
+	cd ft_printf && make
+#for mac
+	$(CC)  -L /usr/local/Cellar/readline/8.1/lib -lreadline $(OBJ) $(CFLAGS)  ./ft_printf/libft.a -o $(NAME)
+# $(CC)  $(OBJ) $(CFLAGS) -L/usr/local/lib -I/usr/local/include -lreadline ./ft_printf/libft.a -o $(NAME)
+	tput setaf 3
+	printf "done compiling!\n"
+	tput setaf 7
 
-clean :
-	rm -f *.o
-	make clean -C libft
+clean: 
+	tput setaf 1
+	printf "Cleaning!\n"
+	tput setaf 7
+	cd ft_printf && make clean
+	rm -f $(OBJ)
 
-fclean : clean
-	make fclean -C libft
-	rm -rf $(NAME)
+fclean: clean
+	cd ft_printf && make fclean
+	rm -f $(NAME)
+	tput setaf 3
+	printf "done cleaning!\n"
+	tput setaf 7
 
-re : fclean all
+re: fclean all
 
-.PHONY: all clean fclean re 
-
-
-# NAME = minishell
-
-# FILES = minishell.c 
-
-# LIBFT = libft/libft.a
-
-# OBJ = $(FILES:.c=.o)
-
-# CC = gcc  -I/usr/local/include 
-
-# CFLAGS = -Wall -Werror -Wextra 
-
-# all : $(NAME)
-
-# 	%.o : %.c
-# 	$(CC) -c  $?
-
-# $(NAME): $(OBJ) $(LIBFT)
-# 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -L/usr/local/lib -lreadline -o $(NAME) 
-
-# $(LIBFT):
-# 	make -C libft
-
-# clean:
-# 	rm -f $(OBJ)
-# 	make clean -C libft
-
-# fclean: clean
-# 	rm -f $(NAME)
-# 	make clean -C libft
-
-# re: fclean all
-
-# .PHONY: all clean fclean re
+.PHONY: all clean fclean re
