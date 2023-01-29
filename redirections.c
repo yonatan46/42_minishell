@@ -81,7 +81,6 @@ void	red_one_cmd(t_pipe *av)
 		}
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
 		{
-			// printf("herer\n");
 			file1 = open(av->red[x]->red_name, O_RDONLY);
 			if (file1 == -1)
 				terminate(av->red[x]->red_name);

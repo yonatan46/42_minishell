@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/24 15:38:06 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:34:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ void	free_short(char *path, char **path_split)
 */
 int	ft_check_builtin(char *cmd)
 {
-	if (strcmp(cmd, "exit") == 0)
+	if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
 		return (1);
-	else if (strcmp(cmd, "echo") == 0)
+	else if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
 		return (2);
-	else if (strcmp(cmd, "cd") == 0)
+	else if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
 		return (3);
-	else if (strcmp(cmd, "pwd") == 0)
+	else if (ft_strncmp(cmd, "pwd", ft_strlen(cmd)) == 0)
 		return (4);
-	else if (strcmp(cmd, "env") == 0)
+	else if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
 		return (5);
-	else if (strcmp(cmd, "export") == 0)
+	else if (ft_strncmp(cmd, "export", ft_strlen(cmd)) == 0)
 		return (6);
-	else if (strcmp(cmd, "unset") == 0)
+	else if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
 		return (7);
 	return (0);
 }
@@ -303,6 +303,8 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
 		close_pipes(proc);
 		proc->check = ft_check_builtin(av->cmd);
+		printf("here: %s\n", av->arg[0]);
+		printf("here: %s\n", av->arg[1]);
 		if (proc->check > 0)
 			check_built_ins_and_exexute(proc, av, envp);
 		else if (av->cmd && parsing(proc, envp, av->cmd))
@@ -428,6 +430,17 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 	if (ac > 1)
 		while (++counter < cmd_len - 1)
 			pipe(proc.fd[counter]);
+	// if (f_pipe->arg[0] == NULL)
+	// {
+	// 	int x = 0;
+	// 	while (x < f_pipe->cmd_len)
+	// 	{
+	// 		f_pipe[x].arg = malloc(sizeof(char *) * 2);
+	// 		f_pipe[x].arg[0] = ft_strdup(f_pipe[x].cmd);
+	// 		f_pipe[x].arg[1] = NULL;
+	// 		x++;
+	// 	}
+	// }
 	if (ac == 1)
 	{
 		return (pipex_one_cmd(f_pipe, &proc, linked_to_array(*proc.head)));

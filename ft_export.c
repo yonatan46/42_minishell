@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/24 19:09:51 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/01/29 17:39:35 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	check_export_and_replace(t_list *head, char *replace)
 	flag = 0;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->content, replace, ft_strlen(tmp->content) - 1) == 0)
+		if (ft_strncmp(tmp->content, replace, ft_strlen(replace) - 1) == 0)
 		{
 			if (ft_strchr(replace, '='))
 			{
@@ -195,7 +195,7 @@ void	ft_export_print_linked(t_pipe *pipe, t_data *proc)
 			check_export_and_replace(*proc->head, pipe->arg[proc->x]);
 		return ;
 	}
-	sort_list(*proc->head);
+	// sort_list(*proc->head);
 	proc->tmp_list = *proc->head;
 	while (proc->tmp_list)
 	{

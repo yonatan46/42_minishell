@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/01/27 16:09:11 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/01/29 21:30:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+int code = 0;
 int	ft_preparsing(char *str)
 {
 	int	i;
@@ -58,7 +58,6 @@ int	main(int ac, char **av, char **env)
 
 	signal(SIGINT, handler_signal);
 	signal(SIGQUIT, SIG_IGN);
-	int code = 0;
 	// ft_linked_env(&proc, env, 1);
 	if (env[0] == NULL)
 	{
@@ -73,7 +72,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		if (code == 0)
-			str = readline("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
+			str = readline("\001\033[32m\002" "minishell {😁}-> " "\001\033[0m\002");
 		else
 			str = readline("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (!str)

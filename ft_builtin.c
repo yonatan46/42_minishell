@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/24 14:10:53 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:48:31 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,13 @@ void	ft_echo(t_pipe *pipe)
 void	ft_pwd(void)
 {
 	char	res[1024];
-
-	printf("%s\n", getcwd(res, 1024));
+	char *pwd = getcwd(res, 1024);
+	if (!pwd)
+	{
+		printf("Error: sorry dir is deleted or incorrect!\n");
+		exit(0);
+	}
+	printf("%s\n", pwd);
 	exit(0);
 }
 
@@ -114,7 +119,7 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 	char *pwd;
 
 	pwd = getcwd(proc->pwd, 1024);
-	if (pipe->arg[1] == NULL)
+	if (pipe->arg[1] == NULL && pwd)
 	{
 		if (chdir(getenv("HOME")) == 0)
 		{
@@ -130,7 +135,7 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 
 		}
 	}
-	else if(pipe->arg[2] == NULL)
+	else if(pipe->arg[2] == NULL && pwd)
 	{
 		if (chdir(pipe->arg[1]) == 0)
 		{
@@ -147,9 +152,11 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 			return(1);
 		}
 	}
-	else
+	else if(pipe->arg[3])
 	{
 		printf("cd: too many arguments\n");
 		return(1);
 	}
+	printf("cd: Error\n");
+	return(1);
 }
