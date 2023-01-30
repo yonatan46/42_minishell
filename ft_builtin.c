@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/29 19:48:31 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:48:53 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 		}
 		else
 		{
-			check_export_and_replace(*proc->head, ft_strjoin("PWD=", getcwd(proc->pwd, 1024)));
+			check_export_and_replace(*proc->head, ft_strjoin("PWD", getcwd(proc->pwd, 1024)));
 			printf("cd: HOME not set\n");
 			return (1);
 

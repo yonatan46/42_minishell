@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/29 17:39:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:50:55 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,15 +147,15 @@ void	check_export_and_replace(t_list *head, char *replace)
 	flag = 0;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->content, replace, ft_strlen(replace) - 1) == 0)
+		if (ft_strncmp(tmp->content, replace, ft_strlen(tmp->content) - 1) == 0)
 		{
 			if (ft_strchr(replace, '='))
 			{
 				y = 0;
 				while (replace[y] && replace[y] != '=')
 					y++;
-				// free(tmp->content);
-				// free(tmp->value);
+
+
 				tmp->content = ft_substr(replace, 0, y + 1);
 				tmp->value = ft_substr(replace, y + 1, ft_strlen(replace) - y);
 			}

@@ -6,12 +6,12 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/19 16:52:06 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:30:07 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include <errno.h>
 /**
  * free_func: a function that free 2d array
  * @args: 2d array to be freed
@@ -49,12 +49,12 @@ void	free_func_one_cmd(t_pipe *av)
 	if(av->cmd[ft_strlen(av->cmd) -1] == '/')
 	{
 		write(2, av->cmd, ft_strlen(av->cmd));
-		write(2, ": Is a directory\n", 16);
+		write(2, ": Is a directory\n", 18);
 		exit(126);
 	}
 	write(2, av->cmd, ft_strlen(av->cmd));
-	write(2, ": No such file or directory\n", 29);
-	exit(127);
+	perror(" ");
+	exit(126);
 }
 
 /**

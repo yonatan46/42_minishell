@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/29 21:34:01 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:38:32 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,6 @@ t_pipe *av, char **envp)
 		ft_export_print_linked(av, proc);
 	else if (proc->check == 7)
 		ft_unset(av, proc);
-	printf("got here\n");
 	exit(1);
 }
 
@@ -303,8 +302,6 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
 		close_pipes(proc);
 		proc->check = ft_check_builtin(av->cmd);
-		printf("here: %s\n", av->arg[0]);
-		printf("here: %s\n", av->arg[1]);
 		if (proc->check > 0)
 			check_built_ins_and_exexute(proc, av, envp);
 		else if (av->cmd && parsing(proc, envp, av->cmd))
@@ -430,17 +427,17 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 	if (ac > 1)
 		while (++counter < cmd_len - 1)
 			pipe(proc.fd[counter]);
-	// if (f_pipe->arg[0] == NULL)
-	// {
-	// 	int x = 0;
-	// 	while (x < f_pipe->cmd_len)
-	// 	{
-	// 		f_pipe[x].arg = malloc(sizeof(char *) * 2);
-	// 		f_pipe[x].arg[0] = ft_strdup(f_pipe[x].cmd);
-	// 		f_pipe[x].arg[1] = NULL;
-	// 		x++;
-	// 	}
-	// }
+	if (f_pipe->arg[0] == NULL)
+	{
+		int x = 0;
+		while (x < f_pipe->cmd_len)
+		{
+			f_pipe[x].arg = malloc(sizeof(char *) * 2);
+			f_pipe[x].arg[0] = ft_strdup(f_pipe[x].cmd);
+			f_pipe[x].arg[1] = NULL;
+			x++;
+		}
+	}
 	if (ac == 1)
 	{
 		return (pipex_one_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
