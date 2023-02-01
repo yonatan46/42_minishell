@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/30 13:48:53 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:30:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ int scan_exit_codes(t_pipe *pipe)
  * ft_exit: will print the current directory
  * @pipe: the struct that contains the whold command and instructions
 */
-void	ft_exit(t_pipe *pipe)
+void	ft_exit(t_pipe *pipe, t_data *data)
 {
 	int		err_code;
 
 	err_code = 0;
-	if (pipe->arg == NULL)
-		exit(0);
+	if (pipe->arg[1] == NULL)
+		exit(data->general_error_code);
 	if (pipe->arg[2])
 	{
 		write(2, pipe->cmd, ft_strlen(pipe->cmd));
@@ -101,7 +101,7 @@ void	ft_exit(t_pipe *pipe)
 	{
 		write(2, pipe->cmd, ft_strlen(pipe->cmd));
 		write(2, ": numeric argument required\n", 29);
-		return ;
+		exit(255);
 	}
 	
 	if (pipe->arg[1])
@@ -119,44 +119,96 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 	char *pwd;
 
 	pwd = getcwd(proc->pwd, 1024);
-	if (pipe->arg[1] == NULL && pwd)
-	{
-		if (chdir(getenv("HOME")) == 0)
-		{
-			check_export_and_replace(*proc->head, ft_strjoin("OLDPWD=", pwd));
-			check_export_and_replace(*proc->head, ft_strjoin("PWD=", getcwd(proc->pwd, 1024)));
-			return (0);
-		}
-		else
-		{
-			check_export_and_replace(*proc->head, ft_strjoin("PWD", getcwd(proc->pwd, 1024)));
-			printf("cd: HOME not set\n");
-			return (1);
-
-		}
-	}
-	else if(pipe->arg[2] == NULL && pwd)
+	if (pipe->arg[1])
 	{
 		if (chdir(pipe->arg[1]) == 0)
 		{
-			check_export_and_replace(*proc->head, ft_strjoin("OLDPWD=", pwd));
-			check_export_and_replace(*proc->head, ft_strjoin("PWD=", getcwd(proc->pwd, 1024)));
-			return(0);
+			if (pwd)
+			{
+				check_export_and_replace(*proc->head, ft_strjoin("OLDPWD=", pwd));
+			}
+			pwd = getcwd(proc->pwd, 1024);
+			if (pwd)
+			{
+				check_export_and_replace(*proc->head, ft_strjoin("PWD=", pwd));
+				return (0);
+			}
+			return (1);
 		}
 		else
 		{
-			check_export_and_replace(*proc->head, ft_strjoin("PWD=", getcwd(proc->pwd, 1024)));
-			write(2, "cd: ", 4);
-			write(2, pipe->arg[1], ft_strlen(pipe->arg[1]));
+			write(1, pipe->arg[1], ft_strlen(pipe->arg[1]));
 			perror(" ");
 			return(1);
 		}
 	}
-	else if(pipe->arg[3])
+	else if (pipe->arg[1] == NULL)
 	{
-		printf("cd: too many arguments\n");
-		return(1);
+		if (chdir(ft_getenv(*proc->head, "HOME")) == 0)
+		{
+			if (pwd)
+			{
+				check_export_and_replace(*proc->head, ft_strjoin("OLDPWD=", pwd));
+			}
+			pwd = getcwd(proc->pwd, 1024);
+			if (pwd)
+			{
+				check_export_and_replace(*proc->head, ft_strjoin("PWD=", pwd));
+				return (0);
+			}
+			return (1);
+		}
+		else
+		{
+			if (ft_getenv(*proc->head, "HOME") == NULL)
+				printf("cd: HOME not set\n");
+			else
+			{
+				write(2, ft_getenv(*proc->head, "HOME"), ft_strlen(ft_getenv(*proc->head, "HOME")));
+				perror(" ");
+			}
+			return (1);
+		}
 	}
-	printf("cd: Error\n");
-	return(1);
+		
+	// if (pipe->arg[1] == NULL && pwd)
+	// {
+	// 	if (chdir(getenv("HOME")) == 0)
+	// 	{
+	// 		check_export_and_replace(*proc->head, ft_strjoin("OLDPWD=", pwd));
+	// 		check_export_and_replace(*proc->head, ft_strjoin("PWD=", getcwd(proc->pwd, 1024)));
+	// 		return (0);
+	// 	}
+	// 	else
+	// 	{
+	// 		check_export_and_replace(*proc->head, ft_strjoin("PWD", getcwd(proc->pwd, 1024)));
+	// 		printf("cd: HOME not set\n");
+	// 		return (1);
+
+	// 	}
+	// }
+	// else if(pipe->arg[2] == NULL && pwd)
+	// {
+	// 	if (chdir(pipe->arg[1]) == 0)
+	// 	{
+	// 		check_export_and_replace(*proc->head, ft_strjoin("OLDPWD=", pwd));
+	// 		check_export_and_replace(*proc->head, ft_strjoin("PWD=", getcwd(proc->pwd, 1024)));
+	// 		return(0);
+	// 	}
+	// 	else
+	// 	{
+	// 		check_export_and_replace(*proc->head, ft_strjoin("PWD=", getcwd(proc->pwd, 1024)));
+	// 		write(2, "cd: ", 4);
+	// 		write(2, pipe->arg[1], ft_strlen(pipe->arg[1]));
+	// 		perror(" ");
+	// 		return(1);
+	// 	}
+	// }
+	// else if(pipe->arg[3])
+	// {
+	// 	printf("cd: too many arguments\n");
+	// 	return(1);
+	// }
+	// printf("cd: Error\n");
+	return(0);
 }

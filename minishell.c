@@ -6,12 +6,11 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/01/30 14:00:01 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:55:37 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-int code = 0;
 int	ft_preparsing(char *str)
 {
 	int	i;
@@ -55,7 +54,8 @@ int	main(int ac, char **av, char **env)
 	t_pipe *pipe;
 	// char	*str1;
 	t_data	proc;
-
+	int code = 0;
+	
 	signal(SIGINT, handler_signal);
 	signal(SIGQUIT, SIG_IGN);
 	// ft_linked_env(&proc, env, 1);
@@ -72,7 +72,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		if (code == 0)
-			str = readline("\001\033[32m\002" "minishell {😁}-> " "\001\033[0m\002");
+			str = readline("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
 		else
 			str = readline("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (!str)
@@ -89,6 +89,7 @@ int	main(int ac, char **av, char **env)
 		pipe = ft_lexer(str);
 		// ft_print_cmd(pipe);
 		code = pipex(pipe->cmd_len, pipe, &proc);
+		proc.general_error_code = code;
 		printf("Errno: %d\n", code);
 	}
 	return (0);

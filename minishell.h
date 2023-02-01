@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:53:01 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/24 16:23:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:26:21 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include "./ft_printf/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-
 typedef struct s_data
 {
 	char	pwd[1024];
@@ -44,11 +43,11 @@ typedef struct s_data
 	int		status;
 	int		flag;
 	int		counter;
-	int		code;
 	int		cmd_len;
 	int		middle_cmd;
 	int		ac;
 	int		total_pipe;
+	int		general_error_code;
 	char	**copy_env;
 	char	**tmp_2d;
 	t_list	**head;
@@ -91,7 +90,7 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in);
 void	red_last_proc(t_pipe *av, int *flag);
 void	ft_echo(t_pipe *pipe);
 void	ft_pwd(void);
-void	ft_exit(t_pipe *pipe);
+void	ft_exit(t_pipe *pipe, t_data *proc);
 // void	ft_store_env(char **env, t_data *pipe);
 void	ft_export(char **strings);
 int		ft_cd(t_pipe *pipe, t_data *proc);
@@ -108,7 +107,7 @@ void	free_func_one_cmd(t_pipe *av);
 void	remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
 void	check_export_and_replace(t_list *head, char *replace);
-
+char	*ft_getenv(t_list *head, char *str);
 
 /**
  * PARSING PART

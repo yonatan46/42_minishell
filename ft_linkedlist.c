@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/24 18:48:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:58:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,23 @@ char	**linked_to_array(t_list *head)
 	}
 	copy_env[x] = NULL;
 	return (copy_env);
+}
+
+
+/**
+ * 
+*/
+
+char *ft_getenv(t_list *head, char *str)
+{
+	t_list *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->content, str, ft_strlen(tmp->content) - 1) == 0)
+			return(tmp->value);
+		tmp = tmp->next;		
+	}
+	return(NULL);
 }

@@ -6,12 +6,11 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/30 18:30:07 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:21:30 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
 /**
  * free_func: a function that free 2d array
  * @args: 2d array to be freed

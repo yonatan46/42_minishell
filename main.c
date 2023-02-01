@@ -6,12 +6,11 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:19:15 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/23 15:37:15 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:22:59 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
-
 int arrary_len(char **array)
 {
 	int x;
