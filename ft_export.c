@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/30 13:50:55 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:33:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void	ft_export_print_linked(t_pipe *pipe, t_data *proc)
 			check_export_and_replace(*proc->head, pipe->arg[proc->x]);
 		return ;
 	}
-	// sort_list(*proc->head);
+	sort_list(*proc->head);
 	proc->tmp_list = *proc->head;
 	while (proc->tmp_list)
 	{

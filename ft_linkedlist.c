@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/01 12:58:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:40:03 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	sort_list(t_list *head)
 {
 	t_list	*current;
 	t_list	*compare;
-	int		temp;
-	int		tmp_value;
+	char	*temp_content;
+	char	*temp_value;
 
 	current = head;
 	while (current->next != NULL)
@@ -32,10 +32,12 @@ void	sort_list(t_list *head)
 		{
 			if (strcmp(current->content, compare->content) > 0)
 			{
-				temp = current->position;
-				tmp_value = compare->position;
-				compare->position = temp;
-				compare->position = tmp_value;
+				temp_content = current->content;
+				temp_value = current->value;
+				current->content = compare->content;
+				current->value = compare->value;
+				compare->content = temp_content;
+				compare->value = temp_value;
 			}
 			compare = compare->next;
 		}
