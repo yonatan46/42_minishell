@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+         #
+#    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
-#    Updated: 2023/02/02 14:24:17 by dkaratae         ###   ########.fr        #
+#    Updated: 2023/02/02 16:27:17 by yonamog2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = minishell
 
 .SILENT:
 
-FILES =		added.c pipex.c \
+FILES =		ft_expand.c\
+			added.c \
+			pipex.c \
 			redirections.c \
 			ft_builtin.c \
 			ft_export.c \

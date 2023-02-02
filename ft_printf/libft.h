@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 22:27:15 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 08:54:13 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:32:11 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+char	*ftt_strjoin(char *s1, char *s2);
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, int n);
 void	*ft_calloc(size_t count, size_t size);
@@ -54,7 +55,7 @@ char	*ft_strrchr(const char *s, int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(const char *s, char c);
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
