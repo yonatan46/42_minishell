@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:04:57 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/01/27 14:57:57 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:24:35 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char *ft_clean_spaces(char *str)
 	int j;
 	int k;
 	int check_quote;
+	char ch;
 	
 	k = 0;
 	check_quote = 0;
@@ -25,8 +26,16 @@ char *ft_clean_spaces(char *str)
 	j = ft_trim_space(str, 'e');
 	while (i <= j)
 	{
-		if (str[i] == '\'' || str[i] == '\"')
-			check_quote = !check_quote;
+		if (!check_quote || ch == str[i])
+		{
+			if (str[i] == '\'' || str[i] == '\"')
+			{
+				ch = str[i];
+				check_quote = !check_quote;
+			}
+		}
+		// if (str[i] == '\'' || str[i] == '\"')
+		// 	check_quote = !check_quote;
 		if (check_quote)
 			str[k++] = str[i];
 		else if (str[i] != ' ')
