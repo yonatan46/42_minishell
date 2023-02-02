@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:53:01 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 11:16:19 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:12:48 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
 void	check_export_and_replace(t_list *head, char *replace);
 char	*ft_getenv(t_list *head, char *str);
+int expand(char *str);
+
 
 /**
  * PARSING PART

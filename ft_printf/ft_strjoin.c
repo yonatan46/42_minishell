@@ -3,36 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:56:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2022/09/23 13:31:19 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:25:37 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int		size1;
-	int		size2;
-	char	*str;
 	int		x;
 	int		y;
+	char	*ret;
 
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
 	if (!s1 || !s2)
 		return (NULL);
-	size1 = ft_strlen(s1);
-	size2 = ft_strlen(s2);
-	x = -1;
-	y = 0;
-	str = malloc(sizeof(char) * (size1 + size2) + 1);
-	if (!str)
+	ret = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	if (!ret)
 		return (NULL);
-	while (s1[++x] != '\0')
-		str[x] = s1[x];
-	while (s2[y] != '\0')
-		str[x++] = s2[y++];
-	str[x] = '\0';
-	return (str);
+	x = 0;
+	y = -1;
+	if (s1)
+		while (s1[++y] != '\0')
+			ret[y] = s1[y];
+	while (s2[x] != '\0')
+		ret[y++] = s2[x++];
+	ret[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
+	return (ret);
 }

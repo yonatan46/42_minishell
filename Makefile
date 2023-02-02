@@ -6,7 +6,7 @@
 #    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
-#    Updated: 2023/01/29 13:09:30 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/02 13:09:27 by yonamog2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = minishell
 
 .SILENT:
 
-FILES =		added.c pipex.c \
+FILES =		ft_expand.c\
+			added.c \
+			pipex.c \
 			redirections.c \
 			ft_builtin.c \
 			ft_export.c \

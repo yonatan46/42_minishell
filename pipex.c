@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 11:20:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:40:52 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -426,17 +426,18 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 	if (ac > 1)
 		while (++counter < cmd_len - 1)
 			pipe(proc.fd[counter]);
-	// if (f_pipe->arg[0] == NULL)
-	// {
-	// 	int x = 0;
-	// 	while (x < f_pipe->cmd_len)
-	// 	{
-	// 		f_pipe[x].arg = malloc(sizeof(char *) * 2);
-	// 		f_pipe[x].arg[0] = ft_strdup("asjsabdjhbs");
-	// 		f_pipe[x].arg[1] = NULL;
-	// 		x++;
-	// 	}
-	// }
+	if (f_pipe->arg == NULL)
+	{
+		printf("here");
+		int x = 0;
+		while (x < f_pipe->cmd_len)
+		{
+			f_pipe[x].arg = malloc(sizeof(char *) * 2);
+			f_pipe[x].arg[0] = ft_strdup("asjsabdjhbs");
+			f_pipe[x].arg[1] = NULL;
+			x++;
+		}
+	}
 	if (ac == 1)
 		return (pipex_one_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
 	else if (ac == 2)

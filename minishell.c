@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/02 09:21:50 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:12:39 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void handler_signal	(int num)
 		rl_on_new_line();
 		rl_redisplay();
 		write(1, "  \n", 4);
-		// int status;
-		// wait(&status);
-		// if (WIFSIGNALED(status))
-		// 	printf("was terminated by signal %d\n", WTERMSIG(status));
+		int status;
+		wait(&status);
+		if (WIFSIGNALED(status))
+			printf("was terminated by signal %d\n", WTERMSIG(status));
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		// signal(SIGINT, handler_signal);
 	}
+	signal(SIGINT, handler_signal);
 }
 int	main(int ac, char **av, char **env)
 {
@@ -87,10 +87,11 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		pipe = ft_lexer(str);
+		expand(str);
 		// ft_print_cmd(pipe);
-		code = pipex(pipe->cmd_len, pipe, &proc);
-		proc.general_error_code = code; 
-		printf("Errno: %d\n", code);
+		// code = pipex(pipe->cmd_len, pipe, &proc);
+		// proc.general_error_code = code; 
+		// printf("Errno: %d\n", code);
 	}
 	return (0);
 }
