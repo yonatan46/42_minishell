@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/01 14:16:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:23:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,10 @@ int scan_exit_codes(t_pipe *pipe)
 	while (pipe->arg[1][++j])
 	{
 		if (j == 0 && (pipe->arg[1][j] == '+' || pipe->arg[1][j] == '-'))
-			continue ;
+			continue ;						
 		if (ft_isdigit(pipe->arg[1][j]) == 0)
 			return(1);
 	}
-	
 	return(0);
 }
 /**
@@ -88,7 +87,7 @@ void	ft_exit(t_pipe *pipe, t_data *data)
 	if (pipe->arg[2])
 	{
 		write(2, pipe->cmd, ft_strlen(pipe->cmd));
-		write(2, ": too many arguments\n", 21);
+		write(2, ": too many arguments\n", 22);
 		return ;
 	}
 	if (scan_exit_codes(pipe) == 1)

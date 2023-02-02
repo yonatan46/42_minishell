@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/01 13:21:30 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:48:43 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,24 @@ void	free_func_one_cmd(t_pipe *av)
 
 	i = 0;
 	size = 0;
-	while (av->arg[size])
-		size++;
-	while (i < size)
-		free(av->arg[i++]);
-	free(av->arg);
-	if(av->cmd[ft_strlen(av->cmd) -1] == '/')
+	if (av->cmd[0] != '\0')
 	{
+		while (av->arg[size])
+		size++;
+		while (i < size)
+			free(av->arg[i++]);
+		free(av->arg);
+		if(av->cmd[ft_strlen(av->cmd) -1] == '/')
+		{
+			write(2, av->cmd, ft_strlen(av->cmd));
+			write(2, ": Is a directory\n", 18);
+			exit(126);
+		}
 		write(2, av->cmd, ft_strlen(av->cmd));
-		write(2, ": Is a directory\n", 18);
+		perror(" ");
 		exit(126);
 	}
-	write(2, av->cmd, ft_strlen(av->cmd));
-	perror(" ");
-	exit(126);
+	exit(0);
 }
 
 /**

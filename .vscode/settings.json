@@ -5,6 +5,7 @@
 		"stdlib.h": "c",
 		"libft.h": "c",
 		"string.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"sstream": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/01 14:33:01 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:29:17 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,10 @@ void	ft_env_print_linked(t_data *proc)
 	{
 		if (ft_strchr(tmp->content, '=') )
 		{
-			printf("index|%d| %s%s\n", tmp->index, tmp->content, tmp->value);
+			printf("%s%s\n", tmp->content, tmp->value);
 		}
 		tmp = tmp->next;
 	}
-	printf("index|42| _=env\n");
 	exit(0);
 }
 
@@ -122,19 +121,21 @@ void	ft_env_print_linked(t_data *proc)
  * count_till_equl_sign: just a function that scan and count until = sign
  * @str: the string to be searched
 */
-int	count_till_equl_sign(char *str)
+int	compare_until_eq(char *str1, char *str2)
 {
 	int	x;
 
-	x = -1;
-	while (str[++x])
+	x = 0;
+	while ((str1[x] && str1[x] != '=') && (str2[x] && str2[x] != '='))
 	{
-		if (str[x] == '=')
-			return (x);
+		if (str1[x] != str2[x])
+			return (str1[x] - str2[x]);
+		x++;
 	}
-	return (0);
+	if (str1[x] == '\0' && str2[x] == '\0')
+		return(0);
+	return (1);
 }
-
 void	check_export_and_replace(t_list *head, char *replace)
 {
 	t_list	*tmp;
@@ -147,15 +148,13 @@ void	check_export_and_replace(t_list *head, char *replace)
 	flag = 0;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->content, replace, ft_strlen(tmp->content) - 1) == 0)
+		if (compare_until_eq(tmp->content, replace) == 0)
 		{
 			if (ft_strchr(replace, '='))
 			{
 				y = 0;
 				while (replace[y] && replace[y] != '=')
 					y++;
-
-
 				tmp->content = ft_substr(replace, 0, y + 1);
 				tmp->value = ft_substr(replace, y + 1, ft_strlen(replace) - y);
 			}
@@ -177,6 +176,25 @@ void	check_export_and_replace(t_list *head, char *replace)
 	
 }
 
+int ft_validate_exprot(char *str)
+{
+	int x;
+
+	x = 0;
+	if (ft_isalpha(str[0]) == 1 || str[0] == '_')
+	{
+		while (str[x] && str[x] != '=')
+		{
+			if (str[x] == '_' || ft_isalnum(str[x]) == 1)
+				x++;
+			else
+				return(1);	
+		}
+		return(0);
+	}
+	return(1);
+}
+
 /**
  * ft_export_print_linked: is a function that does export like bash
  * it basically take the linked list and print it in sorted order
@@ -185,27 +203,38 @@ void	check_export_and_replace(t_list *head, char *replace)
  * head to the linked list
 */
 
-void	ft_export_print_linked(t_pipe *pipe, t_data *proc)
+int	ft_export_print_linked(t_pipe *pipe, t_data *proc)
 {
+	int res;
+
+	res = 0;
 	proc->tmp_list = *proc->head;
 	proc->x = 0;
 	if (pipe->arg[1])
 	{
 		while (pipe->arg[++proc->x])
-			check_export_and_replace(*proc->head, pipe->arg[proc->x]);
-		return ;
+		{
+			if (ft_validate_exprot(pipe->arg[proc->x]) == 1)
+			{
+				printf("`%s' : not a valid identifier\n", pipe->arg[proc->x]);
+				res = 1;
+			}
+			else	
+				check_export_and_replace(*proc->head, pipe->arg[proc->x]);
+		}
+		return (res);
 	}
 	sort_list(*proc->head);
 	proc->tmp_list = *proc->head;
 	while (proc->tmp_list)
 	{
 		if (ft_strchr(proc->tmp_list->content, '='))
-			printf("|%d|declare -x %s\"%s\"\n", proc->tmp_list->index, proc->tmp_list->content, proc->tmp_list->value);
+			printf("declare -x %s\"%s\"\n", proc->tmp_list->content, proc->tmp_list->value);
 		else
-			printf("|%d|declare -x %s\n", proc->tmp_list->index, proc->tmp_list->content);
+			printf("declare -x %s\n", proc->tmp_list->content);
 		proc->tmp_list = proc->tmp_list->next;
 	}
-	
+	return(0);
 }
 
 /**

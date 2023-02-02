@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/01 15:06:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:29:47 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,24 +333,23 @@ void print_export(t_data *proc)
 */
 int pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 {
-	if (strncmp(av[0].cmd, "cd", ft_strlen(av[0].cmd)) == 0)
+	if (strcmp(av[0].cmd, "cd") == 0)
 		return(ft_cd(&av[0], proc));
-	else if (strncmp(av[0].cmd, "exit", ft_strlen(av[0].cmd)) == 0)
+	else if (strcmp(av[0].cmd, "exit") == 0)
 	{
 		write(2, "exit\n", 5);
 		ft_exit(&av[0], proc);
 		return (1);
 	}
-	else if (strncmp(av[0].cmd, "unset", ft_strlen(av[0].cmd)) == 0)
+	else if (strcmp(av[0].cmd, "unset") == 0)
 		ft_unset(&av[0], proc);
-	else if (strncmp(av[0].cmd, "export", ft_strlen(av[0].cmd)) == 0)
-		ft_export_print_linked(&av[0], proc);
+	else if (strcmp(av[0].cmd, "export") == 0)
+		return(ft_export_print_linked(&av[0], proc));
 	else
 	{
 		// signal(SIGINT, SIG_DFL);
 		one_cmd_process(proc, &av[0], envp);
 		waitpid(-1, &proc->err_no, 0);
-		// printf("exit code: %d\n", WEXITSTATUS(proc->err_no));
 		if (WIFEXITED(proc->err_no))
 			return (WEXITSTATUS(proc->err_no));
 		else if (WIFSIGNALED(proc->err_no))
@@ -370,8 +369,8 @@ int pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 	proc->pid1 = first_process(proc, &av[0], envp);
 	proc->pid2 = last_process(proc, &av[1], envp);
 	close_pipes(proc);
-	waitpid(proc->pid2, &proc->err_no, 0);
 	waitpid(proc->pid1, 0, 0);
+	waitpid(proc->pid2, &proc->err_no, 0);
 	if (WIFEXITED(proc->err_no))
 		return (WEXITSTATUS(proc->err_no));
 	return (0);
@@ -427,21 +426,19 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 	if (ac > 1)
 		while (++counter < cmd_len - 1)
 			pipe(proc.fd[counter]);
-	if (f_pipe->arg[0] == NULL)
-	{
-		int x = 0;
-		while (x < f_pipe->cmd_len)
-		{
-			f_pipe[x].arg = malloc(sizeof(char *) * 2);
-			f_pipe[x].arg[0] = ft_strdup("asjsabdjhbs");
-			f_pipe[x].arg[1] = NULL;
-			x++;
-		}
-	}
+	// if (f_pipe->arg[0] == NULL)
+	// {
+	// 	int x = 0;
+	// 	while (x < f_pipe->cmd_len)
+	// 	{
+	// 		f_pipe[x].arg = malloc(sizeof(char *) * 2);
+	// 		f_pipe[x].arg[0] = ft_strdup("asjsabdjhbs");
+	// 		f_pipe[x].arg[1] = NULL;
+	// 		x++;
+	// 	}
+	// }
 	if (ac == 1)
-	{
 		return (pipex_one_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
-	}
 	else if (ac == 2)
 		return (pipex_two_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
 	else if (ac > 2)
