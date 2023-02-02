@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 12:40:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:18:10 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char	*parsing(t_data *proc, char **envp, char *s)
 	(void)envp;
 	proc->x = -1;
 	proc->tmp_list = *proc->head;
+	proc->path = NULL;
+	proc->result = NULL;
 	if (ft_strnstr(s, "/", ft_strlen(s)))
 		return (s);
 	if (search(envp) == 0)
@@ -96,7 +98,6 @@ char	*parsing(t_data *proc, char **envp, char *s)
 		if (ft_strncmp(envp[proc->x], "PATH=", 5) == 0)
 			break;
 	}
-	proc->tmp_list = proc->tmp_list->next;
 	proc->path_split = ft_split(envp[proc->x] + 5, ':');
 	proc->x = -1;
 	while (proc->path_split[++proc->x] && (search(envp) == 1))
@@ -426,18 +427,6 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 	if (ac > 1)
 		while (++counter < cmd_len - 1)
 			pipe(proc.fd[counter]);
-	if (f_pipe->arg == NULL)
-	{
-		printf("here");
-		int x = 0;
-		while (x < f_pipe->cmd_len)
-		{
-			f_pipe[x].arg = malloc(sizeof(char *) * 2);
-			f_pipe[x].arg[0] = ft_strdup("asjsabdjhbs");
-			f_pipe[x].arg[1] = NULL;
-			x++;
-		}
-	}
 	if (ac == 1)
 		return (pipex_one_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
 	else if (ac == 2)

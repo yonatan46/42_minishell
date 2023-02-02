@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:10:20 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 14:43:46 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:36:21 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,24 @@ int expand(char *str)
 		{
 			while (str[x] && str[x] != '$')
 				x++;
-			copy = ft_strjoin(copy, ft_substr(str, start, x));	
+			copy = ftt_strjoin(copy, ft_substr(str, start, x));
+			// printf("come here: %s\n", copy);
 		}
-		// if(str[x] == '$')
-		// {
-		// 	start = x;
-		// 	x++;
-		// 	while ((str[x]) && (str[x] != '$' && str[x] != ' '))
-		// 		x++;
-		// 	tmp = getenv(ft_substr(str, start + 1, x - 2));
-		// 	if (tmp == NULL)
-		// 		copy = ft_strjoin(copy, "");
-		// 	else
-		// 		copy = ft_strjoin(copy, tmp);	
-		// }
+		if(str[x] == '$')
+		{
+			start = x;
+			x++;
+			while ((str[x]) && (str[x] != '$' && str[x] != ' '))
+				x++;
+			tmp = getenv(ft_substr(str, start + 1, x - 2));
+			if (tmp == NULL)
+				copy = ftt_strjoin(copy, "");
+			else
+				copy = ftt_strjoin(copy, ft_strdup(tmp));	
+		}
 		if (str[x] == '\0')
 			break;
+		// printf("car: %c\n", str[x]);
 		x++;
 	}
 	printf("%s\n", copy);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_separate_struct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/02 14:08:19 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:25:05 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ void ft_count_struct(t_pipe *f_struct)
 	count_red = 0;
 	while (f_struct[i].f_cmd)
 	{
+
 		j = 0;
 		r = 0;
 		count_all = ft_count_arg(f_struct[i].f_cmd);
 		// printf("count_all : %d\n", count_all);
 		count_red = ft_count_red(f_struct[i].f_cmd);
+		f_struct[i].red_len = count_red;
 		// printf("count_red : %d\n", count_red);
 		count_all = (count_all - (count_red + count_red));
 		// printf("count_all_after : %d\n", count_all);

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/02 16:00:15 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:27:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,12 @@ int	main(int ac, char **av, char **env)
 			printf("Error\n");
 			continue ;
 		}
-		pipe = ft_lexer(str);
+		expand(str);
+		// pipe = ft_lexer(str, env);
 		// ft_print_cmd(pipe);
-		code = pipex(pipe->cmd_len, pipe, &proc);
-		proc.general_error_code = code; 
-		printf("Errno: %d\n", code);
+		// code = pipex(pipe->cmd_len, pipe, &proc);
+		// proc.general_error_code = code; 
+		// printf("Errno: %d\n", code);
 	}
 	return (0);
 }
