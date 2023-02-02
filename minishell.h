@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:53:01 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 15:17:08 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:36:58 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,8 @@ int		main(int ac, char **av, char **env);
 void	ft_print_cmd(t_pipe *f_struct);
 
 void print_2d(char **str);
-void ft_delete_quotes(t_pipe *f_struct);
+void ft_delete_arg_quotes(t_pipe *f_struct);
+void ft_delete_cmd_quotes(t_pipe *f_struct);
 char *ft_del_quotes(char *str, int *i, char c);
 int ft_count_quotes(char *str, char c);
 char *ft_dollar(char *str, int *i, char **env);

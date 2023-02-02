@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/02 15:26:21 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:37:26 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int ft_count_quotes(char *str, char c)
 
 char *ft_del_quotes(char *str, int *i, char c)
 {
-	// int i;
 	int j;
 	int count;
 	int count_quotes;
@@ -71,19 +70,43 @@ char *ft_del_quotes(char *str, int *i, char c)
  	return (ch);
 }
 
-void ft_delete_quotes(t_pipe *f_struct)
+void ft_delete_cmd_quotes(t_pipe *f_struct)
 {
 	int i;
 	int j;
-	int k;
+	
+	i = -1;
+	while (f_struct[++i].cmd)
+	{
+		j = -1;
+		while (f_struct[i].cmd[++j])
+		{
+			if (f_struct[i].cmd[j] == '\'')
+			{
+				// ch = ft_del_quotes(f_struct[i].arg[j], '\'');
+				f_struct[i].cmd = ft_del_quotes(f_struct[i].cmd, &j, '\'');
+				// printf("line - %s \n", f_struct[i].cmd[j]);
+			}
+			else if (f_struct[i].cmd[j] == '\"')
+			{
+				// ch = ft_del_quotes(f_struct[i].cmd[j], '\'');
+				f_struct[i].cmd = ft_del_quotes(f_struct[i].cmd, &j, '\"');
+				// printf("line - %s \n", f_struct[i].arg[j]);
+			}
+		}
+	}
+}
+void ft_delete_arg_quotes(t_pipe *f_struct)
+{
+	int i;
+	int j;
 	int z;
 	// char *ch;
 	
 	i = -1;
-	j = -1;
 	while (f_struct[++i].arg)
 	{
-		k = -1;
+		j = -1;
 		while (f_struct[i].arg[++j])
 		{
 			z = -1;
@@ -129,7 +152,8 @@ t_pipe *ft_lexer(char *str, char **env)
 		i++;
 	}
 	ft_count_struct(f_struct);
-	ft_delete_quotes(f_struct);
+	ft_delete_cmd_quotes(f_struct);
+	ft_delete_arg_quotes(f_struct);
 	return(f_struct);
 	// ft_print3(f_struct);
 	// ft_print3(f_struct);
