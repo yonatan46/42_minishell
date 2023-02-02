@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 10:07:23 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/01/27 16:01:02 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:19:12 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,6 @@ int	ft_check_qoutes(char *str)
 	return (0);
 }
 
-/* check if the string has || or |; or ;; that it's error*/
-int	ft_check_sem_pipe(char *str, int i)
-{
-	int	count;
-
-	count = ft_strlen(str);
-	if (str[i] == '|' && str[i + 1] == '|')
-		return (1);
-	else if (str[i] == '|' && str[i + 1] == ';')
-		return (1);
-	else if (str[i] == ';' && str[i + 1] == ';')
-		return (1);
-	else if (str[count - 1] == '|' || str[count - 1] == '<' || str[count - 1] == '>')
-		return (1);
-	return (0);
-}
-
 int	ft_check_quote(char *str, char qute, int *i)
 {
 	int		d_quotes;
@@ -73,6 +56,40 @@ int	ft_check_quote(char *str, char qute, int *i)
 		(*i)++;
 	}
 	if (d_quotes)
+		return (1);
+	return (0);
+}
+
+int f_check_aft_red_zero(char *str)
+{
+	int i;
+	int count;
+	int space;
+
+	i = 0;
+	space = 0;
+	count = ft_strlen(str + 1);
+	while (str[++i])
+		if (str[i] == ' ')
+			space++;
+	if (count == space)
+		return (1);
+	return (0);
+}
+
+/* check if the string has || or |; or ;; that it's error*/
+int	ft_check_sem_pipe(char *str, int i)
+{
+	int	count;
+
+	count = ft_strlen(str);
+	if (str[i] == '|' && str[i + 1] == '|')
+		return (1);
+	else if (str[i] == '|' && str[i + 1] == ';')
+		return (1);
+	else if (str[i] == ';' && str[i + 1] == ';')
+		return (1);
+	else if (str[count - 1] == '|' || str[count - 1] == '<' || str[count - 1] == '>')
 		return (1);
 	return (0);
 }

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/02 09:21:50 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:02:16 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 int	ft_preparsing(char *str)
 {
 	int	i;
@@ -23,7 +24,10 @@ int	ft_preparsing(char *str)
 	if (str[i] == '|' || str[i] == ';')
 		return (1);
 	if (ft_check_qoutes(str))
+	{
+		printf("Mistake\n");
 		return (1);
+	}
 	i = -1;
 	while (str[++i])
 		if (ft_check_sem_pipe(str, i))
@@ -86,11 +90,11 @@ int	main(int ac, char **av, char **env)
 			printf("Error\n");
 			continue ;
 		}
-		pipe = ft_lexer(str);
-		// ft_print_cmd(pipe);
-		code = pipex(pipe->cmd_len, pipe, &proc);
-		proc.general_error_code = code; 
-		printf("Errno: %d\n", code);
+		pipe = ft_lexer(str, env);
+		ft_print_cmd(pipe);
+		// code = pipex(pipe->cmd_len, pipe, &proc);
+		// proc.general_error_code = code; 
+		// printf("Errno: %d\n", code);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:31:57 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/01/27 14:52:58 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:21:05 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,23 @@ int	ft_calc(char *str, char c)
 	int	i;
 	int	check_quote;
 	int	count;
+	char ch;
 
 	i = -1;
 	check_quote = 0;
 	count = 0;
 	while (str[++i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
-			check_quote = !check_quote;
+		if (!check_quote || ch == str[i])
+		{
+			if (str[i] == '\'' || str[i] == '\"')
+			{
+				ch = str[i];
+				check_quote = !check_quote;
+			}
+		}
+		// if (str[i] == '\'' || str[i] == '\"')
+		// 	check_quote = !check_quote;
 		if (str[i] == c && !check_quote)
 			count++;
 	}
@@ -58,6 +67,7 @@ char	**ft_separate_sp_pipe(char *str, char c)
 	int	check_quote;
 	int	count;
 	char **vars;
+	char ch;
 
 	arr[0] = 0;
 	arr[1] = 0;
@@ -67,8 +77,14 @@ char	**ft_separate_sp_pipe(char *str, char c)
 	vars = (char **)malloc(sizeof(char *) * (count + 2));
 	while (str[++arr[2]])
 	{
-		if (str[arr[2]] == '\'' || str[arr[2]] == '\"')
-			check_quote = !check_quote;
+		if (!check_quote || ch == str[arr[2]])
+		{
+			if (str[arr[2]] == '\'' || str[arr[2]] == '\"')
+			{
+				ch = str[arr[2]];
+				check_quote = !check_quote;
+			}
+		}
 		if (str[arr[2]] == c && !(check_quote))
 		{
 			vars[arr[0]] = ft_copy_to_struct(vars, str, &(*arr));

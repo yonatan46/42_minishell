@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
-#    Updated: 2023/01/29 13:09:30 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/02 14:24:17 by dkaratae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ CC = cc  -I/usr/local/Cellar/readline/8.1/include
 #for linux
 # CC = cc 
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 all : $(NAME)
 	tput setaf 3
