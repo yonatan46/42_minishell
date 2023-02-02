@@ -29,14 +29,12 @@ void ft_count_struct(t_pipe *f_struct)
 	int i;
 	int j;
 	int r;
-	int k;
 	int g;
 	int count_all;
 	int count_red;
 	int flag;
 
 	i = 0;
-	k = 0;
 		count_all = 0;
 	count_red = 0;
 	while (f_struct[i].f_cmd)

@@ -108,7 +108,7 @@ void	remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
 void	check_export_and_replace(t_list *head, char *replace);
 char	*ft_getenv(t_list *head, char *str);
-char 	*expand(char *str);
+char 	*expand(char *str, t_data *proc);
 
 
 /**

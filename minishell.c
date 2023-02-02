@@ -95,12 +95,11 @@ int	main(int ac, char **av, char **env)
 			printf("Error\n");
 			continue ;
 		}
-		// expand(str);
+		str = expand(str, &proc);
 		pipe = ft_lexer(str, env);
-		ft_print_cmd(pipe);
-		// code = pipex(pipe->cmd_len, pipe, &proc);
-		// proc.general_error_code = code; 
-		// printf("Errno: %d\n", code);
+		// ft_print_cmd(pipe);
+		code = pipex(pipe->cmd_len, pipe, &proc);
+		proc.general_error_code = code; 
 	}
 	return (0);
 }
