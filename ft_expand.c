@@ -6,13 +6,13 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:10:20 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 16:36:21 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:14:56 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int expand(char *str)
+char 	*expand(char *str)
 {
 	char *copy;
 	char *tmp;
@@ -31,10 +31,14 @@ int expand(char *str)
 	{
 		// if (str[x] == '\'')
 		// 	flag_sq = !flag_sq;
-		// if (str[x] == '\'')
-		// 	flag_sq = !flag_sq;
+		// else if (str[x] == '\"')
+		// 	flag_dq = !flag_dq;
+		// printf("dq: %d\n", flag_dq);
+		// printf("s1: %d\n", flag_sq);
 		// if (flag_dq == 1 || flag_sq == 1)
 		// {
+		// 	printf("sub: %s\n", ft_substr(str, x, 1));
+		// 	copy = ftt_strjoin(copy, ft_substr(str, x, 1));
 		// 	x++;
 		// 	continue ;
 		// }
@@ -44,25 +48,23 @@ int expand(char *str)
 			while (str[x] && str[x] != '$')
 				x++;
 			copy = ftt_strjoin(copy, ft_substr(str, start, x));
-			// printf("come here: %s\n", copy);
 		}
 		if(str[x] == '$')
 		{
-			start = x;
 			x++;
-			while ((str[x]) && (str[x] != '$' && str[x] != ' '))
+			start = x;
+			while (str[x] != '$' && str[x] != ' ' && str[x])
 				x++;
-			tmp = getenv(ft_substr(str, start + 1, x - 2));
+			tmp = getenv(ft_substr(str, start, x - start));
 			if (tmp == NULL)
 				copy = ftt_strjoin(copy, "");
 			else
-				copy = ftt_strjoin(copy, ft_strdup(tmp));	
+				copy = ftt_strjoin(copy, tmp);	
 		}
 		if (str[x] == '\0')
 			break;
-		// printf("car: %c\n", str[x]);
 		x++;
 	}
-	printf("%s\n", copy);
-	return(0);
+	printf("copy: %s\n", copy);
+	return(free(str), copy);
 }

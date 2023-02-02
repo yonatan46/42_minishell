@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 13:53:01 by yonamog2          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/02 16:36:58 by dkaratae         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/02 16:00:26 by yonamog2         ###   ########.fr       */
->>>>>>> 92147f4fb1ec789412ba21fa2c58ea5deaaf5335
+/*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
+/*   Updated: 2023/02/02 17:01:04 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +108,7 @@ void	remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
 void	check_export_and_replace(t_list *head, char *replace);
 char	*ft_getenv(t_list *head, char *str);
-int expand(char *str);
+char 	*expand(char *str);
 
 
 /**

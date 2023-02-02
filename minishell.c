@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/02 16:27:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:08:59 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void handler_signal	(int num)
 }
 int	main(int ac, char **av, char **env)
 {
+	if (ac > 1)
+	{
+		write(2, "Error: execute like <./minishell>\n", 35);
+		exit(42);
+	}
 	// char	**vars;
 	char	*str;
 	t_pipe *pipe;
@@ -90,9 +95,9 @@ int	main(int ac, char **av, char **env)
 			printf("Error\n");
 			continue ;
 		}
-		expand(str);
-		// pipe = ft_lexer(str, env);
-		// ft_print_cmd(pipe);
+		// expand(str);
+		pipe = ft_lexer(str, env);
+		ft_print_cmd(pipe);
 		// code = pipex(pipe->cmd_len, pipe, &proc);
 		// proc.general_error_code = code; 
 		// printf("Errno: %d\n", code);
