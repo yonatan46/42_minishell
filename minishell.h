@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:53:01 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 10:28:34 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:16:19 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_env_print_linked(t_data *proc);
 void	ft_linked_env(t_data *proc, char **env);
 int		ft_export_print_linked(t_pipe *pipe, t_data *proc);
 void	sort_list(t_list *head);
-void	ft_unset(t_pipe *pipe, t_data *proc);
+int		ft_unset(t_pipe *pipe, t_data *proc);
 int		search_env_linked(t_list *head);
 char	**linked_to_array(t_list *head);
 // void	free_func_one_cmd(char **args);

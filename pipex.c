@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 10:29:47 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:20:23 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,7 +342,7 @@ int pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 		return (1);
 	}
 	else if (strcmp(av[0].cmd, "unset") == 0)
-		ft_unset(&av[0], proc);
+		return(ft_unset(&av[0], proc));
 	else if (strcmp(av[0].cmd, "export") == 0)
 		return(ft_export_print_linked(&av[0], proc));
 	else

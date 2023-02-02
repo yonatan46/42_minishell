@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 10:36:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:19:34 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ void	ft_env(char **env)
 		printf("%s\n", env[x++]);
 }
 
-void	ft_unset_check_and_unset(t_list **main_head, \
+int	ft_unset_check_and_unset(t_list **main_head, \
 char **args)
 {
 	int		x;
@@ -283,10 +283,7 @@ char **args)
 	while (args[++x])
 	{
 		if (ft_strchr(args[x], '='))
-		{
-			printf("%s: not a valid identifier\n", args[x]);
-			return ;
-		}
+			return (1);
 		tmp = *main_head;
 		while (tmp)
 		{
@@ -294,21 +291,26 @@ char **args)
 			ft_strlen(tmp->content) - 1) == 0)
 			{
 				remove_element(main_head, tmp->index);
-				return ;
+				return (0);
 			}
 			tmp = tmp->next;
 		}
 	}
+	return (0);
 }
 
 /**
  * ft_unset: remove from env variables
 */
-void	ft_unset(t_pipe *pipe, t_data *proc)
+int	ft_unset(t_pipe *pipe, t_data *proc)
 {
+	int x;
+	int res;
+
+	x = 0;
+	res = 0;
 	if (pipe->arg[1])
-	{
-		printf("unset from exprot %s\n",pipe->arg[1]);
-		ft_unset_check_and_unset(proc->head, &pipe->arg[1]);
-	}
+		while (pipe->arg[++x])
+			res = ft_unset_check_and_unset(proc->head, &pipe->arg[x]);
+	return(res);
 }
