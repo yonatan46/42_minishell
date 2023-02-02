@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 09:23:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:57:44 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_pwd(void)
 	if (!pwd)
 	{
 		printf("Error: sorry dir is deleted or incorrect!\n");
-		exit(0);
+		exit(1);
 	}
 	printf("%s\n", pwd);
 	exit(0);

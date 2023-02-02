@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 10:29:17 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:36:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	compare_until_eq(char *str1, char *str2)
 			return (str1[x] - str2[x]);
 		x++;
 	}
-	if (str1[x] == '\0' && str2[x] == '\0')
+	if ((str1[x] == '\0' && str2[x] == '\0') || (str1[x] == '=' && str2[x] == '='))
 		return(0);
 	return (1);
 }
