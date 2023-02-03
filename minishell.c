@@ -6,7 +6,11 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/03 20:22:54 by dkaratae         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/03 15:53:14 by yonamog2         ###   ########.fr       */
+>>>>>>> 53507e9743b8580f527604515f1af7eed87a5c25
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +91,11 @@ void handler_signal	(int num)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		write(1, "  \n", 4);
+		write(2, "  \n", 4);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	signal(SIGINT, handler_signal);
 }
 int	main(int ac, char **av, char **env)
 {
