@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_separate_struct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/02 16:25:05 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:27:42 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,31 @@ void ft_copy_red_name(t_pipe *f_struct, int i, int j, int r)
 		f_struct[i].red[r]->red_name = ft_strdup(f_struct[i].f_cmd[j]);	
 }
 
+int ft_count_red_pipe(char **str, int count_all, int count_red)
+{
+	int i;
+	int j;
+
+
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if ((str[i][j] == '>') && (str[i][j + 1] == '\0'))
+			{
+				count_all = count_all - count_red;
+				return (count_all);
+			}
+			j++;
+		}
+		i++;
+	}
+	count_all = count_all - (count_red + count_red);
+	return (count_all);
+}
+
 void ft_count_struct(t_pipe *f_struct)
 {
 	int i;
@@ -35,7 +60,7 @@ void ft_count_struct(t_pipe *f_struct)
 	int flag;
 
 	i = 0;
-		count_all = 0;
+	count_all = 0;
 	count_red = 0;
 	while (f_struct[i].f_cmd)
 	{
@@ -47,7 +72,9 @@ void ft_count_struct(t_pipe *f_struct)
 		count_red = ft_count_red(f_struct[i].f_cmd);
 		f_struct[i].red_len = count_red;
 		// printf("count_red : %d\n", count_red);
-		count_all = (count_all - (count_red + count_red));
+		// count_all = (count_all - (count_red + count_red));
+
+		count_all = ft_count_red_pipe(f_struct[i].f_cmd, count_all, count_red);
 		// printf("count_all_after : %d\n", count_all);
 		if (count_red == 0)
 			f_struct[i].red = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:10:20 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/03 14:11:47 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:36:12 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char 	*expand(char *str, t_data *proc)
 				}
 				else if (str[x] == ' ' || str[x] == '\0' || str[x] == '\"')
 				{
-					if (str[x] == '\"')
+					if (str[x] == '\"' || str[x] == ' ')
 					{
 						copy = ftt_strjoin(copy, ft_substr(str, x - 1, 2));
 						x++;

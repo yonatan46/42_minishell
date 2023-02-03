@@ -3,34 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/03 14:11:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:22:54 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int ft_check_loop_space(char *str, int *i)
+{
+	int count;
+	char sign;
+
+	count = 0;
+	sign = str[*i];
+	while (ft_isspace(str[++(*i)]))
+		count++;
+	if (count == 0)
+		return (1);
+	return (0);
+}
+
+int ft_check_red_pipe(char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '>')
+		{
+			if (!ft_check_loop_space(str, &i))
+				if (str[i] == '|')
+					return (1);
+		}
+		else if (str[i] == '<')
+		{
+			ft_check_loop_space(str, &i);
+			if (str[i] == '|')
+				return (1);
+		}
+	}
+	return (0);
+}
+
 int	ft_preparsing(char *str)
 {
 	int	i;
+	int	check_quote;
+	char ch;
 
+	check_quote = 0;
 	i = 0;
 	while ((ft_isspace(str[i])))
 		i++;
-	if (ft_check_red_not_three(str))
-		return (1);
+	// if (ft_check_red_not_three(str))
+	// 	return (1);
 	if (str[i] == '|' || str[i] == ';')
 		return (1);
 	if (ft_check_qoutes(str))
-	{
-		printf("Mistake\n");
 		return (1);
-	}
+	if (ft_check_red_pipe(str))
+		return (1);
 	i = -1;
 	while (str[++i])
-		if (ft_check_sem_pipe(str, i))
+		if (!check_quote || ch == str[i])
+		{
+			if (str[i] == '\'' || str[i] == '\"')
+			{
+				ch = str[i];
+				check_quote = !check_quote;
+			}
+		}
+		if (ft_check_sem_pipe(str, i) && !check_quote)
 			return (1);
 	return (0);
 }
@@ -76,10 +123,12 @@ int	main(int ac, char **av, char **env)
 	(void)pipe;
 	while (1)
 	{
-		if (code == 0)
+		// if (code == 0)
 			str = readline("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
-		else
-			str = readline("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
+		// else
+		// 	str = readline("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
+		if (str[0] == '\0')
+			continue ;
 		if (!str)
 		{
 			printf("exit\n");
@@ -88,14 +137,16 @@ int	main(int ac, char **av, char **env)
 		add_history(str);
 		if (ft_preparsing(str))
 		{
-			printf("Error\n");
+			printf("Error!!!\n");
 			continue ;
 		}
+		// printf("BXPAND= %s\n", str);
 		str = expand(str, &proc);
+		// printf("EXPAND= %s\n", str);
 		pipe = ft_lexer(str, env);
-		// ft_print_cmd(pipe);
 		code = pipex(pipe->cmd_len, pipe, &proc);
 		proc.general_error_code = code; 
+		// ft_print_cmd(pipe);
 	}
 	return (0);
 }
