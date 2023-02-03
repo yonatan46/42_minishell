@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:10:20 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 17:14:56 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:11:47 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ char 	*expand(char *str, t_data *proc)
 	char *tmp;
 	int x;
 	int start;
-	// int flag_dq;
 	int flag_sq;
 
 	x = 0;
 	start = 0;
-	// flag_dq = 0;
 	flag_sq = 0;
 	copy = NULL;
 	tmp = NULL;
@@ -40,23 +38,36 @@ char 	*expand(char *str, t_data *proc)
 		start = x;
 		if (str[x] != '$')
 		{
-			// while (str[x] && str[x] != '$')
-			// 	x++;
 			copy = ftt_strjoin(copy, ft_substr(str, x, 1));
 			x++;
 		}
-		else if(str[x] == '$')
+		else if (str[x] == '$')
 		{
 			x++;
 			if (flag_sq == 0)
 			{
+				if (str[x] == '?')
+				{
+					copy = ftt_strjoin(copy, ft_itoa(proc->general_error_code));
+					x++;
+					continue ;
+				}
+				else if (str[x] == ' ' || str[x] == '\0' || str[x] == '\"')
+				{
+					if (str[x] == '\"')
+					{
+						copy = ftt_strjoin(copy, ft_substr(str, x - 1, 2));
+						x++;
+					}
+					else
+						copy = ftt_strjoin(copy, ft_substr(str, x - 1, 1));
+					x++;
+					continue ;
+				}
 				start = x;
 				while (str[x] != '$' && str[x] != ' ' && str[x] && str[x] != '\"')
 					x++;
-				if (strcmp(ft_substr(str, start, x - start), "?") == 0)
-					tmp = ft_itoa(proc->general_error_code);
-				else				
-					tmp = getenv(ft_substr(str, start, x - start));
+				tmp = getenv(ft_substr(str, start, x - start));
 				if (tmp == NULL)
 					copy = ftt_strjoin(copy, "");
 				else
@@ -64,7 +75,7 @@ char 	*expand(char *str, t_data *proc)
 			}
 		}
 		if (str[x] == '\0')
-			break;
+			break ;
 	}
-	return(free(str), copy);
+	return (free(str), copy);
 }

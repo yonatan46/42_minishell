@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 10:57:44 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:01:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,31 @@
 */
 void	ft_echo(t_pipe *pipe)
 {
-	int x;
+	int	x;
 
 	x = 0;
-
 	if (pipe->arg[1] == NULL)
 		printf("\n");
 	else if (strcmp(pipe->arg[1], "-n") == 0)
 	{
 		x++;
 		while (pipe->arg[++x])
-			printf("%s ", pipe->arg[x]);
+		{
+			if (pipe->arg[x + 1] == NULL)
+				printf("%s", pipe->arg[x]);
+			else
+				printf("%s ", pipe->arg[x]);
+		}
 	}
 	else
 	{
 		while (pipe->arg[++x])
-			printf("%s ", pipe->arg[x]);
+		{
+			if (pipe->arg[x + 1] == NULL)
+				printf("%s", pipe->arg[x]);
+			else
+				printf("%s ", pipe->arg[x]);
+		}
 		printf("\n");
 	}
 	exit(0);

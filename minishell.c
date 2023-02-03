@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/02 18:08:59 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:11:52 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ void handler_signal	(int num)
 		rl_on_new_line();
 		rl_redisplay();
 		write(1, "  \n", 4);
-		int status;
-		wait(&status);
-		if (WIFSIGNALED(status))
-			printf("was terminated by signal %d\n", WTERMSIG(status));
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
