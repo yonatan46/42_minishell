@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/03 14:11:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:53:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ void handler_signal	(int num)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		write(1, "  \n", 4);
+		write(2, "  \n", 4);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	signal(SIGINT, handler_signal);
 }
 int	main(int ac, char **av, char **env)
 {

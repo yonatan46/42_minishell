@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/03 14:14:20 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:00:27 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ void ft_linked_env(t_data *proc, char **env)
 		ft_strdup(ft_substr(env[x], y + 1, ft_strlen(env[x]) - y)), x, x));
 		x++;
 	}
-	// if (*proc->head == NULL)
-	// {
-	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("PWD="), getcwd(proc->pwd, 1024), x, x));
-	// 		x++;
-	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("SHLVL="), ft_strdup("1"), x, x));
-	// 		x++;
-	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD="), ft_strdup(""), x, x));
-	// 		flag_shlvl = 1;
-	// 		flag_pwd = 1;
-	// }
+	if (*proc->head == NULL)
+	{
+			ft_lstadd_back(&head, ft_lstnew(ft_strdup("PWD="), getcwd(proc->pwd, 1024), x, x));
+			x++;
+			ft_lstadd_back(&head, ft_lstnew(ft_strdup("SHLVL="), ft_strdup("1"), x, x));
+			x++;
+			ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD="), ft_strdup(""), x, x));
+			flag_shlvl = 1;
+			flag_pwd = 1;
+	}
 	if (flag_pwd == 0)
 	{
 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("PWD="), getcwd(proc->pwd, 1024), x, x));
@@ -216,8 +216,7 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *proc)
 		{
 			if (ft_validate_exprot(pipe->arg[proc->x]) == 1)
 			{
-				write(2, pipe->arg[proc->x], ft_strlen(pipe->arg[proc->x]));
-				write(2, " : not a valid identifier\n", 27);
+				write(2, "not a valid identifier\n", 24);
 				res = 1;
 			}
 			else	
