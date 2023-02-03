@@ -338,7 +338,7 @@ int pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 		return(ft_cd(&av[0], proc));
 	else if (strcmp(av[0].cmd, "exit") == 0)
 	{
-		write(2, "exit\n", 5);
+		// write(2, "exit\n", 5);
 		ft_exit(&av[0], proc);
 		return (1);
 	}

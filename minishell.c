@@ -1,16 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_separate_struct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/02 14:06:41 by dkaratae          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/03 20:22:54 by dkaratae         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/03 15:53:14 by yonamog2         ###   ########.fr       */
->>>>>>> 53507e9743b8580f527604515f1af7eed87a5c25
+/*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
+/*   Updated: 2023/02/03 18:27:42 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +15,10 @@
 int ft_check_loop_space(char *str, int *i)
 {
 	int count;
-	char sign;
+	// char sign;
 
 	count = 0;
-	sign = str[*i];
+	// sign = str[*i];
 	while (ft_isspace(str[++(*i)]))
 		count++;
 	if (count == 0)
@@ -73,6 +69,7 @@ int	ft_preparsing(char *str)
 		return (1);
 	i = -1;
 	while (str[++i])
+	{
 		if (!check_quote || ch == str[i])
 		{
 			if (str[i] == '\'' || str[i] == '\"')
@@ -83,6 +80,7 @@ int	ft_preparsing(char *str)
 		}
 		if (ft_check_sem_pipe(str, i) && !check_quote)
 			return (1);
+	}
 	return (0);
 }
 void handler_signal	(int num)
@@ -110,6 +108,7 @@ int	main(int ac, char **av, char **env)
 	// char	*str1;
 	t_data	proc;
 	int code = 0;
+	proc.general_error_code = 0;
 	
 	signal(SIGINT, handler_signal);
 	signal(SIGQUIT, SIG_IGN);
@@ -130,13 +129,13 @@ int	main(int ac, char **av, char **env)
 			str = readline("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
 		// else
 		// 	str = readline("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
-		if (str[0] == '\0')
-			continue ;
 		if (!str)
 		{
 			printf("exit\n");
 			exit(code);
 		}
+		if (str[0] == '\0')
+			continue ;
 		add_history(str);
 		if (ft_preparsing(str))
 		{

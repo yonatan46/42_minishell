@@ -1,16 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand.c                                        :+:      :+:    :+:   */
+/*   ft_separate_struct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:10:20 by yonamog2          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/03 16:36:12 by dkaratae         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/03 14:55:23 by yonamog2         ###   ########.fr       */
->>>>>>> 53507e9743b8580f527604515f1af7eed87a5c25
+/*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
+/*   Updated: 2023/02/03 18:27:42 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +49,12 @@ char 	*expand(char *str, t_data *proc)
 				if (str[x] == '?')
 				{
 					copy = ftt_strjoin(copy, ft_itoa(proc->general_error_code));
+					x++;
+					continue ;
+				}
+				else  if (str[x] == ' ')
+				{
+					copy = ftt_strjoin(copy, ft_substr(str, x - 1, 2));
 					x++;
 					continue ;
 				}

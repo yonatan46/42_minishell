@@ -67,16 +67,16 @@ void ft_linked_env(t_data *proc, char **env)
 		ft_strdup(ft_substr(env[x], y + 1, ft_strlen(env[x]) - y)), x, x));
 		x++;
 	}
-	if (*proc->head == NULL)
-	{
-			ft_lstadd_back(&head, ft_lstnew(ft_strdup("PWD="), getcwd(proc->pwd, 1024), x, x));
-			x++;
-			ft_lstadd_back(&head, ft_lstnew(ft_strdup("SHLVL="), ft_strdup("1"), x, x));
-			x++;
-			ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD="), ft_strdup(""), x, x));
-			flag_shlvl = 1;
-			flag_pwd = 1;
-	}
+	// if (*proc->head == NULL)
+	// {
+	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("PWD="), getcwd(proc->pwd, 1024), x, x));
+	// 		x++;
+	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("SHLVL="), ft_strdup("1"), x, x));
+	// 		x++;
+	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD="), ft_strdup(""), x, x));
+	// 		flag_shlvl = 1;
+	// 		flag_pwd = 1;
+	// }
 	if (flag_pwd == 0)
 	{
 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("PWD="), getcwd(proc->pwd, 1024), x, x));

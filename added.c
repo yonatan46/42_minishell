@@ -50,12 +50,14 @@ void	free_func_one_cmd(t_pipe *av)
 		if(av->cmd[ft_strlen(av->cmd) -1] == '/')
 		{
 			write(2, av->cmd, ft_strlen(av->cmd));
-			write(2, ": Is a directory\n", 18);
+			// write(2, ": Is a directory\n", 18);
+			perror(" ");
 			exit(126);
 		}
 		write(2, av->cmd, ft_strlen(av->cmd));
+		// write(2, ": No such file or directory\n", 29);
 		perror(" ");
-		exit(126);
+		exit(127);
 	}
 	exit(0);
 }
