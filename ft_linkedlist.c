@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 22:24:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:58:56 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@ void	sort_list(t_list *head)
 	}
 }
 
+void	re_index(t_list *head)
+{
+	t_list	*prev;
+	int		x;
+
+	x = 0;
+	prev = head;
+	while (prev)
+	{
+		prev->index = x++;
+		prev = prev->next;
+	}
+}
+
 /**
  * remove_element: is a function that removes an element at position of index
  * form the linked list
@@ -55,8 +69,6 @@ void	remove_element(t_list **head, int index)
 {
 	t_list	*current;
 	t_list	*prev;
-	int x;
-	x = 0;
 
 	current = *head;
 	prev = NULL;
@@ -71,7 +83,6 @@ void	remove_element(t_list **head, int index)
 		{
 			if (current->index == index)
 			{
-				// printf("index=|%d| %s\n", current->index, current->key);
 				prev->next = current->next;
 				free(current);
 				break ;
@@ -80,14 +91,8 @@ void	remove_element(t_list **head, int index)
 			current = current->next;
 		}
 	}
-	prev = *head;
-	while (prev)
-	{
-		prev->index = x++;
-		prev = prev->next;
-	}
+	re_index(*head);
 }
-
 
 /**
  * linked_to_array: is a function that converts
@@ -114,21 +119,20 @@ char	**linked_to_array(t_list *head)
 	return (copy_env);
 }
 
-
 /**
  * 
 */
 
-char *ft_getenv(t_list *head, char *str)
+char	*ft_getenv(t_list *head, char *str)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = head;
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->key, str, ft_strlen(tmp->key) - 1) == 0)
-			return(tmp->value);
-		tmp = tmp->next;		
+			return (tmp->value);
+		tmp = tmp->next;
 	}
-	return(NULL);
+	return (NULL);
 }

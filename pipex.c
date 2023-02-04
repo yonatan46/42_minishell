@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 22:41:06 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 23:07:15 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*parsing(t_data *proc, char **envp, char *s)
 	while (envp[++proc->x])
 	{
 		if (ft_strncmp(envp[proc->x], "PATH=", 5) == 0)
-			break;
+			break ;
 	}
 	proc->path_split = ft_split(envp[proc->x] + 5, ':');
 	proc->x = -1;
