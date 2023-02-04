@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/03 14:01:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:02:45 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ void	ft_exit(t_pipe *pipe, t_data *data)
 	if (pipe->arg[2])
 	{
 		write(2, pipe->cmd, ft_strlen(pipe->cmd));
-		write(2, ": too many arguments\n", 22);
+		ft_putstr_fd(": too many arguments\n", 2);
 		return ;
 	}
 	if (scan_exit_codes(pipe) == 1)
 	{
 		write(2, pipe->cmd, ft_strlen(pipe->cmd));
-		write(2, ": numeric argument required\n", 29);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		exit(255);
 	}
 	
@@ -163,7 +163,7 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 		else
 		{
 			if (ft_getenv(*proc->head, "HOME") == NULL)
-				printf("cd: HOME not set\n");
+				ft_putstr_fd("cd: HOME not set\n", 2);
 			else
 			{
 				write(2, ft_getenv(*proc->head, "HOME"), ft_strlen(ft_getenv(*proc->head, "HOME")));

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 17:46:38 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 08:56:08 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:39:18 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	ft_atoi(const char *str)
 {
-	int				x;
-	int				sign;
-	unsigned long	res;
-	unsigned long	copy;
+	int						x;
+	int						sign;
+	unsigned long long		res;
+	unsigned long long				copy;
 
 	x = 0;
 	res = 0;
@@ -39,7 +39,23 @@ int	ft_atoi(const char *str)
 		res = (res * 10) + (str[x++] - '0');
 		if (copy > res)
 		{
-			write(2, ": numeric argument required\n", 29);
+			ft_putstr_fd(": numeric argument required\n", 2);
+			exit(255);
+		}
+	}
+	if (sign == -1)
+	{
+		if ((res - 1)  > LLONG_MAX)
+		{
+			ft_putstr_fd(": numeric argument required\n", 2);
+			exit(255);
+		}
+	}
+	else
+	{
+		if (res > LLONG_MAX)
+		{
+			ft_putstr_fd(": numeric argument required\n", 2);
 			exit(255);
 		}
 	}

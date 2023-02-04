@@ -79,8 +79,8 @@ void	red_one_cmd(t_pipe *av)
 			dup2(file1, STDOUT_FILENO);
 			close(file1);
 		}
-		else if (strcmp(av->red[x]->red_sign, "<") == 0 && (strcmp(av->cmd, "echo") != 0))
-		{
+		else if (strcmp(av->red[x]->red_sign, "<") == 0)
+		{  
 			file1 = open(av->red[x]->red_name, O_RDONLY);
 			if (file1 == -1)
 				terminate(av->red[x]->red_name);

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 13:50:38 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:01:38 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void ft_linked_env(t_data *proc, char **env)
 	}
 	if (flag_oldpwd == 0)
 	{
-		ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD="), ft_strdup(""), x, x));
+		ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD"), NULL, x, x));
 		x++;
 	}
 	proc->head = malloc(sizeof(t_list *));
@@ -216,10 +216,10 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *proc)
 		{
 			if (ft_validate_exprot(pipe->arg[proc->x]) == 1)
 			{
-				write(2, "`", 1);
-				write(2, pipe->arg[proc->x], ft_strlen(pipe->arg[proc->x]));
-				write(2, "'", 1);
-				write(2, ": not a valid identifier\n", 26);
+				write(1, "`", 1);
+				write(1, pipe->arg[proc->x], ft_strlen(pipe->arg[proc->x]));
+				write(1, "'", 1);
+				ft_putstr_fd(": not a valid identifier\n", 2);
 				// perror(" ");
 				res = 1;
 			}
