@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/04 15:29:47 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:46:44 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,11 @@ int	main(int ac, char **av, char **env)
 			printf("Error!!!\n");
 			continue ;
 		}
-		str = expand(str, &proc);
+		// str = expand(str, &proc);
 		pipe = ft_lexer(str, env);
-		code = pipex(pipe->cmd_len, pipe, &proc);
-		proc.general_error_code = code; 
-		// ft_print_cmd(pipe);
+		// code = pipex(pipe->cmd_len, pipe, &proc);
+		// proc.general_error_code = code; 
+		ft_print_cmd(pipe);
 	}
 	return (0);
 }
