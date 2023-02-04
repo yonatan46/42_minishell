@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/04 13:49:01 by yonamog2         ###   ########.fr       */
+/*   Created: 2023/02/04 15:53:06 by yonamog2          #+#    #+#             */
+/*   Updated: 2023/02/04 15:53:08 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,7 @@ int	main(int ac, char **av, char **env)
 			printf("Error!!!\n");
 			continue ;
 		}
-		// printf("BXPAND= %s\n", str);
 		str = expand(str, &proc);
-		// printf("EXPAND= %s\n", str);
 		pipe = ft_lexer(str, env);
 		code = pipex(pipe->cmd_len, pipe, &proc);
 		proc.general_error_code = code; 
