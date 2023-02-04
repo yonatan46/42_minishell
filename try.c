@@ -39,21 +39,21 @@
 // 		ft_lstadd_back(head, ft_lstnew(ft_strjoin("PWD=",getcwd(pwd, 100)), 0));
 // 		ft_lstadd_back(head, ft_lstnew(ft_strjoin("SHLVL=",ft_itoa(shl_lvl)), 1));
 // 		ft_lstadd_back(head, ft_lstnew("_=env", 2));
-// 		// printf("created |%d| %s\n", (*head)->index, (*head)->content);
-// 		// printf("created |%d| %s\n", (*head)->next->index, (*head)->next->content);
-// 		// printf("created |%d| %s\n", (*head)->next->next->index, (*head)->next->next->content);
+// 		// printf("created |%d| %s\n", (*head)->index, (*head)->key);
+// 		// printf("created |%d| %s\n", (*head)->next->index, (*head)->next->key);
+// 		// printf("created |%d| %s\n", (*head)->next->next->index, (*head)->next->next->key);
 // 	}
 // 	// else
 // 	// {
 // 	// 	while ((*head))
 // 	// 	{
-// 	// 		printf("index|%d| %s\n", (*head)->index, (*head)->content);
+// 	// 		printf("index|%d| %s\n", (*head)->index, (*head)->key);
 // 	// 		(*head) = (*head)->next;
 // 	// 	}
 // 	// }
 // 	// while (tmp)
 // 	// {
-// 	// 	printf(" tmp |%d| %s\n", tmp->index, tmp->content);
+// 	// 	printf(" tmp |%d| %s\n", tmp->index, tmp->key);
 // 	// 	tmp = tmp->next;
 // 	// }
 // 	// printf("len of env |%d|\n", x);

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/01 14:40:03 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:24:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	sort_list(t_list *head)
 		compare = current->next;
 		while (compare != NULL)
 		{
-			if (strcmp(current->content, compare->content) > 0)
+			if (strcmp(current->key, compare->key) > 0)
 			{
-				temp_content = current->content;
+				temp_content = current->key;
 				temp_value = current->value;
-				current->content = compare->content;
+				current->key = compare->key;
 				current->value = compare->value;
-				compare->content = temp_content;
+				compare->key = temp_content;
 				compare->value = temp_value;
 			}
 			compare = compare->next;
@@ -71,7 +71,7 @@ void	remove_element(t_list **head, int index)
 		{
 			if (current->index == index)
 			{
-				// printf("index=|%d| %s\n", current->index, current->content);
+				// printf("index=|%d| %s\n", current->index, current->key);
 				prev->next = current->next;
 				free(current);
 				break ;
@@ -106,7 +106,7 @@ char	**linked_to_array(t_list *head)
 	x = 0;
 	while (tmp)
 	{
-		copy_env[x] = ft_strjoin(tmp->content, tmp->value);
+		copy_env[x] = ft_strjoin(tmp->key, tmp->value);
 		tmp = tmp->next;
 		x++;
 	}
@@ -126,7 +126,7 @@ char *ft_getenv(t_list *head, char *str)
 	tmp = head;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->content, str, ft_strlen(tmp->content) - 1) == 0)
+		if (ft_strncmp(tmp->key, str, ft_strlen(tmp->key) - 1) == 0)
 			return(tmp->value);
 		tmp = tmp->next;		
 	}

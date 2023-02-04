@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 08:14:45 by yonamog2          #+#    #+#             */
-/*   Updated: 2022/09/23 10:09:29 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:24:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 		while (*lst)
 		{
 			tmp = (*lst)->next;
-			del((*lst)->content);
+			del((*lst)->key);
 			free(*lst);
 			*lst = tmp;
 		}

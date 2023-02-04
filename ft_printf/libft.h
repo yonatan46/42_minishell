@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 22:27:15 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 16:32:11 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:24:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef struct s_list
 {
-	char			*content;
+	char			*key;
 	char			*value;
 	int				index;
 	int				position;
@@ -65,7 +65,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_itoa(int n);
-t_list	*ft_lstnew(char *content, char *value, int index, int position);
+t_list	*ft_lstnew(char *key, char *value, int index, int position);
 void	ft_lstadd_front(t_list **lst, t_list *ne);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);

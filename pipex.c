@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 21:24:57 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:41:06 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*parsing(t_data *proc, char **envp, char *s)
 {
 	(void)envp;
 	proc->x = -1;
-	proc->tmp_list = *proc->head;
+	proc->t_lst = *proc->head;
 	proc->path = NULL;
 	proc->result = NULL;
 	if (ft_strnstr(s, "/", ft_strlen(s)))
@@ -322,7 +322,7 @@ void print_export(t_data *proc)
 	head = *proc->head;
 	while (head)
 	{
-		printf("%s\n", head->content);
+		printf("%s\n", head->key);
 		head = head->next;
 	}
 }

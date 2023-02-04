@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:51:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/24 14:18:42 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:24:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	search_env_linked(t_list *head)
 	tmp = head;
 	while (tmp)
 	{
-		if (ft_strnstr(tmp->content, "PATH", 4))
+		if (ft_strnstr(tmp->key, "PATH", 4))
 			return (1);
 		tmp = tmp->next;
 	}

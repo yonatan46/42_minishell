@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 21:35:32 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:41:06 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_data
 {
 	char	*main_line;
 	char	pwd[1024];
-	t_list	*tmp_list;
+	t_list	*t_lst;
 	char	**res;
 	char	*result;
 	char	*copy;
@@ -52,7 +52,6 @@ typedef struct s_data
 	char	**copy_env;
 	char	**tmp_2d;
 	t_list	**head;
-	t_list	**head_export;
 	int		pid1;
 	int		pid2;
 	int		check;
@@ -78,11 +77,19 @@ typedef struct s_pipe
 
 typedef struct s_exp_var
 {
-	char	*cp;
-	char	*tmp;
-	int		x;
-	int		start;
-	int		flag_sq;
+	char		*cp;
+	char		*tmp;
+	int			x;
+	int			y;
+	int			start;
+	int			flag_sq;
+	int			flag_pwd;
+	int			flag_shlvl;
+	int			flag_oldpwd;
+	int			flag;
+	int			last_index;
+	int			last_pos;
+	t_list		*tmp_list;
 }		t_exp_var;
 
 int		g_err_code;
