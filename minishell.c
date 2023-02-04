@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_separate_struct.c                               :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/03 18:27:42 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/04 15:29:47 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,7 @@ int	main(int ac, char **av, char **env)
 			printf("Error!!!\n");
 			continue ;
 		}
-		// printf("BXPAND= %s\n", str);
 		str = expand(str, &proc);
-		// printf("EXPAND= %s\n", str);
 		pipe = ft_lexer(str, env);
 		code = pipex(pipe->cmd_len, pipe, &proc);
 		proc.general_error_code = code; 
