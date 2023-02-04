@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/04 15:29:14 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:57:44 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void ft_delete_arg_quotes(t_pipe *f_struct)
 			{
 				if (f_struct[i].arg[j][z] == '\'')
 				{
-										f = z;
+					f = z;
 					ch = ft_del_quotes(f_struct[i].arg[j], &z, '\'');
 					ch1 = ft_substr(f_struct[i].arg[j], k, f);
 					// printf("F-> %s\n", ch1);
@@ -180,45 +180,43 @@ void ft_delete_redname_quotes(t_pipe *f_struct)
 	
 	i = -1;
 	k = 0;
-	while (f_struct[++i].red)
+	while (++i < f_struct->cmd_len)
 	{
+		// printf("REDNAME: %s\n", f_struct[i].cmd);
 		j = -1;
-		while (f_struct[i].red[++j])
+		if (f_struct[i].red_len > 0)
 		{
-			z = -1;
-			while (f_struct[i].red[j]->red_name[++z])
+			while (f_struct[i].red[++j])
 			{
-				// printf("REDNAME: %c\n", f_struct[i].red[j]->red_name[z]);
-				if (f_struct[i].red[j]->red_name[z] == '\'')
+				z = -1;
+				while (f_struct[i].red[j]->red_name[++z])
 				{
-					f = z;
-					ch = ft_del_quotes(f_struct[i].red[j]->red_name, &z, '\'');
-					ch1 = ft_substr(f_struct[i].red[j]->red_name, k, f);
-					// printf("F-> %s\n", ch1);
-					f_struct[i].red[j]->red_name = ft_strjoin(ch1, ch);
-					// f_struct[i].arg[j] = ft_del_quotes(f_struct[i].arg[j], &z, '\'');
-					// printf("line - %s \n", f_struct[i].arg[j]);
-				}
-				else if (f_struct[i].red[j]->red_name[z] == '\"')
-				{
-					f = z;
-					ch = ft_del_quotes(f_struct[i].red[j]->red_name, &z, '\"');
-					ch1 = ft_substr(f_struct[i].red[j]->red_name, k, f);
-					// printf("F-> %s\n", ch1);
-					f_struct[i].red[j]->red_name = ft_strjoin(ch1, ch);
-					// f_struct[i].arg[j] = ft_del_quotes(f_struct[i].arg[j], &z, '\"');
-					// printf("line - %s \n", f_struct[i].arg[j]);
+					if (f_struct[i].red[j]->red_name[z] == '\'')
+					{
+						f = z;
+						ch = ft_del_quotes(f_struct[i].red[j]->red_name, &z, '\'');
+						ch1 = ft_substr(f_struct[i].red[j]->red_name, k, f);
+						f_struct[i].red[j]->red_name = ft_strjoin(ch1, ch);
+					}
+					else if (f_struct[i].red[j]->red_name[z] == '\"')
+					{
+						f = z;
+						ch = ft_del_quotes(f_struct[i].red[j]->red_name, &z, '\"');
+						ch1 = ft_substr(f_struct[i].red[j]->red_name, k, f);
+						f_struct[i].red[j]->red_name = ft_strjoin(ch1, ch);
+					}
 				}
 			}
 		}
+		
 	}
 }
 
 void ft_delete_all_qoutes(t_pipe *f_struct)
 {
+	ft_delete_redname_quotes(f_struct);
 	ft_delete_cmd_quotes(f_struct);
 	ft_delete_arg_quotes(f_struct);
-	ft_delete_redname_quotes(f_struct);
 }
 
 t_pipe *ft_lexer(char *str, char **env)

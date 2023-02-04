@@ -5,8 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
+/*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
+/*   Updated: 2023/02/04 16:46:44 by dkaratae         ###   ########.fr       */
+=======
 /*   Created: 2023/02/04 15:53:06 by yonamog2          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/04 16:15:12 by yonamog2         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/04 15:53:08 by yonamog2         ###   ########.fr       */
+>>>>>>> affd8fc0422949615cb86b20e18c66158dabfa80
+>>>>>>> 63980f522d3687fb8073cdc32c0e0fbb57c974d1
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +151,11 @@ int	main(int ac, char **av, char **env)
 			printf("Error!!!\n");
 			continue ;
 		}
-		str = expand(str, &proc);
+		// str = expand(str, &proc);
 		pipe = ft_lexer(str, env);
-		code = pipex(pipe->cmd_len, pipe, &proc);
-		proc.general_error_code = code; 
-		// ft_print_cmd(pipe);
+		// code = pipex(pipe->cmd_len, pipe, &proc);
+		// proc.general_error_code = code; 
+		ft_print_cmd(pipe);
 	}
 	return (0);
 }
