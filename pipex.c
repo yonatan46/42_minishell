@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 13:54:15 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:24:57 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp)
 {
 	(void)envp;
 	if (proc->check == 1)
-		ft_exit(av, proc);
+		ft_exit(av);
 	else if (proc->check == 2)
 		ft_echo(av);
 	else if (proc->check == 3)
@@ -202,7 +202,7 @@ t_pipe *av, char **envp)
 {
 	(void)envp;
 	if (proc->check == 1)
-		ft_exit(av, proc);
+		ft_exit(av);
 	else if (proc->check == 2)
 		ft_echo(av);
 	else if (proc->check == 3)
@@ -339,7 +339,7 @@ int pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	else if (strcmp(av[0].cmd, "exit") == 0)
 	{
 		// write(2, "exit\n", 5);
-		ft_exit(&av[0], proc);
+		ft_exit(&av[0]);
 		return (1);
 	}
 	else if (strcmp(av[0].cmd, "unset") == 0)

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 20:21:48 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:35:32 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,16 @@ typedef struct s_pipe
 	char	**f_cmd;
 }		t_pipe;
 
-int		g_general_error_code;
+typedef struct s_exp_var
+{
+	char	*cp;
+	char	*tmp;
+	int		x;
+	int		start;
+	int		flag_sq;
+}		t_exp_var;
+
+int		g_err_code;
 void	free_func(char **args);
 void	terminate(char *m);
 void	cmd_not_found(t_pipe *av);
@@ -92,7 +101,7 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in);
 void	red_last_proc(t_pipe *av, int *flag);
 void	ft_echo(t_pipe *pipe);
 void	ft_pwd(void);
-void	ft_exit(t_pipe *pipe, t_data *proc);
+void	ft_exit(t_pipe *pipe);
 // void	ft_store_env(char **env, t_data *pipe);
 void	ft_export(char **strings);
 int		ft_cd(t_pipe *pipe, t_data *proc);
@@ -108,9 +117,9 @@ char	**linked_to_array(t_list *head);
 void	free_func_one_cmd(t_pipe *av);
 void	remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
-void	check_export_and_replace(t_list *head, char *replace);
+int		chek_exp_a_rplc(t_list *head, char *replace);
 char	*ft_getenv(t_list *head, char *str);
-char	*expand(char *str, t_data *proc);
+char	*expand(char *str);
 
 /**
  * PARSING PART

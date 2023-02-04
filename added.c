@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 16:17:55 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:09:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,33 @@ void	free_func(char **args)
 }
 
 /**
+ * exit_with_code: a function that exit with the status
+*/
+void	exit_with_code(t_pipe *av)
+{
+	if (av->cmd[ft_strlen(av->cmd) - 1] == '/')
+	{
+		ft_putstr_fd(": is a directory\n", 2);
+		exit(126);
+	}
+	if (access(av->cmd, F_OK) == -1)
+	{
+		ft_putstr_fd(": No such file or directory\n", 2);
+		exit(127);
+	}
+	else if (access(av->cmd, X_OK) == -1)
+	{
+		ft_putstr_fd(": Permission denied\n", 2);
+		exit(126);
+	}
+	else
+	{
+		ft_putstr_fd(": is a directory\n", 2);
+		exit(126);
+	}
+}
+
+/**
  * free_func_one_cmd: a function that free 2d array
  * @args: 2d array to be freed
 */
@@ -47,28 +74,8 @@ void	free_func_one_cmd(t_pipe *av)
 		while (i < size)
 			free(av->arg[i++]);
 		free(av->arg);
-		if(av->cmd[ft_strlen(av->cmd) -1] == '/')
-		{
-			write(1, av->cmd, ft_strlen(av->cmd));
-			ft_putstr_fd(": is a directory\n", 2);
-			exit(126);
-		}
 		write(1, av->cmd, ft_strlen(av->cmd));
-		if (access(av->cmd, F_OK) == -1)
-		{
-			ft_putstr_fd(": No such file or directory\n", 2);
-			exit(127);
-		}
-		else if (access(av->cmd, X_OK) == -1)
-		{
-			ft_putstr_fd(": Permission denied\n", 2);
-			exit(126);
-		}
-		else
-		{
-			ft_putstr_fd(": is a directory\n", 2);
-			exit(126);
-		}
+		exit_with_code(av);
 	}
 	exit(0);
 }
@@ -98,4 +105,3 @@ void	cmd_not_found(t_pipe *av)
 	free_func(av->arg);
 	exit(127);
 }
-

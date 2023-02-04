@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 16:01:38 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:51:13 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @proc: the struct that contains all the variables
  * @env: the environment variable
 */
-void ft_linked_env(t_data *proc, char **env)
+void	ft_linked_env(t_data *proc, char **env)
 {
 	(void)proc;
 	t_list *head = NULL;
@@ -67,16 +67,6 @@ void ft_linked_env(t_data *proc, char **env)
 		ft_strdup(ft_substr(env[x], y + 1, ft_strlen(env[x]) - y)), x, x));
 		x++;
 	}
-	// if (*proc->head == NULL)
-	// {
-	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("PWD="), getcwd(proc->pwd, 1024), x, x));
-	// 		x++;
-	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("SHLVL="), ft_strdup("1"), x, x));
-	// 		x++;
-	// 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD="), ft_strdup(""), x, x));
-	// 		flag_shlvl = 1;
-	// 		flag_pwd = 1;
-	// }
 	if (flag_pwd == 0)
 	{
 		ft_lstadd_back(&head, ft_lstnew(ft_strdup("PWD="), getcwd(proc->pwd, 1024), x, x));
@@ -136,7 +126,7 @@ int	compare_until_eq(char *str1, char *str2)
 		return(0);
 	return (1);
 }
-void	check_export_and_replace(t_list *head, char *replace)
+int	chek_exp_a_rplc(t_list *head, char *replace)
 {
 	t_list	*tmp;
 	int		y;
@@ -159,7 +149,7 @@ void	check_export_and_replace(t_list *head, char *replace)
 				tmp->value = ft_substr(replace, y + 1, ft_strlen(replace) - y);
 			}
 			flag = 1;
-			return ;
+			return (0);
 		}
 		last_index = tmp->index;
 		last_pos = tmp->position;
@@ -173,7 +163,7 @@ void	check_export_and_replace(t_list *head, char *replace)
 		ft_lstadd_back(&head, ft_lstnew(ft_substr(replace, 0, y + 1), \
 		ft_substr(replace, y + 1, ft_strlen(replace)), last_index + 1, last_pos + 1));
 	}
-	
+	return (0);
 }
 
 int ft_validate_exprot(char *str)
@@ -224,7 +214,7 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *proc)
 				res = 1;
 			}
 			else	
-				check_export_and_replace(*proc->head, pipe->arg[proc->x]);
+				chek_exp_a_rplc(*proc->head, pipe->arg[proc->x]);
 		}
 		return (res);
 	}

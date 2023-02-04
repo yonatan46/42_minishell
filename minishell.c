@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 20:31:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:34:49 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 {
 	if (ac > 1)
 		exit(write(2, "Error: execute like <./minishell>\n", 35));
-	g_general_error_code = 0;
+	g_err_code = 0;
 	signal(SIGINT, handler_signal);
 	signal(SIGQUIT, SIG_IGN);
 	if (env[0] == NULL)
@@ -124,7 +124,7 @@ int	validate_input(t_data *proc)
 	if (!proc->main_line)
 	{
 		printf("exit\n");
-		exit(g_general_error_code);
+		exit(g_err_code);
 	}
 	if (proc->main_line[0] == '\0')
 		return (1);
@@ -152,17 +152,17 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		if (g_general_error_code == 0)
-			proc.main_line = readline \
-			("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
-		else
+		// if (g_err_code == 0)
+		// 	proc.main_line = readline \
+		// 	("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
+		// else
 			proc.main_line = readline \
 			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
 			continue ;
-		proc.main_line = expand(proc.main_line, &proc);
+		proc.main_line = expand(proc.main_line);
 		pipe = ft_lexer(proc.main_line, env);
-		g_general_error_code = pipex(pipe->cmd_len, pipe, &proc);
+		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
 	}
 	return (0);
 }
