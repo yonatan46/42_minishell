@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/03 15:00:27 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 13:50:38 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,11 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *proc)
 		{
 			if (ft_validate_exprot(pipe->arg[proc->x]) == 1)
 			{
-				write(2, "not a valid identifier\n", 24);
+				write(2, "`", 1);
+				write(2, pipe->arg[proc->x], ft_strlen(pipe->arg[proc->x]));
+				write(2, "'", 1);
+				write(2, ": not a valid identifier\n", 26);
+				// perror(" ");
 				res = 1;
 			}
 			else	

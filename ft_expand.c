@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_separate_struct.c                               :+:      :+:    :+:   */
+/*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/03 18:27:42 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/04 13:48:40 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char 	*expand(char *str, t_data *proc)
 					continue ;
 				}
 				start = x;
-				while (str[x] != '$' && str[x] != ' ' && str[x] && str[x] != '\"')
+				while (str[x] != '$' && str[x] != ' ' && str[x] && str[x] != '\"' && str[x] != '=')
 					x++;
 				tmp = getenv(ft_substr(str, start, x - start));
 				if (tmp == NULL)

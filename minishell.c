@@ -3,10 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
 /*   Updated: 2023/02/04 16:46:44 by dkaratae         ###   ########.fr       */
+=======
+/*   Created: 2023/02/04 15:53:06 by yonamog2          #+#    #+#             */
+/*   Updated: 2023/02/04 15:53:08 by yonamog2         ###   ########.fr       */
+>>>>>>> affd8fc0422949615cb86b20e18c66158dabfa80
 /*                                                                            */
 /* ************************************************************************** */
 
