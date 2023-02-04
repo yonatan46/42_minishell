@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 16:02:45 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:32:06 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,12 @@ int scan_exit_codes(t_pipe *pipe)
 */
 void	ft_exit(t_pipe *pipe, t_data *data)
 {
+	(void)data;
 	int		err_code;
 
 	err_code = 0;
 	if (pipe->arg[1] == NULL)
-		exit(data->general_error_code);
+		exit(g_general_error_code);
 	if (pipe->arg[2])
 	{
 		write(2, pipe->cmd, ft_strlen(pipe->cmd));

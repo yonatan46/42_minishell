@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/04 13:48:40 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:09:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char 	*expand(char *str, t_data *proc)
 {
+	(void)proc;
 	char *copy;
 	char *tmp;
 	int x;
@@ -48,7 +49,7 @@ char 	*expand(char *str, t_data *proc)
 			{
 				if (str[x] == '?')
 				{
-					copy = ftt_strjoin(copy, ft_itoa(proc->general_error_code));
+					copy = ftt_strjoin(copy, ft_itoa(g_general_error_code));
 					x++;
 					continue ;
 				}

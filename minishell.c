@@ -5,29 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
-/*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/04 16:46:44 by dkaratae         ###   ########.fr       */
-=======
-/*   Created: 2023/02/04 15:53:06 by yonamog2          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/04 16:15:12 by yonamog2         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/04 15:53:08 by yonamog2         ###   ########.fr       */
->>>>>>> affd8fc0422949615cb86b20e18c66158dabfa80
->>>>>>> 63980f522d3687fb8073cdc32c0e0fbb57c974d1
+/*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
+/*   Updated: 2023/02/04 20:31:23 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_check_loop_space(char *str, int *i)
+int	ft_check_loop_space(char *str, int *i)
 {
-	int count;
-	// char sign;
+	int	count;
 
 	count = 0;
-	// sign = str[*i];
 	while (ft_isspace(str[++(*i)]))
 		count++;
 	if (count == 0)
@@ -35,9 +24,9 @@ int ft_check_loop_space(char *str, int *i)
 	return (0);
 }
 
-int ft_check_red_pipe(char *str)
+int	ft_check_red_pipe(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
@@ -60,16 +49,14 @@ int ft_check_red_pipe(char *str)
 
 int	ft_preparsing(char *str)
 {
-	int	i;
-	int	check_quote;
-	char ch;
+	int		i;
+	int		check_quote;
+	char	ch;
 
 	check_quote = 0;
 	i = 0;
 	while ((ft_isspace(str[i])))
 		i++;
-	// if (ft_check_red_not_three(str))
-	// 	return (1);
 	if (str[i] == '|' || str[i] == ';')
 		return (1);
 	if (ft_check_qoutes(str))
@@ -92,7 +79,12 @@ int	ft_preparsing(char *str)
 	}
 	return (0);
 }
-void handler_signal	(int num)
+
+/**
+ * handler_signal: a function to handle signal calls
+ * @num: number of the signal status
+*/
+void	handler_signal(int num)
 {
 	if (num == SIGINT)
 	{
@@ -104,64 +96,73 @@ void handler_signal	(int num)
 		rl_redisplay();
 	}
 }
-int	main(int ac, char **av, char **env)
+
+/**
+ * validat_init_singal: validate and initialize the envionment
+ * @ac: number of argument
+ * @env: environment variables
+ * @proc: my whole structure
+*/
+void	validat_init_singal(int ac, char **env, t_data *proc)
 {
 	if (ac > 1)
-	{
-		write(2, "Error: execute like <./minishell>\n", 35);
-		exit(42);
-	}
-	// char	**vars;
-	char	*str;
-	t_pipe *pipe;
-	// char	*str1;
-	t_data	proc;
-	int code = 0;
-	proc.general_error_code = 0;
-	
+		exit(write(2, "Error: execute like <./minishell>\n", 35));
+	g_general_error_code = 0;
 	signal(SIGINT, handler_signal);
 	signal(SIGQUIT, SIG_IGN);
-	// ft_linked_env(&proc, env, 1);
 	if (env[0] == NULL)
+		exit(printf("\033[1;31mError\033[0m: No env variable found:\n"));
+	ft_linked_env(proc, env);
+}
+
+/**
+ * validate_input: a simple validation,, check the input if its space and null
+ * @proc: my whole structure
+*/
+int	validate_input(t_data *proc)
+{
+	if (!proc->main_line)
 	{
-		printf("\033[1;31mError\033[0m: No env variable found:\n");
-		exit(1);
+		printf("exit\n");
+		exit(g_general_error_code);
 	}
-	ft_linked_env(&proc, env);
-	(void)ac;
-	(void)av;
-	(void)env;
-	(void)pipe;
-	while (1)
+	if (proc->main_line[0] == '\0')
+		return (1);
+	add_history(proc->main_line);
+	if (ft_preparsing(proc->main_line))
 	{
-		// if (code == 0)
-			str = readline("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
-		// else
-		// 	str = readline("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
-		if (!str)
-		{
-			printf("exit\n");
-			exit(code);
-		}
-		if (str[0] == '\0')
-			continue ;
-		add_history(str);
-		if (ft_preparsing(str))
-		{
-			printf("Error!!!\n");
-			continue ;
-		}
-		// str = expand(str, &proc);
-		pipe = ft_lexer(str, env);
-		// code = pipex(pipe->cmd_len, pipe, &proc);
-		// proc.general_error_code = code; 
-		ft_print_cmd(pipe);
+		printf("Error!!!\n");
+		return (1);
 	}
 	return (0);
 }
 
-	// string: echo "hello      there" how are 'you 'doing? $USER |wc -l >outfile
-    // output: {echo, "hello      there", how, are, 'you 'doing?, pixel, |, wc, -l, >, outfile, NULL}
-	// echo "hello world | " | ls cat pwd "|" | export asdkasjdb '|'
-	// echo "hello world | " | ls cat pwd "|" | export asdkasjdb '|' | echo <<abc|ls >>abc|cmd <abc -la|>abc 
-	// printf("res: %s", getenv(""))
+/**
+ * main: where the main majic is happening,, take string ,validate, execute
+ * @ac: number of arguments passed
+ * @av: arguments passed
+ * @env: the environment variable
+*/
+int	main(int ac, char **av, char **env)
+{
+	t_pipe	*pipe;
+	t_data	proc;
+
+	(void)av;
+	validat_init_singal(ac, env, &proc);
+	while (1)
+	{
+		if (g_general_error_code == 0)
+			proc.main_line = readline \
+			("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
+		else
+			proc.main_line = readline \
+			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
+		if (validate_input(&proc) == 1)
+			continue ;
+		proc.main_line = expand(proc.main_line, &proc);
+		pipe = ft_lexer(proc.main_line, env);
+		g_general_error_code = pipex(pipe->cmd_len, pipe, &proc);
+	}
+	return (0);
+}
