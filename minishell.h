@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 22:59:31 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:48:59 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	terminate(char *m);
 void	cmd_not_found(t_pipe *av);
 int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);
-
+int		ft_cd(t_pipe *pipe, t_data *proc);
 /**
  * redirectin functions
 */
@@ -110,9 +110,7 @@ void	ft_echo(t_pipe *pipe);
 void	ft_pwd(void);
 void	ft_exit(t_pipe *pipe);
 // void	ft_store_env(char **env, t_data *pipe);
-void	ft_export(char **strings);
 int		ft_cd(t_pipe *pipe, t_data *proc);
-void	ft_env(char **env);
 void	ft_env_print_linked(t_data *proc);
 void	ft_linked_env(t_data *proc, char **env);
 int		ft_export_print_linked(t_pipe *pipe, t_data *proc);
@@ -126,7 +124,21 @@ void	ft_create_export(t_data *proc, char **env);
 int		chek_exp_a_rplc(t_list *head, char *replace);
 char	*ft_getenv(t_list *head, char *str);
 char	*expand(char *str);
-
+int		compare_until_eq(char *str1, char *str2);
+int		chek_exp_a_rplc_util(t_exp_var *var, char *replace);
+int		chek_exp_a_rplc(t_list *head, char *replace);
+int		ft_validate_exprot(char *str);
+void	print_and_set_flag(t_pipe *pipe, t_data *proc);
+void	init_vars(t_exp_var *var);
+int		ft_linked_env_util_2(t_exp_var *var, t_list *head, \
+t_data *proc, char **env);
+int		ft_linked_env_util(t_exp_var *var, \
+t_list *head, t_data *proc, char **env);
+void	check_and_set(t_exp_var *var, t_list *head, t_data *proc);
+void	ft_linked_env(t_data *proc, char **env);
+int		red_output(t_pipe *av, int x);
+int		red_infile(t_pipe *av, int x);
+int		red_append_mode(t_pipe *av, int x);
 /**
  * PARSING PART
 */

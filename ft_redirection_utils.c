@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:15:36 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/03 15:05:11 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:02:15 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_check_red_not_three(char *str)
+int	ft_check_red_not_three(char *str)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	while (str[i])
@@ -37,9 +37,9 @@ int ft_check_red_not_three(char *str)
 	return (0);
 }
 
-char *ft_add_sp_redname(char *str)
+char	*ft_add_sp_redname(char *str)
 {
-	char *new_str;
+	char	*new_str;
 
 	new_str = ft_clean_spaces(str);
 	new_str = ft_add_sp_red_after(new_str);
@@ -50,7 +50,7 @@ char *ft_add_sp_redname(char *str)
 int	ft_count_red(char **s1)
 {
 	size_t	i;
-	int count;
+	int		count;
 
 	i = 0;
 	count = 0;
@@ -68,6 +68,3 @@ int	ft_count_red(char **s1)
 	}
 	return (count);
 }
-
-
-

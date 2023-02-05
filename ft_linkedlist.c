@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 22:58:56 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:01:49 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void	sort_list(t_list *head)
 	}
 }
 
+/**
+ * re_index: is a function that gives the index for the linked list
+ * @head: pointer pointing to head of the linked list
+*/
 void	re_index(t_list *head)
 {
 	t_list	*prev;
@@ -120,7 +124,10 @@ char	**linked_to_array(t_list *head)
 }
 
 /**
- * 
+ * ft_getenv: variable that check for the variable name from the linked list
+ * and return the values
+ * @head: the head of the linked list
+ * @str: the variable name
 */
 
 char	*ft_getenv(t_list *head, char *str)
