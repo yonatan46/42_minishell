@@ -20,31 +20,16 @@
 void	red_first_proc(t_pipe *av, int *flag)
 {
 	int	x;
-	int	file1;
 
 	x = 0;
 	while (x < av->red_len)
 	{
-		// printf("l\n");
 		if (strcmp(av->red[x]->red_sign, ">") == 0)
-		{
-			file1 = open(av->red[x]->red_name,
-					O_RDWR | O_CREAT | O_TRUNC, 0777);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			*flag = 1;
-			dup2(file1, STDOUT_FILENO);
-			close(file1);
-		}
+			*flag = red_output(av, x);
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
-		{
-			file1 = open(av->red[x]->red_name, O_RDONLY);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			dup2(file1, STDIN_FILENO);
-			close(file1);
-		}
+			red_infile(av, x);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
+<<<<<<< HEAD:redirections.c
 		{
 			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
 			if (file1 == -1)
@@ -53,6 +38,9 @@ void	red_first_proc(t_pipe *av, int *flag)
 			dup2(file1, STDOUT_FILENO);
 			close(file1);
 		}
+=======
+			*flag = red_append_mode(av, x);
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74:ft_red_files.c
 		x++;
 	}
 }
@@ -61,40 +49,19 @@ void	red_first_proc(t_pipe *av, int *flag)
  * red_one_cmd-> redirection for middle command
  * @av: the structure that contain the specific pipe
 */
-
 void	red_one_cmd(t_pipe *av)
 {
 	int	x;
-	int	file1;
 
 	x = 0;
 	while (x < av->red_len)
 	{
 		if (strcmp(av->red[x]->red_sign, ">") == 0)
-		{
-			file1 = open(av->red[x]->red_name,
-					O_RDWR | O_CREAT | O_TRUNC, 0777);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			dup2(file1, STDOUT_FILENO);
-			close(file1);
-		}
+			red_output(av, x);
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
-		{  
-			file1 = open(av->red[x]->red_name, O_RDONLY);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			dup2(file1, STDIN_FILENO);
-			close(file1);
-		}
+			red_infile(av, x);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
-		{
-			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			dup2(file1, STDOUT_FILENO);
-			close(file1);
-		}
+			red_append_mode(av, x);
 		x++;
 	}
 }
@@ -108,31 +75,16 @@ void	red_one_cmd(t_pipe *av)
 void	red_middle(t_pipe *av, int *flag_out, int *flag_in)
 {
 	int	x;
-	int	file1;
 
 	x = -1;
 	while (++x < av->red_len)
 	{
 		if (strcmp(av->red[x]->red_sign, ">") == 0)
-		{
-			file1 = open(av->red[x]->red_name,
-					O_RDWR | O_CREAT | O_TRUNC, 0777);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			*flag_out = 1;
-			dup2(file1, STDOUT_FILENO);
-			close(file1);
-		}
+			*flag_out = red_output(av, x);
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
-		{
-			file1 = open(av->red[x]->red_name, O_RDONLY);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			*flag_in = 1;
-			dup2(file1, STDIN_FILENO);
-			close(file1);
-		}
+			*flag_in = red_infile(av, x);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
+<<<<<<< HEAD:redirections.c
 		{
 			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
 			if (file1 == -1)
@@ -141,6 +93,9 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in)
 			dup2(file1, STDOUT_FILENO);
 			close(file1);
 		}
+=======
+			*flag_out = red_append_mode(av, x);
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74:ft_red_files.c
 	}
 }
 
@@ -153,30 +108,16 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in)
 void	red_last_proc(t_pipe *av, int *flag)
 {
 	int	x;
-	int	file1;
 
 	x = -1;
 	while (++x < av->red_len)
 	{
 		if (strcmp(av->red[x]->red_sign, ">") == 0)
-		{
-			file1 = open(av->red[x]->red_name,
-					O_RDWR | O_CREAT | O_TRUNC, 0777);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			dup2(file1, STDOUT_FILENO);
-			close(file1);
-		}
+			red_output(av, x);
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
-		{
-			file1 = open(av->red[x]->red_name, O_RDONLY);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			*flag = 1;
-			dup2(file1, STDIN_FILENO);
-			close(file1);
-		}
+			*flag = red_infile(av, x);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
+<<<<<<< HEAD:redirections.c
 		{
 			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
 			if (file1 == -1)
@@ -184,5 +125,8 @@ void	red_last_proc(t_pipe *av, int *flag)
 			dup2(file1, STDOUT_FILENO);
 			close(file1);
 		}
+=======
+			red_append_mode(av, x);
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74:ft_red_files.c
 	}
 }

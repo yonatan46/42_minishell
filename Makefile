@@ -6,7 +6,11 @@
 #    By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2023/02/05 15:43:58 by dkaratae         ###   ########.fr        #
+=======
+#    Updated: 2023/02/05 13:07:11 by yonamog2         ###   ########.fr        #
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +21,8 @@ NAME = minishell
 FILES =		ft_expand.c\
 			added.c \
 			pipex.c \
-			redirections.c \
+			ft_red_files.c \
+			ft_red_files_util.c \
 			ft_builtin.c \
 			ft_export.c \
 			ft_search.c \
@@ -35,8 +40,17 @@ FILES =		ft_expand.c\
 			ft_separate_struct.c \
 			ft_separate_utils.c \
 			ft_space.c \
+<<<<<<< HEAD
 
 			
+=======
+			ft_cd.c \
+			ft_export_utils.c \
+			ft_create_env_list.c \
+			ft_parsing_cmds.c \
+			ft_one_cmd_proccess.c \
+			ft_two_more_cmd_proccess.c \
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 # FILES = ft_input.c
 # FILES = try.c
 OBJ = $(FILES:.c=.o)
@@ -50,7 +64,14 @@ CFLAGS = -Wall -Werror -Wextra -g
 
 all : $(NAME)
 	tput setaf 3
-	printf "RUN Minishell\n"
+	echo "🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\n";
+	echo "	██    ██ █ ██    █ █ █████ █   █ █████ █     █";
+	echo "	███  ███ █ ███   █ █ █     █   █ █     █     █";
+	echo "	█ ████ █ █ █ ██  █ █ █████ █████ ████  █     █";
+	echo "	█  ██  █ █ █  ██ █ █     █ █   █ █     █     █";
+	echo "	█      █ █ █   ███ █ █████ █   █ █████ █████ █████";
+	echo "\n🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥";
+	echo "                                                                                              ";
 	tput setaf 7
 %.o : %.c
 	$(CC) -c $(CFLAGS) $?

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:51:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/01/24 14:18:42 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 23:00:47 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,5 @@ int	search(char **envp)
 	while (envp[++x])
 		if (ft_strnstr(envp[x], "PATH=", 5))
 			return (1);
-	return (0);
-}
-
-/**
- * search_env_linked: search the environemnt variable for PATH 
- * but now its linked list
- * @head: the head of the linked list which have env
-*/
-int	search_env_linked(t_list *head)
-{
-	t_list	*tmp;
-
-	tmp = head;
-	while (tmp)
-	{
-		if (ft_strnstr(tmp->content, "PATH", 4))
-			return (1);
-		tmp = tmp->next;
-	}
 	return (0);
 }

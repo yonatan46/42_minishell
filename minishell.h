@@ -6,7 +6,11 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/05 15:45:11 by dkaratae         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/05 13:29:01 by yonamog2         ###   ########.fr       */
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +31,7 @@ typedef struct s_data
 {
 	char	*main_line;
 	char	pwd[1024];
-	t_list	*tmp_list;
+	t_list	*t_lst;
 	char	**res;
 	char	*result;
 	char	*copy;
@@ -52,7 +56,6 @@ typedef struct s_data
 	char	**copy_env;
 	char	**tmp_2d;
 	t_list	**head;
-	t_list	**head_export;
 	int		pid1;
 	int		pid2;
 	int		check;
@@ -76,6 +79,7 @@ typedef struct s_pipe
 	char	**f_cmd;
 }		t_pipe;
 
+<<<<<<< HEAD
 // typedef struct s_var
 // {
 // 	int		i;
@@ -87,12 +91,32 @@ typedef struct s_pipe
 // }	t_var;
 
 int		g_general_error_code;
+=======
+typedef struct s_exp_var
+{
+	char		*cp;
+	char		*tmp;
+	int			x;
+	int			y;
+	int			start;
+	int			flag_sq;
+	int			flag_pwd;
+	int			flag_shlvl;
+	int			flag_oldpwd;
+	int			flag;
+	int			last_index;
+	int			last_pos;
+	t_list		*tmp_list;
+}		t_exp_var;
+
+int		g_err_code;
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 void	free_func(char **args);
 void	terminate(char *m);
 void	cmd_not_found(t_pipe *av);
 int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);
-
+int		ft_cd(t_pipe *pipe, t_data *proc);
 /**
  * redirectin functions
 */
@@ -102,26 +126,37 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in);
 void	red_last_proc(t_pipe *av, int *flag);
 void	ft_echo(t_pipe *pipe);
 void	ft_pwd(void);
-void	ft_exit(t_pipe *pipe, t_data *proc);
+void	ft_exit(t_pipe *pipe);
 // void	ft_store_env(char **env, t_data *pipe);
-void	ft_export(char **strings);
 int		ft_cd(t_pipe *pipe, t_data *proc);
-void	ft_env(char **env);
 void	ft_env_print_linked(t_data *proc);
 void	ft_linked_env(t_data *proc, char **env);
 int		ft_export_print_linked(t_pipe *pipe, t_data *proc);
 void	sort_list(t_list *head);
 int		ft_unset(t_pipe *pipe, t_data *proc);
-int		search_env_linked(t_list *head);
 char	**linked_to_array(t_list *head);
 // void	free_func_one_cmd(char **args);
 void	free_func_one_cmd(t_pipe *av);
 void	remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
-void	check_export_and_replace(t_list *head, char *replace);
+int		chek_exp_a_rplc(t_list *head, char *replace);
 char	*ft_getenv(t_list *head, char *str);
-char	*expand(char *str, t_data *proc);
-
+char	*expand(char *str);
+int		compare_until_eq(char *str1, char *str2);
+int		chek_exp_a_rplc_util(t_exp_var *var, char *replace);
+int		chek_exp_a_rplc(t_list *head, char *replace);
+int		ft_validate_exprot(char *str);
+void	print_and_set_flag(t_pipe *pipe, t_data *proc);
+void	init_vars(t_exp_var *var);
+int		ft_linked_env_util_2(t_exp_var *var, t_list *head, \
+t_data *proc, char **env);
+int		ft_linked_env_util(t_exp_var *var, \
+t_list *head, t_data *proc, char **env);
+void	check_and_set(t_exp_var *var, t_list *head, t_data *proc);
+void	ft_linked_env(t_data *proc, char **env);
+int		red_output(t_pipe *av, int x);
+int		red_infile(t_pipe *av, int x);
+int		red_append_mode(t_pipe *av, int x);
 /**
  * PARSING PART
 */
@@ -200,6 +235,7 @@ int		main(int ac, char **av, char **env);
 
 // void	ft_print_cmd(t_pipe *f_struct);
 
+<<<<<<< HEAD
 // void	print_2d(char **str);
 // void	ft_delete_arg_quotes(t_pipe *f_struct);
 // void	ft_delete_cmd_quotes(t_pipe *f_struct);
@@ -208,4 +244,28 @@ int		main(int ac, char **av, char **env);
 // char	*ft_dollar(char *str, int *i, char **env);
 // int		ft_check_isalnum(char c);
 // char	*ft_change_dollar(char *str, char **env);
+=======
+void	print_2d(char **str);
+void	ft_delete_arg_quotes(t_pipe *f_struct);
+void	ft_delete_cmd_quotes(t_pipe *f_struct);
+char	*ft_del_quotes(char *str, int *i, char c);
+int		ft_count_quotes(char *str, char c);
+char	*ft_dollar(char *str, int *i, char **env);
+int		ft_check_isalnum(char c);
+char	*ft_change_dollar(char *str, char **env);
+char	*parsing_middle(t_data *proc, char **envp, char *s);
+char	*parsing(t_data *proc, char **envp, char *s);
+int		ft_check_builtin(char *cmd);
+void	check_built_ins_and_exexute_one_cmd(t_data *proc, \
+t_pipe *av, char **envp);
+void	one_cmd_process(t_data *proc, t_pipe *av, char **envp);
+void	close_pipes(t_data *proc);
+int		pipex_one_cmd(t_pipe *av, t_data *proc, char **envp);
+void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp);
+int		first_process(t_data *proc, t_pipe *av, char **envp);
+void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp);
+void	middl_process(t_data *proc, t_pipe *av, char **envp);
+int		last_process(t_data *proc, t_pipe *av, char **envp);
+
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 #endif

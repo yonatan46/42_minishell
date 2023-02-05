@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:56:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/02 16:32:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 13:22:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[x] != '\0')
 		ret[y++] = s2[x++];
 	ret[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	// free(s1);
 	return (ret);
 }
+
 char	*ftt_strjoin(char *s1, char *s2)
 {
 	int		x;

@@ -6,7 +6,11 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/05 14:37:58 by dkaratae         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/05 12:45:47 by yonamog2         ###   ########.fr       */
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +43,7 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 {
 	if (ac > 1)
 		exit(write(2, "Error: execute like <./minishell>\n", 35));
-	g_general_error_code = 0;
+	g_err_code = 0;
 	signal(SIGINT, handler_signal);
 	signal(SIGQUIT, SIG_IGN);
 	if (env[0] == NULL)
@@ -56,7 +60,7 @@ int	validate_input(t_data *proc)
 	if (!proc->main_line)
 	{
 		printf("exit\n");
-		exit(g_general_error_code);
+		exit(g_err_code);
 	}
 	if (proc->main_line[0] == '\0')
 		return (1);
@@ -84,6 +88,7 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
+<<<<<<< HEAD
 		// if (g_general_error_code == 0)
 			proc.main_line = readline \
 			("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
@@ -94,6 +99,19 @@ int	main(int ac, char **av, char **env)
 		proc.main_line = expand(proc.main_line, &proc);
 		pipe = ft_lexer(proc.main_line);
 		g_general_error_code = pipex(pipe->cmd_len, pipe, &proc);
+=======
+		// if (g_err_code == 0)
+		// 	proc.main_line = readline \
+		// 	("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
+		// else
+			proc.main_line = readline \
+			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
+		if (validate_input(&proc) == 1)
+			continue ;
+		proc.main_line = expand(proc.main_line);
+		pipe = ft_lexer(proc.main_line, env);
+		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
+>>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 	}
 	return (0);
 }

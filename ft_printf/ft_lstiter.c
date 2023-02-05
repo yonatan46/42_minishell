@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 08:39:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2022/09/23 10:13:45 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:24:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 	{
 		while (node)
 		{
-			f(node->content);
+			f(node->key);
 			node = node->next;
 		}
 	}
