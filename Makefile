@@ -6,7 +6,7 @@
 #    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
-#    Updated: 2023/02/05 12:52:08 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/05 13:07:11 by yonamog2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ FILES =		ft_expand.c\
 			ft_cd.c \
 			ft_export_utils.c \
 			ft_create_env_list.c \
+			ft_parsing_cmds.c \
+			ft_one_cmd_proccess.c \
+			ft_two_more_cmd_proccess.c \
 # FILES = ft_input.c
 # FILES = try.c
 OBJ = $(FILES:.c=.o)

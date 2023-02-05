@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 12:48:59 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 13:29:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,4 +198,18 @@ int		ft_count_quotes(char *str, char c);
 char	*ft_dollar(char *str, int *i, char **env);
 int		ft_check_isalnum(char c);
 char	*ft_change_dollar(char *str, char **env);
+char	*parsing_middle(t_data *proc, char **envp, char *s);
+char	*parsing(t_data *proc, char **envp, char *s);
+int		ft_check_builtin(char *cmd);
+void	check_built_ins_and_exexute_one_cmd(t_data *proc, \
+t_pipe *av, char **envp);
+void	one_cmd_process(t_data *proc, t_pipe *av, char **envp);
+void	close_pipes(t_data *proc);
+int		pipex_one_cmd(t_pipe *av, t_data *proc, char **envp);
+void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp);
+int		first_process(t_data *proc, t_pipe *av, char **envp);
+void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp);
+void	middl_process(t_data *proc, t_pipe *av, char **envp);
+int		last_process(t_data *proc, t_pipe *av, char **envp);
+
 #endif
