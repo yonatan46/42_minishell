@@ -46,7 +46,7 @@ void	red_first_proc(t_pipe *av, int *flag)
 		}
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
 		{
-			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0666);
+			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
 			if (file1 == -1)
 				terminate(av->red[x]->red_name);
 			*flag = 1;
@@ -134,7 +134,7 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in)
 		}
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
 		{
-			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND);
+			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
 			if (file1 == -1)
 				terminate(av->red[x]->red_name);
 			*flag_out = 1;
@@ -178,7 +178,7 @@ void	red_last_proc(t_pipe *av, int *flag)
 		}
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
 		{
-			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND);
+			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
 			if (file1 == -1)
 				terminate(av->red[x]->red_name);
 			dup2(file1, STDOUT_FILENO);

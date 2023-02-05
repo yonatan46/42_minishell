@@ -3,82 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 20:31:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 14:37:58 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_check_loop_space(char *str, int *i)
-{
-	int	count;
-
-	count = 0;
-	while (ft_isspace(str[++(*i)]))
-		count++;
-	if (count == 0)
-		return (1);
-	return (0);
-}
-
-int	ft_check_red_pipe(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '>')
-		{
-			if (!ft_check_loop_space(str, &i))
-				if (str[i] == '|')
-					return (1);
-		}
-		else if (str[i] == '<')
-		{
-			ft_check_loop_space(str, &i);
-			if (str[i] == '|')
-				return (1);
-		}
-	}
-	return (0);
-}
-
-int	ft_preparsing(char *str)
-{
-	int		i;
-	int		check_quote;
-	char	ch;
-
-	check_quote = 0;
-	i = 0;
-	while ((ft_isspace(str[i])))
-		i++;
-	if (str[i] == '|' || str[i] == ';')
-		return (1);
-	if (ft_check_qoutes(str))
-		return (1);
-	if (ft_check_red_pipe(str))
-		return (1);
-	i = -1;
-	while (str[++i])
-	{
-		if (!check_quote || ch == str[i])
-		{
-			if (str[i] == '\'' || str[i] == '\"')
-			{
-				ch = str[i];
-				check_quote = !check_quote;
-			}
-		}
-		if (ft_check_sem_pipe(str, i) && !check_quote)
-			return (1);
-	}
-	return (0);
-}
 
 /**
  * handler_signal: a function to handle signal calls
@@ -152,16 +84,15 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		if (g_general_error_code == 0)
+		// if (g_general_error_code == 0)
 			proc.main_line = readline \
 			("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
-		else
-			proc.main_line = readline \
-			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
+		// else
+			// proc.main_line = readline("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
 			continue ;
 		proc.main_line = expand(proc.main_line, &proc);
-		pipe = ft_lexer(proc.main_line, env);
+		pipe = ft_lexer(proc.main_line);
 		g_general_error_code = pipex(pipe->cmd_len, pipe, &proc);
 	}
 	return (0);

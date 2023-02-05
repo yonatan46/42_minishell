@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 10:07:23 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/03 18:42:11 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:42:48 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ int	ft_check_quote(char *str, char qute, int *i)
 	return (0);
 }
 
-int f_check_aft_red_zero(char *str)
+int	f_check_aft_red_zero(char *str)
 {
-	int i;
-	int count;
-	int space;
+	int	i;
+	int	count;
+	int	space;
 
 	i = 0;
 	space = 0;
@@ -85,13 +85,15 @@ int	ft_check_sem_pipe(char *str, int i)
 	count = ft_strlen(str);
 	if (str[i] == '|' && str[i + 1] == '|')
 		return (1);
-	else if ((str[i] == '>' || str[i] == '<') && (ft_isspace(str[i + 1])) && (str[i + 2] == '|'))
+	else if ((str[i] == '>' || str[i] == '<')
+		&& (ft_isspace(str[i + 1])) && (str[i + 2] == '|'))
 		return (1);
 	else if (str[i] == '|' && str[i + 1] == ';')
 		return (1);
 	else if (str[i] == ';' && str[i + 1] == ';')
 		return (1);
-	else if (str[count - 1] == '|' || str[count - 1] == '<' || str[count - 1] == '>')
+	else if (str[count - 1] == '|' || str[count - 1] == '<'
+		|| str[count - 1] == '>')
 		return (1);
 	return (0);
 }

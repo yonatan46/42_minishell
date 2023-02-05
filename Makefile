@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
-#    Updated: 2023/02/03 11:22:13 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/05 15:43:58 by dkaratae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,16 @@ FILES =		ft_expand.c\
 			ft_checker_qoutes.c \
 			ft_copy_to_struct.c \
 			ft_lexer.c \
+			ft_preparse.c \
+			ft_redirection_del.c \
+			ft_redirection_one.c \
+			ft_redirection_two.c \
 			ft_redirection_utils.c \
-			ft_redirection.c \
 			ft_separate_struct.c \
-			ft_shell_utils.c \
+			ft_separate_utils.c \
 			ft_space.c \
+
+			
 # FILES = ft_input.c
 # FILES = try.c
 OBJ = $(FILES:.c=.o)

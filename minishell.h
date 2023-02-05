@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 20:21:48 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:45:11 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,16 @@ typedef struct s_pipe
 	char	**f_cmd;
 }		t_pipe;
 
+// typedef struct s_var
+// {
+// 	int		i;
+// 	int		j;
+// 	int		r;
+// 	int		g;
+// 	int		count_all;
+// 	int		flag;
+// }	t_var;
+
 int		g_general_error_code;
 void	free_func(char **args);
 void	terminate(char *m);
@@ -116,9 +126,16 @@ char	*expand(char *str, t_data *proc);
  * PARSING PART
 */
 
+/* ft_preparse */
+int		ft_isspace(char ch);
+int		ft_check_loop_space(char *str, int *i);
+int		ft_check_red_pipe(char *str);
+int		ft_preparsing(char *str);
+
 /* ft_checker_qoutes */
 int		ft_check_qoutes(char *str);
 int		ft_check_quote(char *str, char c, int *i);
+int		f_check_aft_red_zero(char *str);
 int		ft_check_sem_pipe(char *str, int i);
 
 /* ft_copy_to_struct */
@@ -129,46 +146,66 @@ char	**ft_separate_sp_pipe(char *str, char c);
 
 /* ft_lexer */
 int		ft_count_arg(char **str);
-t_pipe	*ft_lexer(char *str, char **env);
-char	*ft_quotes(char *str, int *i);
-char	**ft_check_inside_quoutes(char **vars);
+int		ft_count_quotes(char *str, char c);
+void	ft_delete_argquotes(t_pipe *f_struct, char *str, int *i, int *j);
+void	ft_delete_arg_quotes(t_pipe *f_struct);
+t_pipe	*ft_lexer(char *str);
+
+/* ft_redirection_del */
+void	ft_delete_all_qoutes(t_pipe *f_struct);
+void	ft_delete_redname_quotes(t_pipe *f_struct);
+void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j);
+void	ft_delete_cmd_quotes(t_pipe *f_struct);
+char	*ft_del_quotes(char *str, int *i, char c);
+
+/* ft_redirection_one */
+int		ft_count_red_after(char *str);
+char	ft_quote_zero_one(char str, char ch, int *check_quote);
+void	ft_copy_dred_new_string(char *str, char *new_str, int *i, int *j);
+void	ft_copy_sred_new_string(char *str, char *new_str, int *i, int *j);
+
+/* ft_redirection_two */
+int		ft_check_equal_dred(char *str, int i, int check_quote);
+char	*ft_add_sp_red_after(char *str);
+int		ft_count_red_before(char *str);
+void	ft_copy_sred_before(char *str, char *new_str, int *i, int *j);
+char	*ft_add_sp_red_before(char *str);
 
 /* ft_redirection_utils */
 int		ft_check_red_not_three(char *str);
 char	*ft_add_sp_redname(char *str);
 int		ft_count_red(char **s1);
 
-/* ft_redirection */
-int		ft_count_red_after(char *str);
-char	*ft_add_sp_red_after(char *str);
-int		ft_count_red_before(char *str);
-char	*ft_add_sp_red_before(char *str);
-
 /* ft_separate_struct */
 void	ft_copy_red_sign(t_pipe *f_struct, int i, int j, int r);
 void	ft_copy_red_name(t_pipe *f_struct, int i, int j, int r);
+void	ft_copy_to_arg(t_pipe *f_struct, int i, int j, int *g);
+void	ft_copy_to_red_sign_name(t_pipe *f_struct, int i, int *j, int *r);
 void	ft_count_struct(t_pipe *f_struct);
 
-/* ft_shell_utils */
-int		ft_isspace(char ch);
+/* ft_separate_utils */
+int		ft_count_red_pipe(char **str, int count_all, int count_red);
+int		ft_allocate_memory_red_arg(t_pipe *f_struct, int *i);
 
 /* ft_space */
+char	*ft_copy_after_clean_sp(char *str, int *i, int *k, int check_quote);
 char	*ft_clean_spaces(char *str);
 int		ft_trim_space(char *str, char c);
 char	**ft_clean_sp_struct(char **str);
 
+
+
 /* minishell */
-int		ft_preparsing(char *str);
 int		main(int ac, char **av, char **env);
 
-void	ft_print_cmd(t_pipe *f_struct);
+// void	ft_print_cmd(t_pipe *f_struct);
 
-void	print_2d(char **str);
-void	ft_delete_arg_quotes(t_pipe *f_struct);
-void	ft_delete_cmd_quotes(t_pipe *f_struct);
-char	*ft_del_quotes(char *str, int *i, char c);
-int		ft_count_quotes(char *str, char c);
-char	*ft_dollar(char *str, int *i, char **env);
-int		ft_check_isalnum(char c);
-char	*ft_change_dollar(char *str, char **env);
+// void	print_2d(char **str);
+// void	ft_delete_arg_quotes(t_pipe *f_struct);
+// void	ft_delete_cmd_quotes(t_pipe *f_struct);
+// char	*ft_del_quotes(char *str, int *i, char c);
+// int		ft_count_quotes(char *str, char c);
+// char	*ft_dollar(char *str, int *i, char **env);
+// int		ft_check_isalnum(char c);
+// char	*ft_change_dollar(char *str, char **env);
 #endif

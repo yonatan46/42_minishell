@@ -6,17 +6,10 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:58:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/01/27 14:57:16 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:18:24 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(char ch)
-{
-	if (ch == ' ' || ch == '\n' || ch == '\t' || \
-		ch == '\v' || ch == '\f' || ch == '\r')
-		return (1);
-	return (0);
-}
 
 
 
