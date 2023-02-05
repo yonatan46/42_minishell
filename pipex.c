@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 16:17:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 18:39:04 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@ int	pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 	proc->pid1 = first_process(proc, &av[0], envp);
 	proc->pid2 = last_process(proc, &av[1], envp);
 	close_pipes(proc);
+	signal(SIGINT, SIG_IGN);
 	waitpid(proc->pid1, 0, 0);
 	waitpid(proc->pid2, &proc->err_no, 0);
 	if (WIFEXITED(proc->err_no))
 		return (WEXITSTATUS(proc->err_no));
+	else if (WIFSIGNALED(proc->err_no))
+		return (WTERMSIG(proc->err_no) + 128);
 	return (0);
 }
 
@@ -87,11 +90,14 @@ int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 	proc->pid2 = last_process(proc, &av[proc->ac - 1], envp);
 	close_pipes(proc);
 	proc->counter = -1;
+	signal(SIGINT, SIG_IGN);
 	waitpid(proc->pid2, &proc->err_no, 0);
 	while (waitpid(-1, 0, 0) != -1)
 		;
 	if (WIFEXITED(proc->err_no))
 		return (WEXITSTATUS(proc->err_no));
+	else if (WIFSIGNALED(proc->err_no))
+		return (WTERMSIG(proc->err_no) + 128);
 	return (0);
 }
 

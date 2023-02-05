@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 11:46:05 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:43:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ void	ft_echo(t_pipe *pipe)
 /**
  * ft_pwd: will print the current directory
 */
-void	ft_pwd(void)
+void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 {
+	(void)pipe;
+	(void)data;
 	char	res[1024];
 	char	*pwd;
 
@@ -64,9 +66,16 @@ void	ft_pwd(void)
 	if (!pwd)
 	{
 		ft_putstr_fd("Error: sorry dir is deleted or incorrect!\n", 2);
+		free_func(pipe->arg);
+		free_func(envp);
+		free(pipe->cmd);
 		exit(1);
 	}
 	printf("%s\n", pwd);
+	free_func(pipe->arg);
+	free_func(envp);
+	free(pipe->cmd);
+	free(data->main_line);
 	exit(0);
 }
 

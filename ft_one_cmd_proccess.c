@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 16:37:46 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:35:13 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_pipe *av, char **envp)
 	else if (proc->check == 3)
 		ft_cd(av, proc);
 	else if (proc->check == 4)
-		ft_pwd();
+		ft_pwd(proc, av, envp);
 	else if (proc->check == 5)
 		ft_env_print_linked(proc);
 	else if (proc->check == 6)
@@ -55,6 +55,7 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork");
 	if (proc->id == 0)
 	{
+		signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
 			red_one_cmd(av);
 		proc->check = ft_check_builtin(av->cmd);
@@ -93,11 +94,22 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	else
 	{
 		one_cmd_process(proc, av, envp);
+		signal(SIGINT, SIG_IGN);
 		waitpid(-1, &proc->err_no, 0);
 		if (WIFEXITED(proc->err_no))
 			return (WEXITSTATUS(proc->err_no));
 		else if (WIFSIGNALED(proc->err_no))
-			return (WTERMSIG(proc->err_no));
+			return (WTERMSIG(proc->err_no) + 128);
 	}
 	return (0);
+}
+
+char	*get_next_line(int fd)
+{
+    if (fd < 0) return(NULL);
+    char *copy, *tmp;
+    copy = ft_calloc(sizeof(char), 100000);  
+    tmp = copy;
+    while (read(fd, tmp, 1)) if (*(tmp++) == '\n') break;
+    return (copy[0] == '\0' ? NULL: copy);
 }

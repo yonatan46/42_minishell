@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 16:00:31 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:35:36 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_data
 	int		pid2;
 	int		check;
 	int		err_no;
+	int		tmp_file_fd;
 }	t_data;
 
 typedef struct s_red
@@ -107,7 +108,7 @@ void	red_one_cmd(t_pipe *av);
 void	red_middle(t_pipe *av, int *flag_out, int *flag_in);
 void	red_last_proc(t_pipe *av, int *flag);
 void	ft_echo(t_pipe *pipe);
-void	ft_pwd(void);
+void	ft_pwd(t_data *data, t_pipe *pipe, char **envp);
 void	ft_exit(t_pipe *pipe);
 // void	ft_store_env(char **env, t_data *pipe);
 int		ft_cd(t_pipe *pipe, t_data *proc);
@@ -236,5 +237,7 @@ int		first_process(t_data *proc, t_pipe *av, char **envp);
 void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp);
 void	middl_process(t_data *proc, t_pipe *av, char **envp);
 int		last_process(t_data *proc, t_pipe *av, char **envp);
-
+void	check_and_update_heredoc(t_pipe *av);
+char	*get_next_line(int fd);
+void	handler_signal(int num);
 #endif

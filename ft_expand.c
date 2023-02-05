@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/04 21:50:38 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:40:51 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,17 @@ int	expand_util_2(t_exp_var *var, char *str)
 */
 void	get_env_and_replace(t_exp_var *var, char *str)
 {	
-	var->tmp = getenv(ft_substr(str, var->start, var->x - var->start));
+	char	*tmp;
+
+	tmp = ft_substr(str, var->start, var->x - var->start);
+	var->tmp = getenv(tmp);
+	free(tmp);
 	if (var->tmp == NULL)
 		var->cp = ftt_strjoin(var->cp, "");
 	else
+	{
 		var->cp = ftt_strjoin(var->cp, var->tmp);
+	}
 }
 
 /**
@@ -55,6 +61,8 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 */
 int	expand_util(t_exp_var *var, char *str)
 {
+	char	*tmp;
+
 	var->x++;
 	if (var->flag_sq == 0)
 	{
@@ -64,11 +72,17 @@ int	expand_util(t_exp_var *var, char *str)
 		{
 			if (str[var->x] == '\"' || str[var->x] == ' ')
 			{
-				var->cp = ftt_strjoin(var->cp, ft_substr(str, var->x - 1, 2));
+				tmp = ft_substr(str, var->x - 1, 2);
+				var->cp = ftt_strjoin(var->cp, tmp);
+				free(tmp);
 				var->x++;
 			}
 			else
-				var->cp = ftt_strjoin(var->cp, ft_substr(str, var->x - 1, 1));
+			{
+				tmp = ft_substr(str, var->x - 1, 1);
+				var->cp = ftt_strjoin(var->cp, tmp);
+				free(tmp);
+			}
 			var->x++;
 			return (1);
 		}
@@ -102,6 +116,7 @@ void	expand_init_vars(t_exp_var *var)
 char	*expand(char *str)
 {
 	t_exp_var	var;
+	char		*tmp;
 
 	expand_init_vars(&var);
 	while (str[var.x])
@@ -110,14 +125,18 @@ char	*expand(char *str)
 			var.flag_sq = !var.flag_sq;
 		if (var.flag_sq == 1)
 		{
-			var.cp = ftt_strjoin(var.cp, ft_substr(str, var.x, 1));
+			tmp = ft_substr(str, var.x, 1);
+			var.cp = ftt_strjoin(var.cp, tmp);
+			free(tmp);
 			var.x++;
 			continue ;
 		}
 		var.start = var.x;
 		if (str[var.x] != '$')
 		{
-			var.cp = ftt_strjoin(var.cp, ft_substr(str, var.x, 1));
+			tmp = ft_substr(str, var.x, 1);
+			var.cp = ftt_strjoin(var.cp, tmp);
+			free(tmp);
 			var.x++;
 		}
 		else if (str[var.x] == '$')
@@ -125,5 +144,6 @@ char	*expand(char *str)
 		if (str[var.x] == '\0')
 			break ;
 	}
-	return (free(str), var.cp);
+	free(str);
+	return (var.cp);
 }

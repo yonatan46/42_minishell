@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 16:19:22 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:56:59 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ void	handler_signal(int num)
 	{
 		rl_on_new_line();
 		rl_redisplay();
+		// ft_putstr_fd("  \n", 2);
 		write(2, "  \n", 4);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	signal(SIGINT, handler_signal);
 }
 
 /**
@@ -84,17 +86,27 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		// if (g_err_code == 0)
-		// 	proc.main_line = readline \
-		// 	("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
-		// else
-			proc.main_line = readline \
-			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
+		proc.main_line = readline \
+		("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
 			continue ;
 		proc.main_line = expand(proc.main_line);
 		pipe = ft_lexer(proc.main_line);
+		check_and_update_heredoc(pipe);
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
+		if (proc.main_line)
+			free(proc.main_line);
+		if (pipe->arg)
+			free_func(pipe->arg);
+		if (pipe->cmd)
+			free(pipe->cmd);
+		unlink(".tmp");
 	}
 	return (0);
 }
+		/**
+		 * // if (g_err_code == 0)
+		// // else
+		// 	proc.main_line = readline \
+		// 	("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
+		*/

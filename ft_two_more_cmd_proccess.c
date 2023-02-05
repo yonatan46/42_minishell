@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 13:09:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:35:34 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp)
 	else if (proc->check == 3)
 		ft_cd(av, proc);
 	else if (proc->check == 4)
-		ft_pwd();
+		ft_pwd(proc, av, envp);
 	else if (proc->check == 5)
 		ft_env_print_linked(proc);
 	else if (proc->check == 6)
@@ -53,6 +53,7 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork");
 	if (proc->id == 0)
 	{
+		signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
 			red_first_proc(av, &proc->flag);
 		if (proc->flag == 0)
@@ -98,6 +99,7 @@ void	middl_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork");
 	if (proc->id == 0)
 	{
+		signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
 			red_middle(av, &proc->flag_out, &proc->flag_in);
 		if (proc->flag_out == 0)
@@ -121,6 +123,7 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork");
 	if (proc->id1 == 0)
 	{
+		signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
 			red_last_proc(av, &proc->flag);
 		if (proc->flag == 0)
