@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/05 14:59:35 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:58:49 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_pipe	*ft_lexer(char *str)
 	f_struct = ft_calloc(sizeof(t_pipe), pipes_num + 2);
 	while (vars[i])
 	{
-		f_struct[i].f_cmd =  ft_separate_sp_pipe(vars[i], ' ');
+		f_struct[i].f_cmd = ft_separate_sp_pipe(vars[i], ' ');
 		f_struct[i].cmd_len = pipes_num + 1;
 		i++;
 	}
@@ -105,4 +105,3 @@ t_pipe	*ft_lexer(char *str)
 	ft_delete_all_qoutes(f_struct);
 	return (f_struct);
 }
-

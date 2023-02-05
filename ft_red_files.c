@@ -29,18 +29,7 @@ void	red_first_proc(t_pipe *av, int *flag)
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
 			red_infile(av, x);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
-<<<<<<< HEAD:redirections.c
-		{
-			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			*flag = 1;
-			dup2(file1, STDOUT_FILENO);
-			close(file1);
-		}
-=======
 			*flag = red_append_mode(av, x);
->>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74:ft_red_files.c
 		x++;
 	}
 }
@@ -84,18 +73,7 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in)
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
 			*flag_in = red_infile(av, x);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
-<<<<<<< HEAD:redirections.c
-		{
-			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			*flag_out = 1;
-			dup2(file1, STDOUT_FILENO);
-			close(file1);
-		}
-=======
 			*flag_out = red_append_mode(av, x);
->>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74:ft_red_files.c
 	}
 }
 
@@ -117,16 +95,6 @@ void	red_last_proc(t_pipe *av, int *flag)
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
 			*flag = red_infile(av, x);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
-<<<<<<< HEAD:redirections.c
-		{
-			file1 = open(av->red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
-			if (file1 == -1)
-				terminate(av->red[x]->red_name);
-			dup2(file1, STDOUT_FILENO);
-			close(file1);
-		}
-=======
 			red_append_mode(av, x);
->>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74:ft_red_files.c
 	}
 }

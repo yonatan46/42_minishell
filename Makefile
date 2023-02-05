@@ -6,11 +6,7 @@
 #    By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/02/05 15:43:58 by dkaratae         ###   ########.fr        #
-=======
-#    Updated: 2023/02/05 13:07:11 by yonamog2         ###   ########.fr        #
->>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
+#    Updated: 2023/02/05 16:01:08 by dkaratae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +24,6 @@ FILES =		ft_expand.c\
 			ft_search.c \
 			ft_linkedlist.c \
 			minishell.c  \
-			for_print.c \
 			ft_checker_qoutes.c \
 			ft_copy_to_struct.c \
 			ft_lexer.c \
@@ -40,17 +35,12 @@ FILES =		ft_expand.c\
 			ft_separate_struct.c \
 			ft_separate_utils.c \
 			ft_space.c \
-<<<<<<< HEAD
-
-			
-=======
 			ft_cd.c \
 			ft_export_utils.c \
 			ft_create_env_list.c \
 			ft_parsing_cmds.c \
 			ft_one_cmd_proccess.c \
 			ft_two_more_cmd_proccess.c \
->>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 # FILES = ft_input.c
 # FILES = try.c
 OBJ = $(FILES:.c=.o)

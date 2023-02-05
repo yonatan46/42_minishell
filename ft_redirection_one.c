@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:07:04 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/05 15:08:58 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:59:43 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ void	ft_copy_sred_new_string(char *str, char *new_str, int *i, int *j)
 	else
 		new_str[(*j)++] = str[(*i)++];
 }
-

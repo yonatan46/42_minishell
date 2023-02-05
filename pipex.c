@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 13:16:59 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:04:19 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,10 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 		while (++counter < cmd_len - 1)
 			pipe(proc.fd[counter]);
 	if (ac == 1)
+	{
+
 		return (pipex_one_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
+	}
 	else if (ac == 2)
 		return (pipex_two_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
 	else if (ac > 2)

@@ -6,11 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/05 15:45:11 by dkaratae         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/05 13:29:01 by yonamog2         ###   ########.fr       */
->>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
+/*   Updated: 2023/02/05 16:00:31 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +75,6 @@ typedef struct s_pipe
 	char	**f_cmd;
 }		t_pipe;
 
-<<<<<<< HEAD
-// typedef struct s_var
-// {
-// 	int		i;
-// 	int		j;
-// 	int		r;
-// 	int		g;
-// 	int		count_all;
-// 	int		flag;
-// }	t_var;
-
-int		g_general_error_code;
-=======
 typedef struct s_exp_var
 {
 	char		*cp;
@@ -110,7 +93,6 @@ typedef struct s_exp_var
 }		t_exp_var;
 
 int		g_err_code;
->>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 void	free_func(char **args);
 void	terminate(char *m);
 void	cmd_not_found(t_pipe *av);
@@ -228,23 +210,11 @@ char	*ft_clean_spaces(char *str);
 int		ft_trim_space(char *str, char c);
 char	**ft_clean_sp_struct(char **str);
 
-
-
 /* minishell */
 int		main(int ac, char **av, char **env);
 
 // void	ft_print_cmd(t_pipe *f_struct);
 
-<<<<<<< HEAD
-// void	print_2d(char **str);
-// void	ft_delete_arg_quotes(t_pipe *f_struct);
-// void	ft_delete_cmd_quotes(t_pipe *f_struct);
-// char	*ft_del_quotes(char *str, int *i, char c);
-// int		ft_count_quotes(char *str, char c);
-// char	*ft_dollar(char *str, int *i, char **env);
-// int		ft_check_isalnum(char c);
-// char	*ft_change_dollar(char *str, char **env);
-=======
 void	print_2d(char **str);
 void	ft_delete_arg_quotes(t_pipe *f_struct);
 void	ft_delete_cmd_quotes(t_pipe *f_struct);
@@ -267,5 +237,4 @@ void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp);
 void	middl_process(t_data *proc, t_pipe *av, char **envp);
 int		last_process(t_data *proc, t_pipe *av, char **envp);
 
->>>>>>> 13e1b799c82fd8601878275121dd598ee2bc5a74
 #endif

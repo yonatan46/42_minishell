@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_one_cmd_proccess.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 13:17:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:07:37 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 		return (ft_export_print_linked(&av[0], proc));
 	else
 	{
+
 		one_cmd_process(proc, &av[0], envp);
 		waitpid(-1, &proc->err_no, 0);
 		if (WIFEXITED(proc->err_no))
