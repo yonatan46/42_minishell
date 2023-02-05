@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 16:17:21 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:19:22 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		if (g_err_code == 0)
-			proc.main_line = readline \
-			("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
-		else
+		// if (g_err_code == 0)
+		// 	proc.main_line = readline \
+		// 	("\001\033[32m\002" "minishell {🤣}-> " "\001\033[0m\002");
+		// else
 			proc.main_line = readline \
 			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
