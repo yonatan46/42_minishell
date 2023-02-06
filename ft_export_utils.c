@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:51:43 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 11:54:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:02:31 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	compare_until_eq(char *str1, char *str2)
 		x++;
 	}
 	if ((str1[x] == '\0' && str2[x] == '\0') || \
-	(str1[x] == '=' && str2[x] == '='))
+	(str1[x] == '=' && str2[x] == '=') || (str1[x] == '=' && str2[x] == '\0'))
 		return (0);
 	return (1);
 }
@@ -52,7 +52,6 @@ int	chek_exp_a_rplc_util(t_exp_var *var, char *replace)
 			return (1);
 		}
 		var->last_index = var->tmp_list->index;
-		var->last_pos = var->tmp_list->position;
 		var->tmp_list = var->tmp_list->next;
 	}
 	return (0);
@@ -64,6 +63,7 @@ int	chek_exp_a_rplc(t_list *head, char *replace)
 
 	var.tmp_list = head;
 	var.flag = 0;
+	printf("keyval: %d\n", chek_exp_a_rplc_util(&var, replace));
 	if (chek_exp_a_rplc_util(&var, replace) == 1)
 		return (0);
 	if (var.flag == 0)

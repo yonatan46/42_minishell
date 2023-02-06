@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:56:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 19:06:57 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:47:42 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		s1 = malloc(sizeof(char) * 1);
 		s1[0] = '\0';
 	}
-	if (!s1 || !s2)
+	if (!s1)
 		return (NULL);
+	if (!s2)
+		return (s1);
 	ret = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
 	if (!ret)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/05 19:40:51 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:23:52 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 	char	*tmp;
 
 	tmp = ft_substr(str, var->start, var->x - var->start);
-	var->tmp = getenv(tmp);
+	var->tmp = ft_getenv(var->tmp_list, tmp);
 	free(tmp);
 	if (var->tmp == NULL)
 		var->cp = ftt_strjoin(var->cp, "");
@@ -99,13 +99,14 @@ int	expand_util(t_exp_var *var, char *str)
  * expand_init_vars: a function to initialize value of the strucutre
  * @var: the struct containing vars
 */
-void	expand_init_vars(t_exp_var *var)
+void	expand_init_vars(t_exp_var *var, t_data *proc)
 {
 	var->x = 0;
 	var->start = 0;
 	var->flag_sq = 0;
 	var->cp = NULL;
 	var->tmp = NULL;
+	var->tmp_list = *proc->head;
 }
 
 /**
@@ -113,12 +114,12 @@ void	expand_init_vars(t_exp_var *var)
  * expands if there is anything with $
  * @str: is the raw input from the user
 */
-char	*expand(char *str)
+char	*expand(char *str, t_data *proc)
 {
 	t_exp_var	var;
 	char		*tmp;
 
-	expand_init_vars(&var);
+	expand_init_vars(&var, proc);
 	while (str[var.x])
 	{
 		if (str[var.x] == '\'')

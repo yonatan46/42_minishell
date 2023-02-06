@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 22:27:15 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 22:24:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:10:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_list
 	char			*key;
 	char			*value;
 	int				index;
-	int				position;
 	struct s_list	*next;
 }	t_list;
 

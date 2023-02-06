@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 19:35:13 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:32:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork");
 	if (proc->id == 0)
 	{
+		// printf("env: %s\n", envp[17]);
+		// printf("env: %s\n", envp[18]);
+		// printf("env: %s\n", envp[19]);
 		signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
 			red_one_cmd(av);

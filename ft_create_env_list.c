@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:55:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 11:58:40 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:50:17 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,6 @@ void	ft_linked_env(t_data *proc, char **env)
 	check_and_set(&var, head, proc);
 	proc->head = malloc(sizeof(t_list *));
 	*proc->head = head;
+	sort_list(*proc->head);
+	re_index(*proc->head);
 }

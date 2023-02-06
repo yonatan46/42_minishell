@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 16:43:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:57:18 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	terminate(char *m)
 */
 void	cmd_not_found(t_pipe *av)
 {
-	write(1, av->cmd, ft_strlen(av->cmd));
+	write(2, av->cmd, ft_strlen(av->cmd));
 	ft_putstr_fd(": command not found\n", 2);
 	free_func(av->arg);
 	exit(127);

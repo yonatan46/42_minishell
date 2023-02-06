@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 19:35:36 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:11:03 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
 int		chek_exp_a_rplc(t_list *head, char *replace);
 char	*ft_getenv(t_list *head, char *str);
-char	*expand(char *str);
+char	*expand(char *str, t_data *pipe);
 int		compare_until_eq(char *str1, char *str2);
 int		chek_exp_a_rplc_util(t_exp_var *var, char *replace);
 int		chek_exp_a_rplc(t_list *head, char *replace);
@@ -167,7 +167,7 @@ int		ft_count_arg(char **str);
 int		ft_count_quotes(char *str, char c);
 void	ft_delete_argquotes(t_pipe *f_struct, char *str, int *i, int *j);
 void	ft_delete_arg_quotes(t_pipe *f_struct);
-t_pipe	*ft_lexer(char *str);
+t_pipe	*ft_lexer(char *str, t_data	*proc);
 
 /* ft_redirection_del */
 void	ft_delete_all_qoutes(t_pipe *f_struct);
@@ -240,4 +240,5 @@ int		last_process(t_data *proc, t_pipe *av, char **envp);
 void	check_and_update_heredoc(t_pipe *av);
 char	*get_next_line(int fd);
 void	handler_signal(int num);
+void	re_index(t_list *head);
 #endif

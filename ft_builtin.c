@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 19:43:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:06:42 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,6 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 		exit(1);
 	}
 	printf("%s\n", pwd);
-	free_func(pipe->arg);
-	free_func(envp);
-	free(pipe->cmd);
-	free(data->main_line);
 	exit(0);
 }
 

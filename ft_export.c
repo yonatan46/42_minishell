@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/05 12:00:03 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:14:49 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *prc)
 		}
 		return (prc->flag);
 	}
-	sort_list(*prc->head);
 	prc->t_lst = *prc->head;
 	while (prc->t_lst)
 	{
