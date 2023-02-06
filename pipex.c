@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 13:21:05 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:37:45 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	close_pipes(t_data *proc)
 */
 int	pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 {
-	proc->pid1 = first_process(proc, &av[0], envp);
-	proc->pid2 = last_process(proc, &av[1], envp);
+	proc->pid1 = first_process(proc, av, envp);
+	proc->pid2 = last_process(proc, av, envp);
 	close_pipes(proc);
 	signal(SIGINT, SIG_IGN);
 	waitpid(proc->pid1, 0, 0);
@@ -114,8 +114,12 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 	t_data	proc;
 	int		cmd_len;
 	int		counter;
+	char 	**envp;
+	int		ret;
 
+	ret = 0;
 	proc = *proc_inp;
+	envp = linked_to_array(*proc.head);
 	cmd_len = ac;
 	proc.ac = ac;
 	proc.middle_cmd = cmd_len - 2;
@@ -126,12 +130,13 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 		while (++counter < cmd_len - 1)
 			pipe(proc.fd[counter]);
 	if (ac == 1)
-		return (pipex_one_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
+		ret = pipex_one_cmd(f_pipe, &proc, envp);
 	else if (ac == 2)
-		return (pipex_two_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
+		ret = pipex_two_cmd(f_pipe, &proc, envp);
 	else if (ac > 2)
-		return (pipex_three_cmd(f_pipe, &proc, linked_to_array(*proc.head)));
+		ret = pipex_three_cmd(f_pipe, &proc, envp);
 	else
 		printf("Error : no command input\n");
-	return (0);
+	free_func(envp);
+	return (ret);
 }

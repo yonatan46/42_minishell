@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:00:23 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 13:30:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:55:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 */
 void	free_short(char *path, char **path_split)
 {
-	free(path);
+	if(path)
+		free(path);
 	free_func(path_split);
 }
 
@@ -74,7 +75,6 @@ char	*parsing(t_data *proc, char **envp, char *s)
 		return (s);
 	if (search(envp) == 0)
 		return (NULL);
-
 	while (envp[++proc->x])
 	{
 		if (ft_strncmp(envp[proc->x], "PATH=", 5) == 0)

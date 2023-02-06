@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 17:44:37 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 21:11:21 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,58 @@ void	ft_print_echo(t_pipe *pipe, int x)
  * ft_echo: will just take a string and print it
  * @pipe: a structure that hold the whole commands and args
 */
-void	ft_echo(t_pipe *pipe)
+void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 {
 	int	x;
 
 	x = 0;
 	if (pipe->arg[1] == NULL)
+	{
 		printf("\n");
+		ft_print_echo(pipe, x);
+		printf("\n");
+		ft_print_echo(pipe, x);
+		free_func(envp);
+		ft_print_echo(pipe, x);
+		free_list(*proc->head);
+		free(proc->head);
+		free_func(pipe->arg);
+		free(pipe->cmd);
+		free(pipe);
+		close(0);
+		close(1);
+		close(2);
+	}
 	else if (strcmp(pipe->arg[1], "-n") == 0)
 	{
 		x++;
 		ft_print_echo(pipe, x);
+		free_func(envp);
+		ft_print_echo(pipe, x);
+		free_list(*proc->head);
+		free(proc->head);
+		free_func(pipe->arg);
+		free(pipe->cmd);
+		free(pipe);
+		close(0);
+		close(1);
+		close(2);
 	}
 	else
 	{
 		ft_print_echo(pipe, x);
 		printf("\n");
+		ft_print_echo(pipe, x);
+		free_func(envp);
+		ft_print_echo(pipe, x);
+		free_list(*proc->head);
+		free(proc->head);
+		free_func(pipe->arg);
+		free(pipe->cmd);
+		free(pipe);
+		close(0);
+		close(1);
+		close(2);
 	}
 	exit(0);
 }
@@ -73,9 +109,11 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 	}
 	printf("%s\n", pwd);
 	free_list(*data->head);
+	free(data->head);
 	free_func(envp);
 	free_func(pipe->arg);
 	free(pipe->cmd);
+	free(pipe);
 	close(0);
 	close(1);
 	close(2);

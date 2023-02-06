@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 17:00:03 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 21:08:25 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_exp_var
 int		g_err_code;
 void	free_func(char **args);
 void	terminate(char *m);
-void	cmd_not_found(t_pipe *av);
+void	cmd_not_found(t_pipe *av, t_data *proc);
 int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);
 int		ft_cd(t_pipe *pipe, t_data *proc);
@@ -106,7 +106,7 @@ void	red_first_proc(t_pipe *av, int *flag);
 void	red_one_cmd(t_pipe *av);
 void	red_middle(t_pipe *av, int *flag_out, int *flag_in);
 void	red_last_proc(t_pipe *av, int *flag);
-void	ft_echo(t_pipe *pipe);
+void	ft_echo(t_pipe *pipe, t_data *proc, char **envp);
 void	ft_pwd(t_data *data, t_pipe *pipe, char **envp);
 void	ft_exit(t_pipe *pipe);
 // void	ft_store_env(char **env, t_data *pipe);
@@ -118,7 +118,7 @@ void	sort_list(t_list *head);
 int		ft_unset(t_pipe *pipe, t_data *proc);
 char	**linked_to_array(t_list *head);
 // void	free_func_one_cmd(char **args);
-void	free_func_one_cmd(t_pipe *av);
+void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp);
 void	remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
 int		chek_exp_a_rplc(t_list *head, char *replace);

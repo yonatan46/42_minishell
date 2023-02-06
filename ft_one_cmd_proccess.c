@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 17:10:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 21:08:29 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ t_pipe *av, char **envp)
 	if (proc->check == 1)
 		ft_exit(av);
 	else if (proc->check == 2)
-		ft_echo(av);
+	{
+		ft_echo(av, proc, envp);
+	}
 	else if (proc->check == 3)
 		ft_cd(av, proc);
 	else if (proc->check == 4)
@@ -55,23 +57,24 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork");
 	if (proc->id == 0)
 	{
-		// printf("env: %s\n", envp[17]);
-		// printf("env: %s\n", envp[18]);
-		// printf("env: %s\n", envp[19]);
 		signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
 			red_one_cmd(av);
 		proc->check = ft_check_builtin(av->cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute_one_cmd(proc, av, envp);
+		if (av->cmd[0] == '\0')
+			free_func_one_cmd(av, proc, envp);
 		if (av->cmd && parsing(proc, envp, av->cmd))
 		{
-			execve(parsing(proc, envp, av->cmd), \
-			av->arg, envp);
-			free_func_one_cmd(av);
+			execve(parsing(proc, envp, av->cmd), av->arg, envp);
+			free_func_one_cmd(av, proc, envp);
 		}
 		else
-			cmd_not_found(av);
+		{
+			free_func(envp);
+			cmd_not_found(av, proc);
+		}
 	}
 }
 

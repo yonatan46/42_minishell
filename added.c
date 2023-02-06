@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 18:15:26 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:46:26 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,57 @@ void	free_func(char **args)
 /**
  * exit_with_code: a function that exit with the status
 */
-void	exit_with_code(t_pipe *av)
+void	exit_with_code(t_pipe *av, t_data *proc)
 {
 	if (av->cmd[ft_strlen(av->cmd) - 1] == '/')
 	{
 		ft_putstr_fd(": is a directory\n", 2);
+		free_list(*proc->head);
+		free(proc->head);
+		free(av->cmd);
+		free(av);
+		close(0);
+		close(1);
+		close(2);
 		exit(126);
 	}
 	if (access(av->cmd, F_OK) == -1)
 	{
 		ft_putstr_fd(": No such file or directory\n", 2);
+		free_list(*proc->head);
+		free(proc->head);
+		free(av->cmd);
+		free_func(av->arg);
+		free(av);
+		close(0);
+		close(1);
+		close(2);
 		exit(127);
 	}
 	else if (access(av->cmd, X_OK) == -1)
 	{
 		ft_putstr_fd(": Permission denied\n", 2);
+		free_list(*proc->head);
+		free(proc->head);
+		free(av->cmd);
+		free_func(av->arg);
+		free(av);
+		close(0);
+		close(1);
+		close(2);
 		exit(126);
 	}
 	else
 	{
 		ft_putstr_fd(": is a directory\n", 2);
+		free_list(*proc->head);
+		free(proc->head);
+		free_func(av->arg);
+		free(av->cmd);
+		free(av);
+		close(0);
+		close(1);
+		close(2);
 		exit(126);
 	}
 }
@@ -60,23 +91,22 @@ void	exit_with_code(t_pipe *av)
  * free_func_one_cmd: a function that free 2d array
  * @args: 2d array to be freed
 */
-void	free_func_one_cmd(t_pipe *av)
+void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 {
-	int	size;
-	int	i;
-
-	i = 0;
-	size = 0;
+	free_func(envp);
 	if (av->cmd[0] != '\0')
 	{
-		while (av->arg[size])
-		size++;
-		while (i < size)
-			free(av->arg[i++]);
-		free(av->arg);
 		write(1, av->cmd, ft_strlen(av->cmd));
-		exit_with_code(av);
+		exit_with_code(av, proc);
 	}
+	free_list(*proc->head);
+	free(proc->head);
+	free_func(av->arg);
+	free(av->cmd);
+	free(av);
+	close(0);
+	close(1);
+	close(2);
 	exit(0);
 }
 
@@ -98,11 +128,18 @@ void	terminate(char *m)
  * cmd_not_found: a function that prints command not found and exit with 127 code
  * @res: a 2d array which contains the string name to be printed
 */
-void	cmd_not_found(t_pipe *av)
+void	cmd_not_found(t_pipe *av, t_data *proc)
 {
 	write(2, av->cmd, ft_strlen(av->cmd));
 	ft_putstr_fd(": command not found\n", 2);
 	free_func(av->arg);
+	free_list(*proc->head);
+	free(proc->head);
+	free(av->cmd);
+	free(av);
+	close(2);
+	close(1);
+	close(0);
 	exit(127);
 }
 
