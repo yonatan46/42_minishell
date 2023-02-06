@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 12:57:18 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:28:52 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,28 @@ void	cmd_not_found(t_pipe *av)
 	ft_putstr_fd(": command not found\n", 2);
 	free_func(av->arg);
 	exit(127);
+}
+
+/**
+ * free_list: function that frees the linked list
+ * @head: head of the linked list
+*/
+void	free_list(t_list *head)
+{
+	t_list	*current;
+	t_list	*next;
+
+	current = head;
+	while (current != NULL)
+	{
+		next = current->next;
+		if (current->key)
+			free(current->key);
+		if (current->value)
+			free(current->value);
+		if (current)
+			free(current);
+		current = next;
+	}
+	head = NULL;
 }

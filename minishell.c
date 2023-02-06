@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 14:03:57 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:01:07 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(int ac, char **av, char **env)
 		pipe = ft_lexer(proc.main_line, &proc);
 		check_and_update_heredoc(pipe);
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
+		// free_list(*proc.head);
 		unlink(".tmp");
 	}
 	return (0);

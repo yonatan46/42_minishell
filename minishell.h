@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 13:11:03 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:00:03 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct s_pipe
 {
 	int		cmd_len;
 	int		red_len;
-	int		err_no;
 	char	*cmd;
 	char	**arg;
 	t_red	**red;
@@ -241,4 +240,5 @@ void	check_and_update_heredoc(t_pipe *av);
 char	*get_next_line(int fd);
 void	handler_signal(int num);
 void	re_index(t_list *head);
+void	free_list(t_list *head);
 #endif

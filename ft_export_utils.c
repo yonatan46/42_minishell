@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:51:43 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 14:02:31 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:58:52 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	chek_exp_a_rplc(t_list *head, char *replace)
 
 	var.tmp_list = head;
 	var.flag = 0;
-	printf("keyval: %d\n", chek_exp_a_rplc_util(&var, replace));
 	if (chek_exp_a_rplc_util(&var, replace) == 1)
 		return (0);
 	if (var.flag == 0)
