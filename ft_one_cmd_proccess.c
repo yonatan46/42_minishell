@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 21:08:29 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 21:27:06 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	else
 	{
 		one_cmd_process(proc, av, envp);
-		signal(SIGINT, SIG_IGN);
+		// signal(SIGINT, SIG_IGN);
 		waitpid(-1, &proc->err_no, 0);
 		if (WIFEXITED(proc->err_no))
 			return (WEXITSTATUS(proc->err_no));

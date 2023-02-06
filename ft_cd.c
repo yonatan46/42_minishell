@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 18:59:18 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 21:28:00 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 	int		ret;
 
 	pwd = getcwd(proc->pwd, 1024);
+	ret = 0;
 	if (pipe->arg[1])
 	{
 		ret = ft_cd_util(pipe, pwd, proc);
