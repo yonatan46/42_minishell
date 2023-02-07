@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/07 12:12:11 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:37:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,32 +123,36 @@ char	*expand(char *str, t_data *proc)
 	t_exp_var	var;
 	char		*tmp;
 
-	expand_init_vars(&var, proc);
-	while (str[var.x])
+	if (str)
 	{
-		if (str[var.x] == '\'')
-			var.flag_sq = !var.flag_sq;
-		if (var.flag_sq == 1)
+		expand_init_vars(&var, proc);
+		while (str[var.x])
 		{
-			tmp = ft_substr(str, var.x, 1);
-			var.cp = ftt_strjoin(var.cp, tmp);
-			free(tmp);
-			var.x++;
-			continue ;
+			if (str[var.x] == '\'')
+				var.flag_sq = !var.flag_sq;
+			if (var.flag_sq == 1)
+			{
+				tmp = ft_substr(str, var.x, 1);
+				var.cp = ftt_strjoin(var.cp, tmp);
+				free(tmp);
+				var.x++;
+				continue ;
+			}
+			var.start = var.x;
+			if (str[var.x] != '$')
+			{
+				tmp = ft_substr(str, var.x, 1);
+				var.cp = ftt_strjoin(var.cp, tmp);
+				free(tmp);
+				var.x++;
+			}
+			else if (str[var.x] == '$')
+				expand_util(&var, str);
+			if (str[var.x] == '\0')
+				break ;
 		}
-		var.start = var.x;
-		if (str[var.x] != '$')
-		{
-			tmp = ft_substr(str, var.x, 1);
-			var.cp = ftt_strjoin(var.cp, tmp);
-			free(tmp);
-			var.x++;
-		}
-		else if (str[var.x] == '$')
-			expand_util(&var, str);
-		if (str[var.x] == '\0')
-			break ;
+		free(str);
+		return (var.cp);
 	}
-	free(str);
-	return (var.cp);
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 22:55:40 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:16:11 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_data
 	int		check;
 	int		err_no;
 	int		tmp_file_fd;
+	char	**envp;
 }	t_data;
 
 typedef struct s_red
@@ -94,7 +95,6 @@ typedef struct s_exp_var
 
 int		g_err_code;
 void	free_func(char **args);
-void	terminate(char *m);
 void	cmd_not_found(t_pipe *av, t_data *proc);
 int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);
@@ -102,10 +102,10 @@ int		ft_cd(t_pipe *pipe, t_data *proc);
 /**
  * redirectin functions
 */
-void	red_first_proc(t_pipe *av, int *flag);
-void	red_one_cmd(t_pipe *av);
-void	red_middle(t_pipe *av, int *flag_out, int *flag_in);
-void	red_last_proc(t_pipe *av, int *flag);
+void	red_first_proc(t_pipe *av, int *flag, t_data *proc);
+void	red_one_cmd(t_pipe *av, t_data *proc);
+void	red_middle(t_pipe *av, int *flag_out, int *flag_in, t_data *proc);
+void	red_last_proc(t_pipe *av, int *flag, t_data *proc);
 void	ft_echo(t_pipe *pipe, t_data *proc, char **envp);
 void	ft_pwd(t_data *data, t_pipe *pipe, char **envp);
 void	ft_exit(t_pipe *pipe);
@@ -136,9 +136,9 @@ int		ft_linked_env_util(t_exp_var *var, \
 t_list *head, t_data *proc, char **env);
 void	check_and_set(t_exp_var *var, t_list *head, t_data *proc);
 void	ft_linked_env(t_data *proc, char **env);
-int		red_output(t_pipe *av, int x);
-int		red_infile(t_pipe *av, int x);
-int		red_append_mode(t_pipe *av, int x);
+int		red_output(t_pipe *av, int x, t_data *proc);
+int		red_infile(t_pipe *av, int x, t_data *proc);
+int		red_append_mode(t_pipe *av, int x, t_data *proc);
 /**
  * PARSING PART
 */
@@ -236,10 +236,11 @@ int		first_process(t_data *proc, t_pipe *av, char **envp);
 void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp);
 void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter);
 int		last_process(t_data *proc, t_pipe *av, char **envp);
-void	check_and_update_heredoc(t_pipe *av);
+void	check_and_update_heredoc(t_pipe *av, t_data *proc);
 char	*get_next_line(int fd);
 void	handler_signal(int num);
 void	re_index(t_list *head);
 void	free_list(t_list *head);
 void	free_redirection(t_pipe *pipe);
+void	terminate(char *m, t_data *proc, t_pipe *pipe);
 #endif

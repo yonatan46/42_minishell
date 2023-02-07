@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 12:57:48 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:40:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 	x = 0;
 	if (pipe->arg[1] == NULL || pipe->arg[1][0] == '\0')
 	{
-
 		printf("\n");
 		free_func(envp);
 		int x = 0;
@@ -53,17 +52,21 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		free(proc->head);
 		free_func(pipe->arg);
 		free(pipe->cmd);
-		free(pipe);
+		// free(pipe);
 		close(0);
 		close(1);
 		close(2);
 	}
 	else if (strcmp(pipe->arg[1], "-n") == 0)
 	{
-		x++;
-		ft_print_echo(pipe, x);
+		x = 2;
+		while (pipe->arg[x])
+		{
+			ft_print_echo(pipe, x);
+			x++;
+		}
 		free_func(envp);
-		int x = 0;
+		x = 0;
 		while (x < pipe->cmd_len)
 		{
 			free_func(pipe[x].f_cmd);
@@ -74,13 +77,14 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		free(proc->head);
 		free_func(pipe->arg);
 		free(pipe->cmd);
-		free(pipe);
+		// free(pipe);
 		close(0);
 		close(1);
 		close(2);
 	}
 	else
 	{
+		x = 0;
 		ft_print_echo(pipe, x);
 		printf("\n");
 		int x = 0;
@@ -91,15 +95,14 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		}
 		free_redirection(pipe);
 		free_func(envp);
-		ft_print_echo(pipe, x);
 		free_list(*proc->head);
 		free(proc->head);
 		free_func(pipe->arg);
 		free(pipe->cmd);
-		free(pipe);
-		close(0);
-		close(1);
-		close(2);
+		// free(pipe);
+		// close(0);
+		// close(1);
+		// close(2);
 	}
 	exit(0);
 }
@@ -145,6 +148,7 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 		// free(pipe->cmd);
 		exit(1);
 	}
+	printf("%s\n", pwd);
 	free_list(*data->head);
 	free(data->head);
 	free_func(envp);

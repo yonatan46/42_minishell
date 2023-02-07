@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 12:51:38 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:31:04 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int ac, char **av, char **env)
 		if (validate_input(&proc) == 1)
 			continue ;
 		pipe = ft_lexer(proc.main_line, &proc);
-		check_and_update_heredoc(pipe);
+		check_and_update_heredoc(pipe, &proc);
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
 		int x = 0;
 		while (x < pipe->cmd_len)

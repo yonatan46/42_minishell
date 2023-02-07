@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 23:02:36 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:34:52 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 	proc->flag = 0;
 	proc->id = fork();
 	if (proc->id < 0)
-		terminate("fork");
+		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
 		signal(SIGINT, handler_signal);
 		if (av[0].red_len > 0)
-			red_first_proc(&av[0], &proc->flag);
+			red_first_proc(&av[0], &proc->flag, proc);
 		if (proc->flag == 0)
 			dup2(proc->fd[0][1], STDOUT_FILENO);
 		close_pipes(proc);
@@ -105,12 +105,12 @@ void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 	proc->flag_in = 0;
 	proc->id = fork();
 	if (proc->id < 0)
-		terminate("fork");
+		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
 		signal(SIGINT, handler_signal);
 		if (av[counter].red_len > 0)
-			red_middle(av, &proc->flag_out, &proc->flag_in);
+			red_middle(av, &proc->flag_out, &proc->flag_in, proc);
 		if (proc->flag_out == 0)
 			dup2(proc->fd[proc->counter + 1][1], STDOUT_FILENO);
 		if (proc->flag_in == 0)
@@ -128,13 +128,13 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 	proc->flag = 0;
 	proc->id1 = fork();
 	if (proc->id1 < 0)
-		terminate("fork");
+		terminate("fork", proc, av);
 	if (proc->id1 == 0)
 	{
 		printf("res: %s\n", parsing(proc, envp, av[av->cmd_len - 1].cmd));
 		signal(SIGINT, handler_signal);
 		if (av[av->cmd_len - 1].red_len > 0)
-			red_last_proc(&av[av->cmd_len - 1], &proc->flag);
+			red_last_proc(&av[av->cmd_len - 1], &proc->flag, proc);
 		if (proc->flag == 0)
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
 		close_pipes(proc);

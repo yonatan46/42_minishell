@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/07 12:39:17 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:12:47 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,13 @@ void	ft_delete_argquotes(t_pipe *f_struct, char *str, int *i, int *j)
 			ch = ft_del_quotes(str, &z, '\'');
 			ch1 = ft_substr(str, k, f);
 			f_struct[*i].arg[*j] = ft_strjoin(ch1, ch);
+			free(ch);
+			free(ch1);
 		}
 		else if (str[z] == '\"')
 		{
+			// printf("our: %c\n", str[z]);
+			// printf("our: %c\n", str[z+1]);
 			f = z;
 			ch = ft_del_quotes(str, &z, '\"');
 			ch1 = ft_substr(str, k, f);
@@ -68,6 +72,8 @@ void	ft_delete_argquotes(t_pipe *f_struct, char *str, int *i, int *j)
 			free(ch);
 			free(ch1);
 		}
+		if (str[z] == '\0')
+			break ;
 	}
 }
 

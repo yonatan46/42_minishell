@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_del.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:52:32 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/05 15:59:38 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:02:28 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 			ch = ft_del_quotes(str, &z, '\'');
 			ch1 = ft_substr(str, k, f);
 			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
+			free(ch);
+			free(ch1);
 		}
 		else if (str[z] == '\"')
 		{
@@ -61,6 +63,8 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 			ch = ft_del_quotes(str, &z, '\"');
 			ch1 = ft_substr(str, k, f);
 			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
+			free(ch);
+			free(ch1);
 		}
 	}
 }

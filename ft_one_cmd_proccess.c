@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 12:43:58 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:16:00 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ t_pipe *av, char **envp)
 void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 {
 	(void)envp;
+	proc->envp = envp;
 	proc->id = fork();
 	if (proc->id < 0)
-		terminate("fork");
+		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
 		signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
-			red_one_cmd(av);
+			red_one_cmd(av, proc);
 		else
 			close(0);
 		proc->check = ft_check_builtin(av->cmd);

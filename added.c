@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 12:49:06 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:29:13 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 	{
 		ft_putstr_fd(": is a directory\n", 2);
 		free_list(*proc->head);
+		free_func(av->arg);
 		free(proc->head);
 		free(av->cmd);
 		free(av);
@@ -97,9 +98,10 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 */
 void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 {
-	free_func(envp);
+	(void)envp;
+	free_func(proc->envp);
 	int x = 0;
-	
+
 	while (x < av->cmd_len)
 	{
 		free_func(av[x].f_cmd);
@@ -126,12 +128,28 @@ void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
  *	@m: the string to dispplay before 
 */
 
-void	terminate(char *m)
+void	terminate(char *m, t_data *proc, t_pipe *pipe)
 {
 	if (access(m, W_OK) == -1 || access(m, R_OK) == -1)
 		perror(m);
 	else
 		perror(m);
+	int x = 0;
+	while (x < pipe->cmd_len)
+	{
+		free_func(pipe[x].f_cmd);
+		x++;
+	}
+	free_func(proc->envp);
+	free_redirection(pipe);
+	free_func(pipe->arg);
+	free_list(*proc->head);
+	free(proc->head);
+	free(pipe->cmd);
+	free(pipe);
+	close(0);
+	close(1);
+	close(2);
 	exit(1);
 }
 
@@ -149,6 +167,7 @@ void	cmd_not_found(t_pipe *av, t_data *proc)
 		free_func(av[x].f_cmd);
 		x++;
 	}
+	// free_func(proc->envp);
 	free_func(av->arg);
 	free_list(*proc->head);
 	free(proc->head);

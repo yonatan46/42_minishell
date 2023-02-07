@@ -17,7 +17,7 @@
  * @av: the structure that contain the specific pipe
  * @flag: the output redirection flag
 */
-void	red_first_proc(t_pipe *av, int *flag)
+void	red_first_proc(t_pipe *av, int *flag, t_data *proc)
 {
 	int	x;
 
@@ -25,11 +25,11 @@ void	red_first_proc(t_pipe *av, int *flag)
 	while (x < av->red_len)
 	{
 		if (strcmp(av->red[x]->red_sign, ">") == 0)
-			*flag = red_output(av, x);
+			*flag = red_output(av, x, proc);
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
-			red_infile(av, x);
+			red_infile(av, x, proc);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
-			*flag = red_append_mode(av, x);
+			*flag = red_append_mode(av, x, proc);
 		x++;
 	}
 }
@@ -38,7 +38,7 @@ void	red_first_proc(t_pipe *av, int *flag)
  * red_one_cmd-> redirection for middle command
  * @av: the structure that contain the specific pipe
 */
-void	red_one_cmd(t_pipe *av)
+void	red_one_cmd(t_pipe *av, t_data *proc)
 {
 	int	x;
 
@@ -46,11 +46,11 @@ void	red_one_cmd(t_pipe *av)
 	while (x < av->red_len)
 	{
 		if (strcmp(av->red[x]->red_sign, ">") == 0)
-			red_output(av, x);
+			red_output(av, x, proc);
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
-			red_infile(av, x);
+			red_infile(av, x, proc);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
-			red_append_mode(av, x);
+			red_append_mode(av, x, proc);
 		x++;
 	}
 }
@@ -61,7 +61,7 @@ void	red_one_cmd(t_pipe *av)
  * @flag_in: the flag to check input redirection
 */
 
-void	red_middle(t_pipe *av, int *flag_out, int *flag_in)
+void	red_middle(t_pipe *av, int *flag_out, int *flag_in, t_data *proc)
 {
 	int	x;
 
@@ -69,11 +69,11 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in)
 	while (++x < av->red_len)
 	{
 		if (strcmp(av->red[x]->red_sign, ">") == 0)
-			*flag_out = red_output(av, x);
+			*flag_out = red_output(av, x, proc);
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
-			*flag_in = red_infile(av, x);
+			*flag_in = red_infile(av, x, proc);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
-			*flag_out = red_append_mode(av, x);
+			*flag_out = red_append_mode(av, x, proc);
 	}
 }
 
@@ -83,7 +83,7 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in)
  * @flag: the flag to check if we redirect to a file or not
  * or itll stay in the default
 */
-void	red_last_proc(t_pipe *av, int *flag)
+void	red_last_proc(t_pipe *av, int *flag, t_data *proc)
 {
 	int	x;
 
@@ -91,10 +91,10 @@ void	red_last_proc(t_pipe *av, int *flag)
 	while (++x < av->red_len)
 	{
 		if (strcmp(av->red[x]->red_sign, ">") == 0)
-			red_output(av, x);
+			red_output(av, x, proc);
 		else if (strcmp(av->red[x]->red_sign, "<") == 0)
-			*flag = red_infile(av, x);
+			*flag = red_infile(av, x, proc);
 		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
-			red_append_mode(av, x);
+			red_append_mode(av, x, proc);
 	}
 }
