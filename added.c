@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 20:46:26 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:49:06 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ void	free_func(char **args)
 	while (args[size])
 		size++;
 	while (i < size)
-		free(args[i++]);
-	free(args);
+	{
+		if (args[i])
+			free(args[i++]);
+	}
+	if (args)
+		free(args);
 }
 
 /**
@@ -94,6 +98,13 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 {
 	free_func(envp);
+	int x = 0;
+	
+	while (x < av->cmd_len)
+	{
+		free_func(av[x].f_cmd);
+		x++;
+	}
 	if (av->cmd[0] != '\0')
 	{
 		write(1, av->cmd, ft_strlen(av->cmd));
@@ -132,6 +143,12 @@ void	cmd_not_found(t_pipe *av, t_data *proc)
 {
 	write(2, av->cmd, ft_strlen(av->cmd));
 	ft_putstr_fd(": command not found\n", 2);
+	int x = 0;
+	while (x < av->cmd_len)
+	{
+		free_func(av[x].f_cmd);
+		x++;
+	}
 	free_func(av->arg);
 	free_list(*proc->head);
 	free(proc->head);

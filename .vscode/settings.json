@@ -6,6 +6,7 @@
 		"libft.h": "c",
 		"string.h": "c",
 		"minishell.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"locale": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 21:11:21 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:57:48 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,18 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 	int	x;
 
 	x = 0;
-	if (pipe->arg[1] == NULL)
+	if (pipe->arg[1] == NULL || pipe->arg[1][0] == '\0')
 	{
+
 		printf("\n");
-		ft_print_echo(pipe, x);
-		printf("\n");
-		ft_print_echo(pipe, x);
 		free_func(envp);
-		ft_print_echo(pipe, x);
+		int x = 0;
+		while (x < pipe->cmd_len)
+		{
+			free_func(pipe[x].f_cmd);
+			x++;
+		}
+		free_redirection(pipe);
 		free_list(*proc->head);
 		free(proc->head);
 		free_func(pipe->arg);
@@ -59,7 +63,13 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		x++;
 		ft_print_echo(pipe, x);
 		free_func(envp);
-		ft_print_echo(pipe, x);
+		int x = 0;
+		while (x < pipe->cmd_len)
+		{
+			free_func(pipe[x].f_cmd);
+			x++;
+		}
+		free_redirection(pipe);
 		free_list(*proc->head);
 		free(proc->head);
 		free_func(pipe->arg);
@@ -73,7 +83,13 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 	{
 		ft_print_echo(pipe, x);
 		printf("\n");
-		ft_print_echo(pipe, x);
+		int x = 0;
+		while (x < pipe->cmd_len)
+		{
+			free_func(pipe[x].f_cmd);
+			x++;
+		}
+		free_redirection(pipe);
 		free_func(envp);
 		ft_print_echo(pipe, x);
 		free_list(*proc->head);
@@ -88,6 +104,26 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 	exit(0);
 }
 
+void	free_redirection(t_pipe *pipe)
+{
+	int	x;
+	int	i;
+
+	x = 0;
+	while (x < pipe->cmd_len)
+	{
+		i = 0;
+		while (i < pipe[x].red_len)
+		{
+			free(pipe[x].red[i]->red_name);
+			free(pipe[x].red[i]->red_sign);
+			free(pipe[x].red[i]);
+			i++;
+		}
+		free(pipe[x].red);
+		x++;
+	}
+}
 /**
  * ft_pwd: will print the current directory
 */
@@ -97,6 +133,8 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 	(void)data;
 	char	res[1024];
 	char	*pwd;
+	int x = 0;
+
 
 	pwd = getcwd(res, 1024);
 	if (!pwd)
@@ -107,12 +145,17 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 		// free(pipe->cmd);
 		exit(1);
 	}
-	printf("%s\n", pwd);
 	free_list(*data->head);
 	free(data->head);
 	free_func(envp);
-	free_func(pipe->arg);
-	free(pipe->cmd);
+	free_redirection(pipe);	
+	while (x < pipe->cmd_len)
+	{
+		free(pipe[x].cmd);
+		free_func(pipe[x].arg);
+		free_func(pipe[x].f_cmd);
+		x++;
+	}
 	free(pipe);
 	close(0);
 	close(1);

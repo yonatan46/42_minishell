@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/06 12:23:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:12:11 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@
 */
 int	expand_util_2(t_exp_var *var, char *str)
 {
+	char	*tmp;
+
 	if (str[var->x] == '?')
 	{
-		var->cp = ftt_strjoin(var->cp, ft_itoa(g_err_code));
+		tmp = ft_itoa(g_err_code);
+		var->cp = ftt_strjoin(var->cp, tmp);
+		free(tmp);
 		var->x++;
 		return (1);
 	}

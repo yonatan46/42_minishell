@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 21:08:25 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:55:40 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,11 +234,12 @@ int		pipex_one_cmd(t_pipe *av, t_data *proc, char **envp);
 void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp);
 int		first_process(t_data *proc, t_pipe *av, char **envp);
 void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp);
-void	middl_process(t_data *proc, t_pipe *av, char **envp);
+void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter);
 int		last_process(t_data *proc, t_pipe *av, char **envp);
 void	check_and_update_heredoc(t_pipe *av);
 char	*get_next_line(int fd);
 void	handler_signal(int num);
 void	re_index(t_list *head);
 void	free_list(t_list *head);
+void	free_redirection(t_pipe *pipe);
 #endif

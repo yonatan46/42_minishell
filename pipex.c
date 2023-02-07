@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 20:37:45 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/06 23:01:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,14 @@ int	pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 {
 	proc->counter = 0;
-	first_process(proc, &av[0], envp);
+	first_process(proc, av, envp);
+	printf("len: %d\n", proc->middle_cmd);
 	while (proc->counter < proc->middle_cmd)
 	{
-		middl_process(proc, &av[proc->counter + 1], envp);
+		middl_process(proc, av, envp, proc->counter + 1);
 		proc->counter++;
 	}
-	proc->pid2 = last_process(proc, &av[proc->ac - 1], envp);
+	proc->pid2 = last_process(proc, av, envp);
 	close_pipes(proc);
 	proc->counter = -1;
 	signal(SIGINT, SIG_IGN);
@@ -137,6 +138,7 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 		ret = pipex_three_cmd(f_pipe, &proc, envp);
 	else
 		printf("Error : no command input\n");
-	free_func(envp);
+	if (envp)
+		free_func(envp);
 	return (ret);
 }
