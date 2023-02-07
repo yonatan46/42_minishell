@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 13:34:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:36:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,6 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 			free(av->cmd);
 			free_redirection(av);
 			free(av);
-			close(0);
-			close(1);
-			close(2);
 		}
 		else
 			cmd_not_found(av, proc);
@@ -131,19 +128,18 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork", proc, av);
 	if (proc->id1 == 0)
 	{
-		printf("res: %s\n", parsing(proc, envp, av[av->cmd_len - 1].cmd));
 		signal(SIGINT, handler_signal);
 		if (av[av->cmd_len - 1].red_len > 0)
 			red_last_proc(&av[av->cmd_len - 1], &proc->flag, proc);
 		if (proc->flag == 0)
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
 		close_pipes(proc);
-		proc->check = ft_check_builtin(av[0].cmd);
+		proc->check = ft_check_builtin(av[av->cmd_len - 1].cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute(proc, av, envp);
 		else if (av[av->cmd_len - 1].cmd && parsing(proc, envp, av[av->cmd_len - 1].cmd))
 		{
-			execve(parsing(proc, envp, av->cmd), av[av->cmd_len - 1].arg, envp);
+			execve(parsing(proc, envp, av[av->cmd_len - 1].cmd), av[av->cmd_len - 1].arg, envp);
 			free_list(*proc->head);
 			free(proc->head);
 			free_func(av->arg);
@@ -151,9 +147,9 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 			free(av->cmd);
 			free_redirection(av);
 			free(av);
-			close(0);
-			close(1);
-			close(2);
+			// close(0);
+			// close(1);
+			// close(2);
 		}
 		else
 			cmd_not_found(av, proc);

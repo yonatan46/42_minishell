@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/07 13:37:14 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:30:50 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ char	*expand(char *str, t_data *proc)
 			{
 				tmp = ft_substr(str, var.x, 1);
 				var.cp = ftt_strjoin(var.cp, tmp);
+				// printf("var: |%s| |%p|\n", var.cp, var.cp);
 				free(tmp);
 				var.x++;
 			}
@@ -154,5 +155,5 @@ char	*expand(char *str, t_data *proc)
 		free(str);
 		return (var.cp);
 	}
-	return (str);
+	return (NULL);
 }

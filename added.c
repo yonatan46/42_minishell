@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 14:29:13 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:23:52 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 */
 void	free_func(char **args)
 {
-	int	size;
+	// int	size;
 	int	i;
 
 	i = 0;
-	size = 0;
-	while (args[size])
-		size++;
-	while (i < size)
+	// size = 0;
+	// while (args[size])
+	// 	size++;
+	while (args[i])
 	{
 		if (args[i])
 			free(args[i++]);
@@ -46,9 +46,6 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 		free(proc->head);
 		free(av->cmd);
 		free(av);
-		close(0);
-		close(1);
-		close(2);
 		exit(126);
 	}
 	if (access(av->cmd, F_OK) == -1)
@@ -59,9 +56,6 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 		free(av->cmd);
 		free_func(av->arg);
 		free(av);
-		close(0);
-		close(1);
-		close(2);
 		exit(127);
 	}
 	else if (access(av->cmd, X_OK) == -1)
@@ -72,9 +66,6 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 		free(av->cmd);
 		free_func(av->arg);
 		free(av);
-		close(0);
-		close(1);
-		close(2);
 		exit(126);
 	}
 	else
@@ -85,9 +76,6 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 		free_func(av->arg);
 		free(av->cmd);
 		free(av);
-		close(0);
-		close(1);
-		close(2);
 		exit(126);
 	}
 }
@@ -117,9 +105,6 @@ void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	free_func(av->arg);
 	free(av->cmd);
 	free(av);
-	close(0);
-	close(1);
-	close(2);
 	exit(0);
 }
 
@@ -147,9 +132,6 @@ void	terminate(char *m, t_data *proc, t_pipe *pipe)
 	free(proc->head);
 	free(pipe->cmd);
 	free(pipe);
-	close(0);
-	close(1);
-	close(2);
 	exit(1);
 }
 
@@ -173,9 +155,6 @@ void	cmd_not_found(t_pipe *av, t_data *proc)
 	free(proc->head);
 	free(av->cmd);
 	free(av);
-	close(2);
-	close(1);
-	close(0);
 	exit(127);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 13:31:04 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:13:46 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,23 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 */
 int	validate_input(t_data *proc)
 {
+	char **split;
+
+	if(proc->main_line)
+	{
+		split = ft_split(proc->main_line, ' ');
+		if (split[0] == NULL)
+		{
+			free_func(split);
+			return (1);
+		}
+		free_func(split);
+	}
 	if (!proc->main_line)
 	{
 		printf("exit\n");
 		free_list(*proc->head);
 		free(proc->head);
-		close(1);
-		close(2);
-		close(0);
 		exit(g_err_code);
 	}
 	if (proc->main_line[0] == '\0')
@@ -94,7 +103,10 @@ int	main(int ac, char **av, char **env)
 		proc.main_line = readline \
 		("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
+		{
+			free(proc.main_line);
 			continue ;
+		}
 		pipe = ft_lexer(proc.main_line, &proc);
 		check_and_update_heredoc(pipe, &proc);
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
@@ -106,15 +118,17 @@ int	main(int ac, char **av, char **env)
 		}
 		free_redirection(pipe);
 		free_func(pipe->arg);
-		free(pipe->cmd);
-		free(pipe);
+		if (pipe->cmd)
+			free(pipe->cmd);
+		if (pipe)
+			free(pipe);
 		unlink(".tmp");
 	}
-	free_list(*proc.head);
-	free(proc.head);
-	free_func(pipe->arg);
-	free(pipe->cmd);
-	free(pipe);
+	// free_list(*proc.head);
+	// free(proc.head);
+	// free_func(pipe->arg);
+	// free(pipe->cmd);
+	// free(pipe);
 	return (0);
 }
 		/**

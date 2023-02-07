@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 21:28:00 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:18:07 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 		ret = ft_cd_util(pipe, pwd, proc);
 		// free_list(*proc->head);
 		// free(proc->head);
-		free_func(pipe->arg);
-		free(pipe->cmd);
+		// free_func(pipe->arg);
 		// free(pipe);
 	}
 	else if (pipe->arg[1] == NULL)
@@ -98,8 +97,7 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 		ret = ft_cd_util_2(pwd, proc);
 		// free_list(*proc->head);
 		// free(proc->head);
-		free_func(pipe->arg);
-		free(pipe->cmd);
+		// free_func(pipe->arg);
 		// free(pipe);
 	}
 	return (ret);

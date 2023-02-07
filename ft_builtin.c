@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 14:40:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:41:18 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,12 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		free(proc->head);
 		free_func(pipe->arg);
 		free(pipe->cmd);
-		// free(pipe);
-		close(0);
-		close(1);
-		close(2);
+		free(pipe);
 	}
 	else if (strcmp(pipe->arg[1], "-n") == 0)
 	{
-		x = 2;
-		while (pipe->arg[x])
-		{
-			ft_print_echo(pipe, x);
-			x++;
-		}
+		x = 1;
+		ft_print_echo(pipe, x);
 		free_func(envp);
 		x = 0;
 		while (x < pipe->cmd_len)
@@ -77,10 +70,7 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		free(proc->head);
 		free_func(pipe->arg);
 		free(pipe->cmd);
-		// free(pipe);
-		close(0);
-		close(1);
-		close(2);
+		free(pipe);
 	}
 	else
 	{
@@ -97,12 +87,10 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		free_func(envp);
 		free_list(*proc->head);
 		free(proc->head);
+		// printf("here\n");
 		free_func(pipe->arg);
 		free(pipe->cmd);
-		// free(pipe);
-		// close(0);
-		// close(1);
-		// close(2);
+		free(pipe);
 	}
 	exit(0);
 }
@@ -161,9 +149,6 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 		x++;
 	}
 	free(pipe);
-	close(0);
-	close(1);
-	close(2);
 	exit(0);
 }
 

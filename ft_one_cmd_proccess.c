@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 14:16:00 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:59:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ t_pipe *av, char **envp)
 	if (proc->check == 1)
 		ft_exit(av);
 	else if (proc->check == 2)
-	{
 		ft_echo(av, proc, envp);
-	}
 	else if (proc->check == 3)
 		ft_cd(av, proc);
 	else if (proc->check == 4)
@@ -52,25 +50,26 @@ t_pipe *av, char **envp)
 void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 {
 	(void)envp;
+	char *tmp;
 	proc->envp = envp;
 	proc->id = fork();
 	if (proc->id < 0)
 		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
-		signal(SIGINT, handler_signal);
+		// signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
 			red_one_cmd(av, proc);
-		else
-			close(0);
 		proc->check = ft_check_builtin(av->cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute_one_cmd(proc, av, envp);
-		if (av->cmd[0] == '\0')
-			free_func_one_cmd(av, proc, envp);
-		if (av->cmd && parsing(proc, envp, av->cmd))
+		// if (av->cmd[0] == '\0')
+		// 	free_func_one_cmd(av, proc, envp);
+		tmp = parsing(proc, envp, av->cmd);
+		if (av->cmd && tmp)
 		{
-			execve(parsing(proc, envp, av->cmd), av->arg, envp);
+			execve(tmp, av->arg, envp);
+			free(tmp);
 			free_func_one_cmd(av, proc, envp);
 		}
 		else
@@ -105,9 +104,11 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 		one_cmd_process(proc, av, envp);
 		waitpid(-1, &proc->err_no, 0);
 		if (WIFEXITED(proc->err_no))
+		{
 			return (WEXITSTATUS(proc->err_no));
-		else if (WIFSIGNALED(proc->err_no))
-			return (WTERMSIG(proc->err_no) + 128);
+		}
+		// else if (WIFSIGNALED(proc->err_no))
+		// 	return (WTERMSIG(proc->err_no) + 128);
 	}
 	return (0);
 }

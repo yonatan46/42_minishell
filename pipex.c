@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 14:19:31 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:14:51 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 	proc->pid2 = last_process(proc, av, envp);
 	close_pipes(proc);
 	signal(SIGINT, SIG_IGN);
-	waitpid(proc->pid1, 0, 0);
 	waitpid(proc->pid2, &proc->err_no, 0);
+	waitpid(proc->pid1, 0, 0);
 	if (WIFEXITED(proc->err_no))
 		return (WEXITSTATUS(proc->err_no));
 	else if (WIFSIGNALED(proc->err_no))
@@ -82,7 +82,6 @@ int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 {
 	proc->counter = 0;
 	first_process(proc, av, envp);
-	printf("len: %d\n", proc->middle_cmd);
 	while (proc->counter < proc->middle_cmd)
 	{
 		middl_process(proc, av, envp, proc->counter + 1);
