@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 19:39:29 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:32:26 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void	cmd_not_found(t_pipe *av, t_data *proc, int counter)
 		free_func(av[x].f_cmd);
 		x++;
 	}
+	free_redirection(av);
 	free_func(proc->envp);
 	free_func(av->arg);
 	free_list(*proc->head);

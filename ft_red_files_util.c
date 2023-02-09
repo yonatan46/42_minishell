@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 19:30:18 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:31:12 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 {
 	int		file1;
 	char	*tmp;
+	char	*tmp2;
 
 	// signal(SIGINT, SIG_IGN);
 	file1 = open(".tmp", O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0777);
@@ -85,14 +86,19 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 	}
 	while (tmp)
 	{
+		tmp2 = ft_strjoin(av[*x].red[*y]->red_name, "\n");
 		if (tmp == NULL)
 		{
+			if (tmp2)
+				free(tmp2);
 			g_err_code = 0;
 			close(file1);
 			return (1);
 		}
-		else if (strcmp(tmp, ft_strjoin(av[*x].red[*y]->red_name, "\n")) == 0)
+		else if (strcmp(tmp, tmp2) == 0)
 		{
+			if (tmp2)
+				free(tmp2);
 			free(av[*x].red[*y]->red_name);
 			free(av[*x].red[*y]->red_sign);
 			av[*x].red[*y]->red_name = ft_strdup(".tmp");
@@ -102,6 +108,8 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 			break ;
 			// return (1);
 		}
+		if (tmp2)
+			free(tmp2);
 		write(file1, tmp, ft_strlen(tmp));
 		free(tmp);
 		tmp = get_next_line(0);
