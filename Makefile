@@ -6,7 +6,7 @@
 #    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 22:37:44 by yonamog2          #+#    #+#              #
-#    Updated: 2023/02/09 21:34:48 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/09 21:58:18 by yonamog2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ FILES =		ft_expand.c\
 			ft_parsing_cmds.c \
 			ft_one_cmd_proccess.c \
 			ft_two_more_cmd_proccess.c \
+			ft_atoi_modified.c \
 # FILES = ft_input.c
 # FILES = try.c
 OBJ = $(FILES:.c=.o)
@@ -72,8 +73,8 @@ $(NAME): $(OBJ)
 	tput setaf 7
 	cd ft_printf && make
 #for mac
-	$(CC)  -L /usr/local/Cellar/readline/8.1/lib -lreadline $(OBJ) $(CFLAGS)  ./ft_printf/libft.a -o $(NAME)
-# $(CC)  $(OBJ) $(CFLAGS) -L/usr/local/lib -I/usr/local/include -lreadline ./ft_printf/libft.a -o $(NAME)
+# $(CC)  -L /usr/local/Cellar/readline/8.1/lib -lreadline $(OBJ) $(CFLAGS)  ./ft_printf/libft.a -o $(NAME)
+	$(CC)  $(OBJ) $(CFLAGS) -L/usr/local/lib -I/usr/local/include -lreadline ./ft_printf/libft.a -o $(NAME)
 	tput setaf 3
 	printf "done compiling!\n"
 	tput setaf 7

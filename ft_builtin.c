@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 19:14:11 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:43:29 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ void	ft_exit(t_pipe *pipe, t_data *proc)
 		exit(255);
 	}
 	if (pipe[proc->index].arg[1])
-		err_code = (unsigned char)ft_atoi(pipe[proc->index].arg[1]);
+		err_code = (unsigned char)ft_atoi_ultra(pipe[proc->index].arg[1], pipe, proc);
 	free_list(*proc->head);
 	free(proc->head);
  	free_func(proc->envp);
