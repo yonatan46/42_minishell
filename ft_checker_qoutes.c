@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 10:07:23 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/04 21:42:48 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:09:25 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,15 @@ int	f_check_aft_red_zero(char *str)
 	return (0);
 }
 
+void	ft_check_pipe_space(char *str, int *i)
+{
+	int count;
+
+	count = 0;
+	while (ft_isspace(str[++(*i)]))
+		count++;
+}
+
 /* check if the string has || or |; or ;; that it's error*/
 int	ft_check_sem_pipe(char *str, int i)
 {
@@ -85,6 +94,12 @@ int	ft_check_sem_pipe(char *str, int i)
 	count = ft_strlen(str);
 	if (str[i] == '|' && str[i + 1] == '|')
 		return (1);
+	else if (str[i] == '|' && str[i + 1] == ' ')
+	{
+		ft_check_pipe_space(str, &i);
+		if (str[i] == '|')
+			return (1);
+	}
 	else if ((str[i] == '>' || str[i] == '<')
 		&& (ft_isspace(str[i + 1])) && (str[i + 2] == '|'))
 		return (1);
