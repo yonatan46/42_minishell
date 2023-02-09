@@ -6,12 +6,14 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/07 17:30:50 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:09:17 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 /**
  * expand_util_2: check is the char is ? or ' ' then add it and return 1
  * @var: the struct containing vars
@@ -48,7 +50,7 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 	char	*tmp;
 
 	tmp = ft_substr(str, var->start, var->x - var->start);
-	var->tmp = ft_getenv(var->tmp_list, tmp);
+	var->tmp = getenv(tmp);
 	free(tmp);
 	if (var->tmp == NULL)
 		var->cp = ftt_strjoin(var->cp, "");
@@ -143,7 +145,6 @@ char	*expand(char *str, t_data *proc)
 			{
 				tmp = ft_substr(str, var.x, 1);
 				var.cp = ftt_strjoin(var.cp, tmp);
-				// printf("var: |%s| |%p|\n", var.cp, var.cp);
 				free(tmp);
 				var.x++;
 			}

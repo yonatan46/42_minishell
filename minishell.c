@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 17:13:46 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:59:09 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,26 @@ int	main(int ac, char **av, char **env)
 {
 	t_pipe	*pipe;
 	t_data	proc;
-	
+
 	(void)av;
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		proc.main_line = readline \
+		if(g_err_code == 0)
+					proc.main_line = readline \
 		("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");
+		else
+				proc.main_line = readline \
+		("\001\033[32m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
 		{
 			free(proc.main_line);
+			g_err_code = 0;
 			continue ;
 		}
 		pipe = ft_lexer(proc.main_line, &proc);
-		check_and_update_heredoc(pipe, &proc);
+		if(check_and_update_heredoc(pipe, &proc) == 1)
+			continue ;
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
 		int x = 0;
 		while (x < pipe->cmd_len)
@@ -117,7 +123,8 @@ int	main(int ac, char **av, char **env)
 			x++;
 		}
 		free_redirection(pipe);
-		free_func(pipe->arg);
+		if(pipe->arg)
+			free_func(pipe->arg);
 		if (pipe->cmd)
 			free(pipe->cmd);
 		if (pipe)

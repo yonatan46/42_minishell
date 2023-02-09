@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_preparse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:42:54 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/05 15:59:12 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:57:15 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	ft_check_red_pipe(char *str)
 			if (str[i] == '|')
 				return (1);
 		}
+		if (str[i] == '\0')
+			return (1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 17:59:01 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:42:25 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_pipe *av, char **envp)
 {
 	(void)envp;
 	if (proc->check == 1)
-		ft_exit(av);
+		ft_exit(av, proc);
 	else if (proc->check == 2)
 		ft_echo(av, proc, envp);
 	else if (proc->check == 3)
@@ -60,6 +60,13 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		// signal(SIGINT, handler_signal);
 		if (av->red_len > 0)
 			red_one_cmd(av, proc);
+		if (av->cmd == NULL)
+		{
+			free_list(*proc->head);
+			free(proc->head);
+			// free_func(av->arg);
+			exit(0);
+		}
 		proc->check = ft_check_builtin(av->cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute_one_cmd(proc, av, envp);
@@ -69,13 +76,13 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		if (av->cmd && tmp)
 		{
 			execve(tmp, av->arg, envp);
-			free(tmp);
+			// free(tmp);
 			free_func_one_cmd(av, proc, envp);
 		}
 		else
 		{
-			free_func(envp);
-			cmd_not_found(av, proc);
+			// free_func(envp);
+			cmd_not_found(av, proc, 0);
 		}
 	}
 }
@@ -88,11 +95,14 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 */
 int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 {
+	proc->index = 0;
 	if (av->cmd && strcmp(av->cmd, "cd") == 0)
 		return (ft_cd(av, proc));
 	else if (av->cmd && strcmp(av->cmd, "exit") == 0)
 	{
-		ft_exit(av);
+		proc->index = 0;
+		proc->envp = envp;
+		ft_exit(av, proc);
 		return (1);
 	}
 	else if (av->cmd && strcmp(av->cmd, "unset") == 0)

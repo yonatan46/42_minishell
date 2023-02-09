@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 14:16:11 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:36:00 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_data
 	int		check;
 	int		err_no;
 	int		tmp_file_fd;
+	int		index;
 	char	**envp;
 }	t_data;
 
@@ -66,13 +67,16 @@ typedef struct s_red
 	char	*red_name;
 }		t_red;
 
+/**
+ * @s_pipe: the struct containing infor of a single process execution
+*/
 typedef struct s_pipe
 {
-	int		cmd_len;
-	int		red_len;
-	char	*cmd;
-	char	**arg;
-	t_red	**red;
+	int		cmd_len;//3
+	int		red_len;//5
+	char	*cmd;//ls
+	char	**arg;//ls, -la,NULL
+	t_red	**red;//< infile,, > outf.....
 	char	**f_cmd;
 }		t_pipe;
 
@@ -95,7 +99,7 @@ typedef struct s_exp_var
 
 int		g_err_code;
 void	free_func(char **args);
-void	cmd_not_found(t_pipe *av, t_data *proc);
+void	cmd_not_found(t_pipe *av, t_data *proc, int counter);
 int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);
 int		ft_cd(t_pipe *pipe, t_data *proc);
@@ -108,7 +112,7 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in, t_data *proc);
 void	red_last_proc(t_pipe *av, int *flag, t_data *proc);
 void	ft_echo(t_pipe *pipe, t_data *proc, char **envp);
 void	ft_pwd(t_data *data, t_pipe *pipe, char **envp);
-void	ft_exit(t_pipe *pipe);
+void	ft_exit(t_pipe *pipe, t_data *proc);
 // void	ft_store_env(char **env, t_data *pipe);
 int		ft_cd(t_pipe *pipe, t_data *proc);
 void	ft_env_print_linked(t_data *proc);
@@ -233,14 +237,16 @@ void	close_pipes(t_data *proc);
 int		pipex_one_cmd(t_pipe *av, t_data *proc, char **envp);
 void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp);
 int		first_process(t_data *proc, t_pipe *av, char **envp);
-void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp);
+void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp, int counter);
 void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter);
 int		last_process(t_data *proc, t_pipe *av, char **envp);
-void	check_and_update_heredoc(t_pipe *av, t_data *proc);
+int		check_and_update_heredoc(t_pipe *av, t_data *proc);
 char	*get_next_line(int fd);
 void	handler_signal(int num);
 void	re_index(t_list *head);
 void	free_list(t_list *head);
 void	free_redirection(t_pipe *pipe);
 void	terminate(char *m, t_data *proc, t_pipe *pipe);
+char	*expand_env_vars(const char *str);
+char	*expand_dollar_sign(const char *input);
 #endif

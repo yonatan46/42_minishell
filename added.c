@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 17:23:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:24:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 {
 	(void)envp;
-	free_func(proc->envp);
+	// free_func(proc->envp);
 	int x = 0;
 
 	while (x < av->cmd_len)
@@ -139,10 +139,10 @@ void	terminate(char *m, t_data *proc, t_pipe *pipe)
  * cmd_not_found: a function that prints command not found and exit with 127 code
  * @res: a 2d array which contains the string name to be printed
 */
-void	cmd_not_found(t_pipe *av, t_data *proc)
+void	cmd_not_found(t_pipe *av, t_data *proc, int counter)
 {
-	write(2, av->cmd, ft_strlen(av->cmd));
-	ft_putstr_fd(": command not found\n", 2);
+	write(2, av[counter].cmd, ft_strlen(av[counter].cmd));
+	write(2, ": command not found\n", 21);
 	int x = 0;
 	while (x < av->cmd_len)
 	{

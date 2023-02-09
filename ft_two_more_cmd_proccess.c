@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 16:36:14 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:36:37 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp)
 {
 	(void)envp;
 	if (proc->check == 1)
-		ft_exit(av);
+		ft_exit(av, proc);
 	else if (proc->check == 2)
 		ft_echo(av, proc, envp);
 	else if (proc->check == 3)
@@ -47,6 +47,7 @@ void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp)
 */
 int	first_process(t_data *proc, t_pipe *av, char **envp)
 {
+	proc->index = 0;
 	proc->flag = 0;
 	proc->id = fork();
 	if (proc->id < 0)
@@ -74,7 +75,7 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 			free(av);
 		}
 		else
-			cmd_not_found(av, proc);
+			cmd_not_found(av, proc, 0);
 	}
 	return (proc->id);
 }
@@ -82,22 +83,22 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 /**
  * middle_proc_execute: execution_of proccess
 */
-void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp)
+void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp, int counter)
 {
 	(void)av;
-	if (av->cmd && parsing_middle(proc, \
-		linked_to_array(*proc->head), av->cmd))
+	if (av[counter].cmd && parsing_middle(proc, envp, av[counter].cmd))
 	{
-		execve(parsing_middle(proc, envp, av->cmd), \
-		av->arg, linked_to_array(*proc->head));
+		proc->index = counter;
+		execve(parsing_middle(proc, envp, av[counter].cmd), av[counter].arg, envp);
 		free_func(av->arg);
 	}
 	else
-		cmd_not_found(av, proc);
+		cmd_not_found(av, proc, counter);
 }
 
 void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 {
+	proc->index = counter;
 	proc->flag_out = 0;
 	proc->flag_in = 0;
 	proc->id = fork();
@@ -105,7 +106,7 @@ void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
-		signal(SIGINT, handler_signal);
+		// signal(SIGINT, handler_signal);
 		if (av[counter].red_len > 0)
 			red_middle(av, &proc->flag_out, &proc->flag_in, proc);
 		if (proc->flag_out == 0)
@@ -116,43 +117,50 @@ void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 		proc->check = ft_check_builtin(av[counter].cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute(proc, av, envp);
-		middle_proc_execute(proc, av, envp);
+		middle_proc_execute(proc, av, envp, counter);
 	}
 }
 
 int	last_process(t_data *proc, t_pipe *av, char **envp)
 {
+	proc->index = av->cmd_len - 1;
 	proc->flag = 0;
 	proc->id1 = fork();
 	if (proc->id1 < 0)
 		terminate("fork", proc, av);
 	if (proc->id1 == 0)
 	{
-		signal(SIGINT, handler_signal);
+		// signal(SIGINT, handler_signal);
 		if (av[av->cmd_len - 1].red_len > 0)
-			red_last_proc(&av[av->cmd_len - 1], &proc->flag, proc);
+			red_last_proc(av, &proc->flag, proc);
 		if (proc->flag == 0)
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
 		close_pipes(proc);
+		if (av[av->cmd_len - 1].cmd[0] == '\0')
+		{
+			// free_list(*proc->head);
+			// free(proc->head);
+			// free_func(av->arg);
+			// free_func(envp);
+			// free(av->cmd);
+			exit(0);
+		}
 		proc->check = ft_check_builtin(av[av->cmd_len - 1].cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute(proc, av, envp);
 		else if (av[av->cmd_len - 1].cmd && parsing(proc, envp, av[av->cmd_len - 1].cmd))
 		{
 			execve(parsing(proc, envp, av[av->cmd_len - 1].cmd), av[av->cmd_len - 1].arg, envp);
-			free_list(*proc->head);
-			free(proc->head);
-			free_func(av->arg);
-			free_func(envp);
-			free(av->cmd);
-			free_redirection(av);
-			free(av);
-			// close(0);
-			// close(1);
-			// close(2);
+			// free_list(*proc->head);
+			// free(proc->head);
+			// free_func(av->arg);
+			// free_func(envp);
+			// free(av->cmd);
+			// free_redirection(av);
+			// free(av);
 		}
 		else
-			cmd_not_found(av, proc);
+			cmd_not_found(av, proc, av->cmd_len - 1);
 	}
 	return (proc->id1);
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/07 17:35:27 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:59:06 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,17 +124,22 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 	while (i < f_struct->cmd_len)
 	{
 		f_struct[i].cmd = expand(f_struct[i].cmd, proc);
+		// f_struct[i].cmd = expand_dollar_sign(f_struct[i].cmd);
+		
 		x = 0;
-		while (f_struct[i].arg[x])
+		while (f_struct[i].arg && f_struct[i].arg[x])
 		{
 			f_struct[i].arg[x] = expand(f_struct[i].arg[x], proc);
+			// f_struct[i].arg[x] = expand_dollar_sign(f_struct[i].arg[x]);
 			x++;
 		}
 		x = 0;
 		while (x < f_struct[i].red_len)
 		{
 			f_struct[i].red[x]->red_sign = expand(f_struct[i].red[x]->red_sign, proc);
+			// f_struct[i].red[x]->red_sign = expand_dollar_sign(f_struct[i].red[x]->red_sign);
 			f_struct[i].red[x]->red_name = expand(f_struct[i].red[x]->red_name, proc);
+			// f_struct[i].red[x]->red_name = expand_dollar_sign(f_struct[i].red[x]->red_name);
 			x++;
 		}
 		i++;
