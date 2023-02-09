@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:51:43 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 16:58:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:07:17 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	chek_exp_a_rplc_util(t_exp_var *var, char *replace)
 				var->y = 0;
 				while (replace[var->y] && replace[var->y] != '=')
 					var->y++;
+				free(var->tmp_list->key);
+				free(var->tmp_list->value);
 				var->tmp_list->key = ft_substr(replace, 0, var->y + 1);
 				var->tmp_list->value = ft_substr(replace, var->y + 1, \
 				ft_strlen(replace) - var->y);

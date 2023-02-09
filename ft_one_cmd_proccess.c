@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 18:42:25 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:48:31 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,14 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		if (av->cmd && tmp)
 		{
 			execve(tmp, av->arg, envp);
-			// free(tmp);
+			// if(tmp)
+			// 	free(tmp);
 			free_func_one_cmd(av, proc, envp);
 		}
 		else
 		{
+			if(tmp)
+				free(tmp);
 			// free_func(envp);
 			cmd_not_found(av, proc, 0);
 		}
@@ -96,18 +99,21 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 {
 	proc->index = 0;
-	if (av->cmd && strcmp(av->cmd, "cd") == 0)
+	if (av[0].cmd && strcmp(av[0].cmd, "cd") == 0)
+	{
+		proc->envp = envp;
 		return (ft_cd(av, proc));
-	else if (av->cmd && strcmp(av->cmd, "exit") == 0)
+	}
+	else if (av[0].cmd && strcmp(av[0].cmd, "exit") == 0)
 	{
 		proc->index = 0;
 		proc->envp = envp;
 		ft_exit(av, proc);
 		return (1);
 	}
-	else if (av->cmd && strcmp(av->cmd, "unset") == 0)
+	else if (av[0].cmd && strcmp(av[0].cmd, "unset") == 0)
 		return (ft_unset(av, proc));
-	else if (av->cmd && strcmp(av->cmd, "export") == 0)
+	else if (av[0].cmd && strcmp(av[0].cmd, "export") == 0)
 		return (ft_export_print_linked(av, proc));
 	else
 	{

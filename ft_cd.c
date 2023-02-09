@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 18:18:07 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:09:57 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,24 @@
 */
 static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 {
+	char	*tmp;
+	
 	if (chdir(pipe->arg[1]) == 0)
 	{
 		if (pwd)
-			chek_exp_a_rplc(*proc->head, ft_strjoin("OLDPWD=", pwd));
+		{
+			tmp = ft_strjoin("OLDPWD=", pwd);
+			chek_exp_a_rplc(*proc->head, tmp);
+			free(tmp);
+		}
 		pwd = getcwd(proc->pwd, 1024);
+		tmp = ft_strjoin("PWD=", pwd);
 		if (pwd)
-			return (chek_exp_a_rplc(*proc->head, ft_strjoin("PWD=", pwd)));
+		{
+			int val = chek_exp_a_rplc(*proc->head, tmp);
+			free(tmp);
+			return (val);
+		}
 		return (1);
 	}
 	else
@@ -87,10 +98,22 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 	if (pipe->arg[1])
 	{
 		ret = ft_cd_util(pipe, pwd, proc);
-		// free_list(*proc->head);
-		// free(proc->head);
-		// free_func(pipe->arg);
-		// free(pipe);
+		if(pipe->cmd_len > 1)
+		{
+			free_list(*proc->head);
+			free(proc->head);
+			free_func(proc->envp);
+			free_redirection(pipe);
+			int x = 0;
+			while (x < pipe->cmd_len)
+			{
+				free(pipe[x].cmd);
+				free_func(pipe[x].arg);
+				free_func(pipe[x].f_cmd);
+				x++;
+			}
+			free(pipe);
+		}
 	}
 	else if (pipe->arg[1] == NULL)
 	{
@@ -99,6 +122,23 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 		// free(proc->head);
 		// free_func(pipe->arg);
 		// free(pipe);
+
+		if(pipe->cmd_len > 1)
+		{
+			free_list(*proc->head);
+			free(proc->head);
+			free_func(proc->envp);
+			free_redirection(pipe);
+			int x = 0;
+			while (x < pipe->cmd_len)
+			{
+				free(pipe[x].cmd);
+				free_func(pipe[x].arg);
+				free_func(pipe[x].f_cmd);
+				x++;
+			}
+			free(pipe);
+		}
 	}
 	return (ret);
 }
