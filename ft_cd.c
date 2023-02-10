@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 20:09:57 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:36:46 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,40 @@ static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 */
 static int	ft_cd_util_2(char *pwd, t_data *proc)
 {
+	char	*tmp;
+	int		ret;
 	if (chdir(ft_getenv(*proc->head, "HOME")) == 0)
 	{
 		if (pwd)
-			chek_exp_a_rplc(*proc->head, ft_strjoin("OLDPWD=", pwd));
+		{
+			tmp = ft_strjoin("OLDPWD=", pwd);
+			chek_exp_a_rplc(*proc->head, tmp);
+			if (tmp)
+				free(tmp);
+		}
 		pwd = getcwd(proc->pwd, 1024);
 		if (pwd)
-			return (chek_exp_a_rplc(*proc->head, ft_strjoin("PWD=", pwd)));
+		{
+			tmp = ft_strjoin("PWD=", pwd);
+			ret = chek_exp_a_rplc(*proc->head, tmp);
+			if (tmp)
+				free(tmp);
+			return (ret);
+		}
 		return (1);
 	}
 	else
 	{
-		if (ft_getenv(*proc->head, "HOME") == NULL)
+		tmp = ft_getenv(*proc->head, "HOME");
+		if (tmp == NULL)
 			ft_putstr_fd("cd: HOME not set\n", 2);
 		else
 		{
-			write(2, ft_getenv(*proc->head, "HOME"), \
-			ft_strlen(ft_getenv(*proc->head, "HOME")));
+			write(2, tmp, ft_strlen(tmp));
 			perror(" ");
 		}
+		if (tmp)
+			free(tmp);
 		return (1);
 	}
 	return (0);

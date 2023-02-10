@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 21:42:47 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:21:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_data
 	int		err_no;
 	int		tmp_file_fd;
 	int		index;
+	char	*pars;
 	char	**envp;
 }	t_data;
 

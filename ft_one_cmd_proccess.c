@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 19:48:31 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:24:36 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,22 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 			red_one_cmd(av, proc);
 		if (av->cmd == NULL)
 		{
+			int x = 0;
+			while (x < av->cmd_len)
+			{
+				free_func(av[x].f_cmd);
+				x++;
+			}
+			free_redirection(av);
+			if(av->arg)
+				free_func(av->arg);
+			if (av->cmd)
+				free(av->cmd);
+			if (av)
+				free(av);
 			free_list(*proc->head);
 			free(proc->head);
-			// free_func(av->arg);
+			free_func(proc->envp);
 			exit(0);
 		}
 		proc->check = ft_check_builtin(av->cmd);
@@ -76,8 +89,6 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		if (av->cmd && tmp)
 		{
 			execve(tmp, av->arg, envp);
-			// if(tmp)
-			// 	free(tmp);
 			free_func_one_cmd(av, proc, envp);
 		}
 		else
@@ -135,6 +146,11 @@ char	*get_next_line(int fd)
     char *copy, *tmp;
     copy = ft_calloc(sizeof(char), 100000);  
     tmp = copy;
-    while (read(fd, tmp, 1)) if (*(tmp++) == '\n') break;
-    return (copy[0] == '\0' ? NULL: copy);
+    while (read(fd, tmp, 1)) 
+		if (*(tmp++) == '\n')
+			break ;
+	if (copy[0] == '\0')
+		return (free(copy), NULL);
+	else
+		return (copy);
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 21:31:12 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:10:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 	tmp = get_next_line(0);
 	if (tmp == NULL)
 	{
+		printf("here\n");
 		g_err_code = 0;
 		close(file1);
 		return (1);
@@ -89,6 +90,7 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 		tmp2 = ft_strjoin(av[*x].red[*y]->red_name, "\n");
 		if (tmp == NULL)
 		{
+			printf("should\n");
 			if (tmp2)
 				free(tmp2);
 			g_err_code = 0;
@@ -106,7 +108,6 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 			close(file1);
 			free(tmp);
 			break ;
-			// return (1);
 		}
 		if (tmp2)
 			free(tmp2);
@@ -114,7 +115,13 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 		free(tmp);
 		tmp = get_next_line(0);
 	}
-	return(0);
+	if (tmp == NULL)
+	{
+		g_err_code = 0;
+		close(file1);
+		return (1);
+	}
+	return (0);
 }
 
 int	check_and_update_heredoc(t_pipe *av, t_data *proc)
