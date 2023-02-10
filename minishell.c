@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 18:59:09 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:00:56 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,12 @@ int	main(int ac, char **av, char **env)
 		if(check_and_update_heredoc(pipe, &proc) == 1)
 			continue ;
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
-		int x = 0;
-		while (x < pipe->cmd_len)
-		{
-			free_func(pipe[x].f_cmd);
-			x++;
-		}
+		// int x = 0;
+		// while (x < pipe->cmd_len)
+		// {
+		// 	free_func(pipe[x].f_cmd);
+		// 	x++;
+		// }
 		free_redirection(pipe);
 		if(pipe->arg)
 			free_func(pipe->arg);
