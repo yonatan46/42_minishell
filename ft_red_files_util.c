@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/10 12:10:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:25:56 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	red_output(t_pipe *av, int x, t_data *proc)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
 	dup2(file1, STDOUT_FILENO);
 	close(file1);
-	// close(1);
+	close(1);
 	return (1);
 }
 
@@ -45,7 +45,7 @@ int	red_infile(t_pipe *av, int x, t_data *proc)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
 	dup2(file1, STDIN_FILENO);
 	close(file1);
-	// close(0);
+	close(0);
 	return (1);
 }
 
@@ -63,7 +63,7 @@ int	red_append_mode(t_pipe *av, int x, t_data *proc)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
 	dup2(file1, STDOUT_FILENO);
 	close(file1);
-	// close(0);
+	close(0);
 	return (1);
 }
 
