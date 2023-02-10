@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/07 18:18:07 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:36:46 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,24 @@
 */
 static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 {
+	char	*tmp;
+	
 	if (chdir(pipe->arg[1]) == 0)
 	{
 		if (pwd)
-			chek_exp_a_rplc(*proc->head, ft_strjoin("OLDPWD=", pwd));
+		{
+			tmp = ft_strjoin("OLDPWD=", pwd);
+			chek_exp_a_rplc(*proc->head, tmp);
+			free(tmp);
+		}
 		pwd = getcwd(proc->pwd, 1024);
+		tmp = ft_strjoin("PWD=", pwd);
 		if (pwd)
-			return (chek_exp_a_rplc(*proc->head, ft_strjoin("PWD=", pwd)));
+		{
+			int val = chek_exp_a_rplc(*proc->head, tmp);
+			free(tmp);
+			return (val);
+		}
 		return (1);
 	}
 	else
@@ -48,25 +59,40 @@ static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 */
 static int	ft_cd_util_2(char *pwd, t_data *proc)
 {
+	char	*tmp;
+	int		ret;
 	if (chdir(ft_getenv(*proc->head, "HOME")) == 0)
 	{
 		if (pwd)
-			chek_exp_a_rplc(*proc->head, ft_strjoin("OLDPWD=", pwd));
+		{
+			tmp = ft_strjoin("OLDPWD=", pwd);
+			chek_exp_a_rplc(*proc->head, tmp);
+			if (tmp)
+				free(tmp);
+		}
 		pwd = getcwd(proc->pwd, 1024);
 		if (pwd)
-			return (chek_exp_a_rplc(*proc->head, ft_strjoin("PWD=", pwd)));
+		{
+			tmp = ft_strjoin("PWD=", pwd);
+			ret = chek_exp_a_rplc(*proc->head, tmp);
+			if (tmp)
+				free(tmp);
+			return (ret);
+		}
 		return (1);
 	}
 	else
 	{
-		if (ft_getenv(*proc->head, "HOME") == NULL)
+		tmp = ft_getenv(*proc->head, "HOME");
+		if (tmp == NULL)
 			ft_putstr_fd("cd: HOME not set\n", 2);
 		else
 		{
-			write(2, ft_getenv(*proc->head, "HOME"), \
-			ft_strlen(ft_getenv(*proc->head, "HOME")));
+			write(2, tmp, ft_strlen(tmp));
 			perror(" ");
 		}
+		if (tmp)
+			free(tmp);
 		return (1);
 	}
 	return (0);
@@ -87,10 +113,22 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 	if (pipe->arg[1])
 	{
 		ret = ft_cd_util(pipe, pwd, proc);
-		// free_list(*proc->head);
-		// free(proc->head);
-		// free_func(pipe->arg);
-		// free(pipe);
+		if(pipe->cmd_len > 1)
+		{
+			free_list(*proc->head);
+			free(proc->head);
+			free_func(proc->envp);
+			free_redirection(pipe);
+			int x = 0;
+			while (x < pipe->cmd_len)
+			{
+				free(pipe[x].cmd);
+				free_func(pipe[x].arg);
+				free_func(pipe[x].f_cmd);
+				x++;
+			}
+			free(pipe);
+		}
 	}
 	else if (pipe->arg[1] == NULL)
 	{
@@ -99,6 +137,23 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 		// free(proc->head);
 		// free_func(pipe->arg);
 		// free(pipe);
+
+		if(pipe->cmd_len > 1)
+		{
+			free_list(*proc->head);
+			free(proc->head);
+			free_func(proc->envp);
+			free_redirection(pipe);
+			int x = 0;
+			while (x < pipe->cmd_len)
+			{
+				free(pipe[x].cmd);
+				free_func(pipe[x].arg);
+				free_func(pipe[x].f_cmd);
+				x++;
+			}
+			free(pipe);
+		}
 	}
 	return (ret);
 }

@@ -1,39 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_modified.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 17:46:38 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 21:41:56 by yonamog2         ###   ########.fr       */
+/*   Created: 2023/02/09 21:42:07 by yonamog2          #+#    #+#             */
+/*   Updated: 2023/02/09 21:47:22 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_util(unsigned long long res, int sign)
-{
-	if (sign == -1)
-	{
-		if ((res - 1) > LLONG_MAX)
-		{
-			ft_putstr_fd(": numeric argument required\n", 2);
-			exit(255);
-		}
-	}
-	else
-	{
-		if (res > LLONG_MAX)
-		{
-			ft_putstr_fd(": numeric argument required\n", 2);
-			exit(255);
-		}
-	}
-}
-
-void	atoi_utl_2(char *str, int x, unsigned long long *res, \
-unsigned long long *copy)
+void	atoi_utl_with_exit(char *str, int x, unsigned long long *res, \
+unsigned long long *copy, t_data *proc, t_pipe *pipe)
 {
 	while (str[x] >= '0' && str[x] <= '9')
 	{
@@ -42,12 +22,25 @@ unsigned long long *copy)
 		if (*copy > *res)
 		{
 			ft_putstr_fd(": numeric argument required\n", 2);
+			free_list(*proc->head);
+			free(proc->head);
+			free_func(proc->envp);
+			free_redirection(pipe);
+			int x = 0;
+			while (x < pipe->cmd_len)
+			{
+				free(pipe[x].cmd);
+				free_func(pipe[x].arg);
+				free_func(pipe[x].f_cmd);
+				x++;
+			}
+			free(pipe);
 			exit(255);
 		}
 	}
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi_ultra(const char *str, t_pipe *pipe, t_data *proc)
 {
 	int						x;
 	int						sign;
@@ -69,8 +62,7 @@ int	ft_atoi(const char *str)
 			sign = -1;
 		x++;
 	}
-	atoi_utl_2((char *)str, x, &res, &copy);
+	atoi_utl_with_exit((char *)str, x, &res, &copy, proc, pipe);
 	ft_util(res, sign);
 	return (res * sign);
 }
-

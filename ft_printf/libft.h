@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 22:27:15 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 13:10:14 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:46:44 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ int		ft_uns_print(unsigned int n);
 int		ft_ptr_print(unsigned long long ptr);
 int		ft_hex_print(unsigned int num, const char format);
 int		ft_printstr(char *str);
+void	ft_util(unsigned long long res, int sign);
 
 #endif

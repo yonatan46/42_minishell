@@ -6,7 +6,11 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/10 15:55:36 by dkaratae         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/10 12:21:16 by yonamog2         ###   ########.fr       */
+>>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +62,7 @@ typedef struct s_data
 	int		err_no;
 	int		tmp_file_fd;
 	int		index;
+	char	*pars;
 	char	**envp;
 }	t_data;
 
@@ -103,6 +108,7 @@ void	cmd_not_found(t_pipe *av, t_data *proc, int counter);
 int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);
 int		ft_cd(t_pipe *pipe, t_data *proc);
+int		ft_atoi_ultra(const char *str, t_pipe *pipe, t_data *proc);
 /**
  * redirectin functions
 */

@@ -6,7 +6,11 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/10 14:00:56 by dkaratae         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/10 12:07:33 by yonamog2         ###   ########.fr       */
+>>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +97,7 @@ int	validate_input(t_data *proc)
 */
 int	main(int ac, char **av, char **env)
 {
+	int x;
 	t_pipe	*pipe;
 	t_data	proc;
 
@@ -114,14 +119,38 @@ int	main(int ac, char **av, char **env)
 		}
 		pipe = ft_lexer(proc.main_line, &proc);
 		if(check_and_update_heredoc(pipe, &proc) == 1)
+		{
+			x = 0;
+			while (x < pipe->cmd_len)
+			{
+				free_func(pipe[x].f_cmd);
+				x++;
+			}
+			free_redirection(pipe);
+			if(pipe->arg)
+				free_func(pipe->arg);
+			if (pipe->cmd)
+				free(pipe->cmd);
+			if (pipe)
+				free(pipe);
 			continue ;
+		}
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
+<<<<<<< HEAD
 		// int x = 0;
 		// while (x < pipe->cmd_len)
 		// {
 		// 	free_func(pipe[x].f_cmd);
 		// 	x++;
 		// }
+=======
+		x = 0;
+		while (x < pipe->cmd_len)
+		{
+			free_func(pipe[x].f_cmd);
+			x++;
+		}
+>>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
 		free_redirection(pipe);
 		if(pipe->arg)
 			free_func(pipe->arg);

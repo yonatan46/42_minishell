@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 16:24:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:22:47 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	exit_with_code(t_pipe *av, t_data *proc)
 void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 {
 	(void)envp;
-	// free_func(proc->envp);
+	free_func(proc->envp);
 	int x = 0;
 
 	while (x < av->cmd_len)
@@ -95,7 +95,7 @@ void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 		free_func(av[x].f_cmd);
 		x++;
 	}
-	if (av->cmd[0] != '\0')
+	if (av->cmd && av->cmd[0] != '\0')
 	{
 		write(1, av->cmd, ft_strlen(av->cmd));
 		exit_with_code(av, proc);
@@ -149,7 +149,8 @@ void	cmd_not_found(t_pipe *av, t_data *proc, int counter)
 		free_func(av[x].f_cmd);
 		x++;
 	}
-	// free_func(proc->envp);
+	free_redirection(av);
+	free_func(proc->envp);
 	free_func(av->arg);
 	free_list(*proc->head);
 	free(proc->head);

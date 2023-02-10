@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 16:00:10 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:25:56 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	red_output(t_pipe *av, int x, t_data *proc)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
 	dup2(file1, STDOUT_FILENO);
 	close(file1);
+	close(1);
 	return (1);
 }
 
@@ -44,6 +45,7 @@ int	red_infile(t_pipe *av, int x, t_data *proc)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
 	dup2(file1, STDIN_FILENO);
 	close(file1);
+	close(0);
 	return (1);
 }
 
@@ -61,6 +63,7 @@ int	red_append_mode(t_pipe *av, int x, t_data *proc)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
 	dup2(file1, STDOUT_FILENO);
 	close(file1);
+	close(0);
 	return (1);
 }
 
@@ -68,6 +71,7 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 {
 	int		file1;
 	char	*tmp;
+	char	*tmp2;
 
 	// signal(SIGINT, SIG_IGN);
 	file1 = open(".tmp", O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0777);
@@ -76,20 +80,27 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 	tmp = get_next_line(0);
 	if (tmp == NULL)
 	{
+		printf("here\n");
 		g_err_code = 0;
 		close(file1);
 		return (1);
 	}
 	while (tmp)
 	{
+		tmp2 = ft_strjoin(av[*x].red[*y]->red_name, "\n");
 		if (tmp == NULL)
 		{
+			printf("should\n");
+			if (tmp2)
+				free(tmp2);
 			g_err_code = 0;
 			close(file1);
 			return (1);
 		}
-		else if (strcmp(tmp, ft_strjoin(av[*x].red[*y]->red_name, "\n")) == 0)
+		else if (strcmp(tmp, tmp2) == 0)
 		{
+			if (tmp2)
+				free(tmp2);
 			free(av[*x].red[*y]->red_name);
 			free(av[*x].red[*y]->red_sign);
 			av[*x].red[*y]->red_name = ft_strdup(".tmp");
@@ -97,13 +108,20 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 			close(file1);
 			free(tmp);
 			break ;
-			// return (1);
 		}
+		if (tmp2)
+			free(tmp2);
 		write(file1, tmp, ft_strlen(tmp));
 		free(tmp);
 		tmp = get_next_line(0);
 	}
-	return(0);
+	if (tmp == NULL)
+	{
+		g_err_code = 0;
+		close(file1);
+		return (1);
+	}
+	return (0);
 }
 
 int	check_and_update_heredoc(t_pipe *av, t_data *proc)
