@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/10 14:31:54 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:38:25 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 			check_built_ins_and_exexute(proc, av, envp);
 		if (av->cmd && parsing(proc, envp, av[0].cmd))
 		{
-			execve(parsing(proc, envp, av[0].cmd), av[0].arg, envp);
 			free_list(*proc->head);
 			free(proc->head);
+			execve(parsing(proc, envp, av[0].cmd), av[0].arg, envp);
 			free_func(av->arg);
 			free_func(envp);
 			free(av->cmd);

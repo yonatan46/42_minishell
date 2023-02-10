@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/10 12:24:36 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:48:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		// if (av->cmd[0] == '\0')
 		// 	free_func_one_cmd(av, proc, envp);
 		tmp = parsing(proc, envp, av->cmd);
-		if (av->cmd && tmp)
+		if (av->cmd && tmp && av->cmd[0])
 		{
 			execve(tmp, av->arg, envp);
 			free_func_one_cmd(av, proc, envp);
 		}
 		else
 		{
-			if(tmp)
+			if(tmp && tmp[0])
 				free(tmp);
 			// free_func(envp);
 			cmd_not_found(av, proc, 0);

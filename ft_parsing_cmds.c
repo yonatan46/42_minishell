@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:00:23 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/10 12:28:20 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:44:13 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	init_parsing(t_data *proc)
 char	*parsing(t_data *proc, char **envp, char *s)
 {
 	init_parsing(proc);
-	if (ft_strnstr(s, "/", ft_strlen(s)) || strcmp(s, ".") == 0 || strcmp(s, "..") == 0)
+	if (ft_strnstr(s, "/", ft_strlen(s)) || strcmp(s, ".") == 0 || strcmp(s, "..") == 0 || s[0] == '\0')
 		return (s);
-	if (search(envp) == 0)
+	if (search(envp) == 0 )
 		return (NULL);
 	while (envp[++proc->x])
 	{
