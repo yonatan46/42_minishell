@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 21:43:29 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:31:18 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,49 +38,56 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 	int	x;
 
 	x = 0;
-	if (pipe->arg[1] == NULL || pipe->arg[1][0] == '\0')
+	if (pipe[proc->index].arg[1] == NULL || pipe[proc->index].arg[1][0] == '\0')
 	{
 		printf("\n");
 		free_func(envp);
 		int x = 0;
 		while (x < pipe->cmd_len)
 		{
+			if (pipe[x].arg)
+				free_func(pipe[x].arg);
+			if (pipe[x].cmd)
+				free(pipe[x].cmd);
 			free_func(pipe[x].f_cmd);
 			x++;
 		}
 		free_redirection(pipe);
 		free_list(*proc->head);
 		free(proc->head);
-		free_func(pipe->arg);
-		free(pipe->cmd);
 		free(pipe);
 	}
-	else if (strcmp(pipe->arg[1], "-n") == 0)
+	else if (strcmp(pipe[proc->index].arg[1], "-n") == 0)
 	{
 		x = 1;
-		ft_print_echo(pipe, x);
+		ft_print_echo(&pipe[proc->index], x);
 		free_func(envp);
 		x = 0;
 		while (x < pipe->cmd_len)
 		{
+			if (pipe[x].arg)
+				free_func(pipe[x].arg);
+			if (pipe[x].cmd)
+				free(pipe[x].cmd);
 			free_func(pipe[x].f_cmd);
 			x++;
 		}
 		free_redirection(pipe);
 		free_list(*proc->head);
 		free(proc->head);
-		free_func(pipe->arg);
-		free(pipe->cmd);
 		free(pipe);
 	}
 	else
 	{
 		x = 0;
-		ft_print_echo(pipe, x);
+		ft_print_echo(&pipe[proc->index], x);
 		printf("\n");
-		int x = 0;
 		while (x < pipe->cmd_len)
 		{
+			if (pipe[x].arg)
+				free_func(pipe[x].arg);
+			if (pipe[x].cmd)
+				free(pipe[x].cmd);
 			free_func(pipe[x].f_cmd);
 			x++;
 		}
@@ -88,9 +95,6 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		free_func(envp);
 		free_list(*proc->head);
 		free(proc->head);
-		// printf("here\n");
-		free_func(pipe->arg);
-		free(pipe->cmd);
 		free(pipe);
 	}
 	exit(0);

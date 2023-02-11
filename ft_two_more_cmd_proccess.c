@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/10 15:38:25 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:40:55 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 {
 	proc->index = 0;
 	proc->flag = 0;
+	proc->envp = envp;
 	proc->id = fork();
 	if (proc->id < 0)
 		terminate("fork", proc, av);
@@ -58,14 +59,13 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 		if (av[0].red_len > 0)
 			red_first_proc(&av[0], &proc->flag, proc);
 		if (proc->flag == 0)
-		{
 			dup2(proc->fd[0][1], STDOUT_FILENO);
-			close(1);
-		}
 		close_pipes(proc);
 		proc->check = ft_check_builtin(av[0].cmd);
 		if (proc->check > 0)
+		{
 			check_built_ins_and_exexute(proc, av, envp);
+		}
 		if (av->cmd && parsing(proc, envp, av[0].cmd))
 		{
 			free_list(*proc->head);
@@ -113,15 +113,9 @@ void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 		if (av[counter].red_len > 0)
 			red_middle(av, &proc->flag_out, &proc->flag_in, proc);
 		if (proc->flag_out == 0)
-		{
 			dup2(proc->fd[proc->counter + 1][1], STDOUT_FILENO);
-			close(1);
-		}
 		if (proc->flag_in == 0)
-		{
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
-			close(0);
-		}
 		close_pipes(proc);
 		proc->check = ft_check_builtin(av[counter].cmd);
 		if (proc->check > 0)
@@ -143,10 +137,7 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 		if (av[av->cmd_len - 1].red_len > 0)
 			red_last_proc(av, &proc->flag, proc);
 		if (proc->flag == 0)
-		{
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
-			close(0);
-		}
 		close_pipes(proc);
 		if (av[av->cmd_len - 1].cmd[0] == '\0')
 		{
