@@ -3,10 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_del.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:52:32 by dkaratae          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/11 14:34:16 by yonamog2         ###   ########.fr       */
+=======
+<<<<<<< HEAD
+/*   Updated: 2023/02/10 15:50:52 by dkaratae         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/10 15:42:07 by yonamog2         ###   ########.fr       */
+>>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
+>>>>>>> 9ad238edf48dca1f2a4d26b418fb8b2192adb20c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +23,7 @@
 void	ft_delete_all_qoutes(t_pipe *f_struct)
 {
 	ft_delete_redname_quotes(f_struct);
-	ft_delete_cmd_quotes(f_struct);
+	ft_delete_cmd_quotes_two(f_struct);
 	ft_delete_arg_quotes(f_struct);
 }
 
@@ -69,25 +77,49 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 	}
 }
 
-void	ft_delete_cmd_quotes(t_pipe *f_struct)
+void	ft_delete_cmd_quotes_two(t_pipe *f_struct)
 {
 	int	i;
-	int	j;
 
 	i = -1;
 	while (f_struct[++i].cmd)
 	{
-		j = -1;
-		while (f_struct[i].cmd[++j])
-		{
-			if (f_struct[i].cmd[j] == '\'')
-				f_struct[i].cmd = ft_del_quotes(f_struct[i].cmd, &j, '\'');
-			else if (f_struct[i].cmd[j] == '\"')
-				f_struct[i].cmd = ft_del_quotes(f_struct[i].cmd, &j, '\"');
-		}
+		f_struct[i].cmd = ft_del_quotes_two(f_struct[i].cmd, '\'');
+		f_struct[i].cmd = ft_del_quotes_two(f_struct[i].cmd, '\"');
 	}
 }
 
+char	*ft_del_quotes_two(char *str, char c)
+{
+	int		i;
+	int		j;
+	int		count;
+	int		count_quotes;
+	char	*ch;
+
+	i = 0;
+	j = 0;
+	count_quotes = 0;
+	count = 0;
+	count = ft_strlen(str);
+	if (c == '\'')
+		count_quotes = ft_count_quotes(str, '\'');
+	else if (c == '\"')
+		count_quotes = ft_count_quotes(str, '\"');
+	count = count - count_quotes;
+	ch = (char *)malloc(sizeof(char) * (count + 1));
+	while (str[i])
+	{
+		if (str[i] != c)
+		{
+			ch[j] = str[i];
+			j++;
+		}
+		(i)++;
+	}
+	ch[j] = '\0';
+	return (ch);
+}
 char	*ft_del_quotes(char *str, int *i, char c)
 {
 	int		j;
@@ -104,11 +136,11 @@ char	*ft_del_quotes(char *str, int *i, char c)
 		count_quotes = ft_count_quotes(str, '\"');
 	count = count - count_quotes;
 	ch = (char *)malloc(sizeof(char) * (count + 1));
-	while (str[(*i)])
+	while (str[*i])
 	{
-		if (str[(*i)] != c)
+		if (str[*i] != c)
 		{
-			ch[j] = str[(*i)];
+			ch[j] = str[*i];
 			j++;
 		}
 		(*i)++;

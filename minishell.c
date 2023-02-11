@@ -3,10 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/11 15:28:44 by yonamog2         ###   ########.fr       */
+=======
+<<<<<<< HEAD
+/*   Updated: 2023/02/10 14:00:56 by dkaratae         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/10 12:07:33 by yonamog2         ###   ########.fr       */
+>>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
+>>>>>>> 9ad238edf48dca1f2a4d26b418fb8b2192adb20c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +145,14 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
+<<<<<<< HEAD
+		// int x = 0;
+		// while (x < pipe->cmd_len)
+		// {
+		// 	free_func(pipe[x].f_cmd);
+		// 	x++;
+		// }
+=======
 		x = 0;
 		while (x < pipe->cmd_len)
 		{
@@ -147,6 +163,7 @@ int	main(int ac, char **av, char **env)
 			free_func(pipe[x].f_cmd);
 			x++;
 		}
+>>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
 		free_redirection(pipe);
 		if (pipe)
 			free(pipe);

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2023/02/10 15:55:36 by dkaratae         ###   ########.fr       */
+=======
 /*   Updated: 2023/02/10 12:21:16 by yonamog2         ###   ########.fr       */
+>>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +228,7 @@ int		main(int ac, char **av, char **env);
 void	print_2d(char **str);
 void	ft_delete_arg_quotes(t_pipe *f_struct);
 void	ft_delete_cmd_quotes(t_pipe *f_struct);
-char	*ft_del_quotes(char *str, int *i, char c);
+// char	*ft_del_quotes(char *str, int *i, char c);
 int		ft_count_quotes(char *str, char c);
 char	*ft_dollar(char *str, int *i, char **env);
 int		ft_check_isalnum(char c);
@@ -251,4 +255,10 @@ void	free_redirection(t_pipe *pipe);
 void	terminate(char *m, t_data *proc, t_pipe *pipe);
 char	*expand_env_vars(const char *str);
 char	*expand_dollar_sign(const char *input);
+
+
+void	ft_delete_cmd_quotes_two(t_pipe *f_struct);
+char	*ft_del_quotes_two(char *str, char c);
+int		ft_calc_redpipe(char *str, char c);
+char	*ft_check_pipe_after_red(char *str);
 #endif

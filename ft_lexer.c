@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/09 18:59:06 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:54:36 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,44 @@ void	ft_delete_arg_quotes(t_pipe *f_struct)
 	}
 }
 
+char	*ft_check_pipe_after_red(char *str)
+{
+	int		i;
+	int		j;
+	int		count;
+	int		len;
+	int		check_quote;
+	char	ch;
+	char	*vars;
+
+	check_quote = 0;
+	i = -1;
+	j = 0;
+	count = ft_calc_redpipe(str, '|');
+	len = ft_strlen(str);
+	vars = (char *)malloc(sizeof(char) * (len - count + 1));
+	while (str[++i])
+	{
+		ch = ft_quote_zero_one(str[i], '|', &check_quote);
+		if (str[i] == '|' && !(check_quote))
+		{
+			if (i > 1 && str[i] == '|' && str[i - 2] == '>')
+			{
+				i++;
+				vars[j] = str[i];
+				j++;
+			}
+		}
+		else
+		{
+			vars[j] = str[i];
+			j++;
+		}	
+	}
+	vars[j] = '\0';
+	return (vars);
+}
+
 t_pipe	*ft_lexer(char *str, t_data	*proc)
 {
 	(void)proc;
@@ -110,6 +148,7 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 	i = 0;
 	pipes_num = ft_calc(str, '|');
 	str = ft_add_sp_redname(str);
+	str = ft_check_pipe_after_red(str);
 	vars = ft_clean_sp_struct(ft_separate_sp_pipe(str, '|'));
 	f_struct = ft_calloc(sizeof(t_pipe), pipes_num + 2);
 	while (vars[i])
@@ -145,6 +184,7 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 		i++;
 	}
 	ft_delete_all_qoutes(f_struct);
+	// ft_print_cmd(f_struct);
 	free_func(vars);
 	if (str)
 		free(str);
