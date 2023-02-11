@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 20:00:54 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/10 16:06:35 by dkaratae         ###   ########.fr       */
+/*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
+/*   Updated: 2023/02/11 16:05:15 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		pipe = ft_lexer(proc.main_line, &proc);
+		if(pipe->cmd_len >= 200)
+		{
+			printf("duhh fuck u\n");
+			exit(1);
+		}
 		if(check_and_update_heredoc(pipe, &proc) == 1)
 		{
 			x = 0;
@@ -132,17 +137,17 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
-		// x = 0;
-		// while (x < pipe->cmd_len)
-		// {
-		// 	free_func(pipe[x].f_cmd);
-		// 	x++;
-		// }
+		x = 0;
+		while (x < pipe->cmd_len)
+		{
+			if(pipe[x].arg)
+				free_func(pipe[x].arg);
+			if (pipe[x].cmd)
+				free(pipe[x].cmd);
+			// free_func(pipe[x].f_cmd);
+			x++;
+		}
 		free_redirection(pipe);
-		if(pipe->arg)
-			free_func(pipe->arg);
-		if (pipe->cmd)
-			free(pipe->cmd);
 		if (pipe)
 			free(pipe);
 		unlink(".tmp");

@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/10 15:54:36 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:06:09 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,8 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 	t_pipe	*f_struct;
 
 	i = 0;
-	pipes_num = ft_calc(str, '|');
+	// pipes_num = ft_calc(str, '|');
+	pipes_num = ft_calc_redpipe(str, '|');
 	str = ft_add_sp_redname(str);
 	str = ft_check_pipe_after_red(str);
 	vars = ft_clean_sp_struct(ft_separate_sp_pipe(str, '|'));

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/09 19:09:17 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:16:33 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,16 @@ char	*expand(char *str, t_data *proc)
 				var.x++;
 			}
 			else if (str[var.x] == '$')
+			{
+				if (str[var.x + 1] == '\0')
+				{
+					tmp = ft_substr(str, var.x, 1);
+					var.cp = ftt_strjoin(var.cp, tmp);
+					free(tmp);
+					break ;
+				}
 				expand_util(&var, str);
+			}
 			if (str[var.x] == '\0')
 				break ;
 		}
