@@ -3,18 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_del.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/05 14:52:32 by dkaratae          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/11 14:34:16 by yonamog2         ###   ########.fr       */
-=======
-<<<<<<< HEAD
-/*   Updated: 2023/02/10 15:50:52 by dkaratae         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/10 15:42:07 by yonamog2         ###   ########.fr       */
->>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
->>>>>>> 9ad238edf48dca1f2a4d26b418fb8b2192adb20c
+/*   Created: 2023/02/11 15:56:59 by yonamog2          #+#    #+#             */
+/*   Updated: 2023/02/11 15:57:00 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

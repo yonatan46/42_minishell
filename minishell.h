@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:43:47 by yonamog2          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/10 15:55:36 by dkaratae         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/10 12:21:16 by yonamog2         ###   ########.fr       */
->>>>>>> 0d4308c7c8579cb2420bf2ff9d12cb7addce13b9
+/*   Updated: 2023/02/11 15:56:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
