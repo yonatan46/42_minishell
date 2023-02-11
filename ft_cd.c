@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/10 12:36:46 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:48:21 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 			free(tmp);
 			return (val);
 		}
+		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
+	
 		return (1);
 	}
 	else

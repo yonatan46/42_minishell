@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 14:40:55 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:43:17 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,12 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 		}
 		if (av->cmd && parsing(proc, envp, av[0].cmd))
 		{
-			free_list(*proc->head);
-			free(proc->head);
 			execve(parsing(proc, envp, av[0].cmd), av[0].arg, envp);
-			free_func(av->arg);
-			free_func(envp);
-			free(av->cmd);
-			free_redirection(av);
-			free(av);
+			// free_func(av->arg);
+			// free_func(envp);
+			// free(av->cmd);
+			// free_redirection(av);
+			// free(av);
 		}
 		else
 			cmd_not_found(av, proc, 0);
@@ -154,13 +152,13 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 		else if (av[av->cmd_len - 1].cmd && parsing(proc, envp, av[av->cmd_len - 1].cmd))
 		{
 			execve(parsing(proc, envp, av[av->cmd_len - 1].cmd), av[av->cmd_len - 1].arg, envp);
-			free_list(*proc->head);
-			free(proc->head);
-			free_func(av->arg);
-			free_func(envp);
-			free(av->cmd);
-			free_redirection(av);
-			free(av);
+			// free_list(*proc->head);
+			// free(proc->head);
+			// free_func(av->arg);
+			// free_func(envp);
+			// free(av->cmd);
+			// free_redirection(av);
+			// free(av);
 		}
 		else
 			cmd_not_found(av, proc, av->cmd_len - 1);
