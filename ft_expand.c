@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 14:31:55 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:46:23 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ int	expand_util_2(t_exp_var *var, char *str)
 {
 	char	*tmp;
 
-	if (str[var->x] == '\"')
-		while (str[var->x] && str[var->x] != '\"')
-			var->x++;
 	if (str[var->x] == '?')
 	{
 		tmp = ft_itoa(g_err_code);
@@ -170,6 +167,7 @@ char	*expand(char *str, t_data *proc)
 				{
 					tmp = ft_substr(str, var.x, 1);
 					var.cp = ftt_strjoin(var.cp, tmp);
+					free(tmp);
 					var.x++;
 				}
 				else

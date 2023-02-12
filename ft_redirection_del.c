@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_del.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:01:48 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 08:20:44 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:39:12 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ char	*ft_del_quotes_two(char *str, char c)
 		(i)++;
 	}
 	ch[j] = '\0';
+	free(str);
 	return (ch);
 }
 char	*ft_del_quotes(char *str, int *i, char c)

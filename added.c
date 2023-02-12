@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 15:02:50 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:43:00 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 
 	int x = 0;
 
+	free_func(proc->envp);
 	while (x < av->cmd_len)
 	{
 		free_func(av[x].f_cmd);
@@ -115,6 +116,7 @@ void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 
 void	terminate(char *m, t_data *proc, t_pipe *pipe)
 {
+	free_func(proc->envp);
 	if (access(m, W_OK) == -1 || access(m, R_OK) == -1)
 		perror(m);
 	else
@@ -122,15 +124,15 @@ void	terminate(char *m, t_data *proc, t_pipe *pipe)
 	int x = 0;
 	while (x < pipe->cmd_len)
 	{
+		free(pipe[x].cmd);
+		free_func(pipe[x].arg);
 		free_func(pipe[x].f_cmd);
 		x++;
 	}
-
 	free_redirection(pipe);
-	free_func(pipe->arg);
 	free_list(*proc->head);
 	free(proc->head);
-	free(pipe->cmd);
+
 	free(pipe);
 	exit(1);
 }
@@ -141,6 +143,7 @@ void	terminate(char *m, t_data *proc, t_pipe *pipe)
 */
 void	cmd_not_found(t_pipe *av, t_data *proc, int counter)
 {
+	free_func(proc->envp);
 	write(2, av[counter].cmd, ft_strlen(av[counter].cmd));
 	write(2, ": command not found\n", 21);
 	int x = 0;
