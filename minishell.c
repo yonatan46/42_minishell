@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 14:39:45 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:08:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	validate_input(t_data *proc)
 */
 int	main(int ac, char **av, char **env)
 {
-	int x;
+	int		x;
 	t_pipe	*pipe;
 	t_data	proc;
 
@@ -101,7 +101,7 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		if(g_err_code == 0)
+		if (g_err_code == 0)
 					proc.main_line = readline \
 		("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");
 		else
@@ -112,14 +112,14 @@ int	main(int ac, char **av, char **env)
 			free(proc.main_line);
 			g_err_code = 0;
 			continue ;
-		};
+		}
 		pipe = ft_lexer(proc.main_line, &proc);
-		if(pipe->cmd_len >= 200)
+		if (pipe->cmd_len >= 200)
 		{
 			printf("duhh fuck u\n");
 			exit(1);
 		}
-		if(check_and_update_heredoc(pipe, &proc) == 1)
+		if (check_and_update_heredoc(pipe, &proc) == 1)
 		{
 			x = 0;
 			while (x < pipe->cmd_len)
@@ -152,11 +152,6 @@ int	main(int ac, char **av, char **env)
 			free(pipe);
 		unlink(".tmp");
 	}
-	// free_list(*proc.head);
-	// free(proc.head);
-	// free_func(pipe->arg);
-	// free(pipe->cmd);
-	// free(pipe);
 	return (0);
 }
 		/**
