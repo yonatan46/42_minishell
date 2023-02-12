@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 14:31:55 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:07:49 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ int	expand_util_2(t_exp_var *var, char *str)
 {
 	char	*tmp;
 
-	if (str[var->x] == '\"')
-		while (str[var->x] && str[var->x] != '\"')
-			var->x++;
 	if (str[var->x] == '?')
 	{
 		tmp = ft_itoa(g_err_code);
@@ -56,7 +53,10 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 	var->tmp = ft_getenv(var->tmp_list, tmp);
 	free(tmp);
 	if (var->tmp == NULL)
-		var->cp = ftt_strjoin(var->cp, "");
+	{
+		free(var->cp);
+		var->cp = NULL;
+	}
 	else
 	{
 		var->cp = ftt_strjoin(var->cp, var->tmp);
@@ -73,7 +73,6 @@ int	expand_util(t_exp_var *var, char *str)
 	char	*tmp;
 
 	var->x++;
-	// printf("val : %c\n", str[var->x]);
 	if (var->flag_sq == 0 || var->flag_dq == 1)
 	{
 		if (expand_util_2(var, str) == 1)
@@ -170,6 +169,7 @@ char	*expand(char *str, t_data *proc)
 				{
 					tmp = ft_substr(str, var.x, 1);
 					var.cp = ftt_strjoin(var.cp, tmp);
+					free(tmp);
 					var.x++;
 				}
 				else
