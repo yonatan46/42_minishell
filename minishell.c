@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/11 16:05:15 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 07:56:29 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	main(int ac, char **av, char **env)
 			free(proc.main_line);
 			g_err_code = 0;
 			continue ;
-		}
+		};
 		pipe = ft_lexer(proc.main_line, &proc);
 		if(pipe->cmd_len >= 200)
 		{
