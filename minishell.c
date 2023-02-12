@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 15:08:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 21:32:49 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,30 @@ void	handler_signal(int num)
 {
 	if (num == SIGINT)
 	{
+		wait(0);
 		rl_on_new_line();
 		rl_redisplay();
-		// ft_putstr_fd("  \n", 2);
-		write(2, "  \n", 4);
+		ft_putstr_fd("  \n", 2);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_err_code = 1;
 	}
-	signal(SIGINT, handler_signal);
 }
-
+void	child_signal_handler(int num)
+{
+	if (num == SIGINT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("  \n", 2);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		printf("hello\n");
+		g_err_code = 1;
+	}
+}
 /**
  * validat_init_singal: validate and initialize the envionment
  * @ac: number of argument
@@ -43,7 +56,6 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 		exit(write(2, "Error: execute like <./minishell>\n", 35));
 	g_err_code = 0;
 	signal(SIGINT, handler_signal);
-	signal(SIGQUIT, SIG_IGN);
 	if (env[0] == NULL)
 		exit(printf("\033[1;31mError\033[0m: No env variable found:\n"));
 	ft_linked_env(proc, env);
@@ -101,12 +113,8 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		if (g_err_code == 0)
 					proc.main_line = readline \
 		("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");
-		else
-				proc.main_line = readline \
-		("\001\033[32m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
 		{
 			free(proc.main_line);
@@ -116,7 +124,7 @@ int	main(int ac, char **av, char **env)
 		pipe = ft_lexer(proc.main_line, &proc);
 		if (pipe->cmd_len >= 200)
 		{
-			printf("duhh fuck u\n");
+			printf("duhh\n");
 			exit(1);
 		}
 		if (check_and_update_heredoc(pipe, &proc) == 1)

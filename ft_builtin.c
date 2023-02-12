@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 14:40:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:37:45 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		}
 		free_redirection(pipe);
 		free_func(envp);
-		free_list(*proc->head);
-		free(proc->head);
+		// free_list(*proc->head);
+		// free(proc->head);
 		free(pipe);
 	}
 	exit(0);
@@ -148,13 +148,12 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 		// free_func(pipe->arg);
 		free_func(envp);
 		// free(pipe->cmd);
-		free_func(envp);
+		// free_func(envp);
 		exit(1);
 	}
 	printf("%s\n", pwd);
 	free_list(*data->head);
 	free(data->head);
-	free_func(envp);
 	free_redirection(pipe);
 	while (x < pipe->cmd_len)
 	{

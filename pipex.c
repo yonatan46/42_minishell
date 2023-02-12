@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 14:39:50 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:38:26 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 	signal(SIGINT, SIG_IGN);
 	waitpid(proc->pid2, &proc->err_no, 0);
 	waitpid(proc->pid1, 0, 0);
+	signal(SIGINT, handler_signal);
 	if (WIFEXITED(proc->err_no))
 		return (WEXITSTATUS(proc->err_no));
 	else if (WIFSIGNALED(proc->err_no))
@@ -80,7 +81,9 @@ int	pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 */
 int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 {
+	int x = 0;
 	proc->counter = 0;
+	signal(SIGINT, SIG_IGN);
 	first_process(proc, av, envp);
 	while (proc->counter < proc->middle_cmd)
 	{
@@ -90,14 +93,13 @@ int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 	proc->pid2 = last_process(proc, av, envp);
 	close_pipes(proc);
 	proc->counter = -1;
-	// signal(SIGINT, SIG_IGN);
 	waitpid(proc->pid2, &proc->err_no, 0);
-	int x = 0;
 	while (x < (av->cmd_len - 1))
 	{
 		waitpid(-1, 0, 0);
 		x++;
 	}
+	signal(SIGINT, handler_signal);
 	if (WIFEXITED(proc->err_no))
 		return (WEXITSTATUS(proc->err_no));
 	else if (WIFSIGNALED(proc->err_no))
@@ -141,7 +143,5 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 		ret = pipex_three_cmd(f_pipe, &proc, envp);
 	else
 		printf("Error : no command input\n");
-	if (envp)
-		free_func(envp);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 14:19:20 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:34:38 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
-		// signal(SIGINT, handler_signal);
+		signal(SIGINT, child_signal_handler);
 		if (av->red_len > 0)
 			red_one_cmd(av, proc);
 		if (av->cmd == NULL)
@@ -95,7 +95,6 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		{
 			if(tmp && tmp[0])
 				free(tmp);
-			// free_func(envp);
 			cmd_not_found(av, proc, 0);
 		}
 	}
@@ -129,13 +128,15 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	else
 	{
 		one_cmd_process(proc, av, envp);
+		signal(SIGINT, SIG_DFL);
 		waitpid(-1, &proc->err_no, 0);
+		signal(SIGINT, handler_signal);
 		if (WIFEXITED(proc->err_no))
 		{
 			return (WEXITSTATUS(proc->err_no));
 		}
-		// else if (WIFSIGNALED(proc->err_no))
-		// 	return (WTERMSIG(proc->err_no) + 128);
+		else if (WIFSIGNALED(proc->err_no))
+			return (WTERMSIG(proc->err_no) + 128);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 14:43:00 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 21:53:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_func(char **args)
 	}
 	if (args)
 		free(args);
+	args = NULL;
 }
 
 /**
@@ -38,43 +39,70 @@ void	free_func(char **args)
 */
 void	exit_with_code(t_pipe *av, t_data *proc)
 {
-	if (av->cmd[ft_strlen(av->cmd) - 1] == '/')
+	int	x;
+
+	x = 0;
+	if (av[proc->index].cmd[ft_strlen(av[proc->index].cmd) - 1] == '/')
 	{
 		ft_putstr_fd(": is a directory\n", 2);
+		x = 0;
+		while (x < av[proc->index].cmd_len)
+		{
+			free(av[x].cmd);
+			free_func(av[x].arg);
+			free_func(av[x].f_cmd);
+			x++;
+		}		
 		free_list(*proc->head);
-		free_func(av->arg);
 		free(proc->head);
-		free(av->cmd);
 		free(av);
 		exit(126);
 	}
-	if (access(av->cmd, F_OK) == -1)
+	if (access(av[proc->index].cmd, F_OK) == -1)
 	{
 		ft_putstr_fd(": No such file or directory\n", 2);
+		x = 0;
+		while (x < av[proc->index].cmd_len)
+		{
+			free(av[x].cmd);
+			free_func(av[x].arg);
+			free_func(av[x].f_cmd);
+			x++;
+		}
 		free_list(*proc->head);
 		free(proc->head);
-		free(av->cmd);
-		free_func(av->arg);
 		free(av);
 		exit(127);
 	}
-	else if (access(av->cmd, X_OK) == -1)
+	else if (access(av[proc->index].cmd, X_OK) == -1)
 	{
 		ft_putstr_fd(": Permission denied\n", 2);
+		x = 0;
+		while (x < av[proc->index].cmd_len)
+		{
+			free(av[x].cmd);
+			free_func(av[x].arg);
+			free_func(av[x].f_cmd);
+			x++;
+		}
 		free_list(*proc->head);
 		free(proc->head);
-		free(av->cmd);
-		free_func(av->arg);
 		free(av);
 		exit(126);
 	}
 	else
 	{
 		ft_putstr_fd(": is a directory\n", 2);
+		x = 0;
+		while (x < av[proc->index].cmd_len)
+		{
+			free(av[x].cmd);
+			free_func(av[x].arg);
+			free_func(av[x].f_cmd);
+			x++;
+		}
 		free_list(*proc->head);
 		free(proc->head);
-		free_func(av->arg);
-		free(av->cmd);
 		free(av);
 		exit(126);
 	}
@@ -90,21 +118,29 @@ void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 
 	int x = 0;
 
+	// while (x < av->cmd_len)
+	// {
+	// 	// free(av[x].cmd);
+	// 	// free_func(av[x].arg);
+	// 	// free_func(av[x].f_cmd);
+	// 	x++;
+	// }
 	free_func(proc->envp);
+	if (av[proc->index].cmd && av[proc->index].cmd[0] != '\0')
+	{
+		ft_putstr_fd(av[proc->index].cmd, 2);
+		exit_with_code(av, proc);
+	}
+	x = 0;
 	while (x < av->cmd_len)
 	{
+		free(av[x].cmd);
+		free_func(av[x].arg);
 		free_func(av[x].f_cmd);
 		x++;
 	}
-	if (av->cmd && av->cmd[0] != '\0')
-	{
-		write(1, av->cmd, ft_strlen(av->cmd));
-		exit_with_code(av, proc);
-	}
 	free_list(*proc->head);
 	free(proc->head);
-	free_func(av->arg);
-	free(av->cmd);
 	free(av);
 	exit(0);
 }

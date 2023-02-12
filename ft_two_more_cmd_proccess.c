@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 15:43:17 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 21:29:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
-		signal(SIGINT, handler_signal);
+		signal(SIGINT, SIG_DFL);
 		if (av[0].red_len > 0)
 			red_first_proc(&av[0], &proc->flag, proc);
 		if (proc->flag == 0)
@@ -69,11 +69,7 @@ int	first_process(t_data *proc, t_pipe *av, char **envp)
 		if (av->cmd && parsing(proc, envp, av[0].cmd))
 		{
 			execve(parsing(proc, envp, av[0].cmd), av[0].arg, envp);
-			// free_func(av->arg);
-			// free_func(envp);
-			// free(av->cmd);
-			// free_redirection(av);
-			// free(av);
+			free_func_one_cmd(av, proc, envp);
 		}
 		else
 			cmd_not_found(av, proc, 0);
@@ -91,7 +87,7 @@ void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp, int counter)
 	{
 		proc->index = counter;
 		execve(parsing_middle(proc, envp, av[counter].cmd), av[counter].arg, envp);
-		free_func(av->arg);
+		free_func_one_cmd(av, proc, envp);
 	}
 	else
 		cmd_not_found(av, proc, counter);
@@ -107,7 +103,7 @@ void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
-		// signal(SIGINT, handler_signal);
+		// signal(SIGINT, child_signal_handler);
 		if (av[counter].red_len > 0)
 			red_middle(av, &proc->flag_out, &proc->flag_in, proc);
 		if (proc->flag_out == 0)
@@ -124,6 +120,8 @@ void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 
 int	last_process(t_data *proc, t_pipe *av, char **envp)
 {
+	int	x;
+
 	proc->index = av->cmd_len - 1;
 	proc->flag = 0;
 	proc->id1 = fork();
@@ -131,19 +129,30 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork", proc, av);
 	if (proc->id1 == 0)
 	{
-		// signal(SIGINT, handler_signal);
+		// signal(SIGINT, child_signal_handler);
 		if (av[av->cmd_len - 1].red_len > 0)
 			red_last_proc(av, &proc->flag, proc);
 		if (proc->flag == 0)
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
 		close_pipes(proc);
-		if (av[av->cmd_len - 1].cmd[0] == '\0')
+		if (av[av->cmd_len - 1].cmd == NULL)
 		{
+			x = 0;
+			while (x < av->cmd_len)
+			{
+				if (av[x].arg)
+					free_func(av[x].arg);
+				if (av[x].cmd)
+					free(av[x].cmd);
+				free_func(av[x].f_cmd);
+				x++;
+			}
+			free_redirection(av);
+			if (av)
+				free(av);
 			free_list(*proc->head);
 			free(proc->head);
-			free_func(av->arg);
-			free_func(envp);
-			free(av->cmd);
+			free_func(proc->envp);
 			exit(0);
 		}
 		proc->check = ft_check_builtin(av[av->cmd_len - 1].cmd);
@@ -152,13 +161,7 @@ int	last_process(t_data *proc, t_pipe *av, char **envp)
 		else if (av[av->cmd_len - 1].cmd && parsing(proc, envp, av[av->cmd_len - 1].cmd))
 		{
 			execve(parsing(proc, envp, av[av->cmd_len - 1].cmd), av[av->cmd_len - 1].arg, envp);
-			// free_list(*proc->head);
-			// free(proc->head);
-			// free_func(av->arg);
-			// free_func(envp);
-			// free(av->cmd);
-			// free_redirection(av);
-			// free(av);
+			free_func_one_cmd(av, proc, envp);
 		}
 		else
 			cmd_not_found(av, proc, av->cmd_len - 1);
