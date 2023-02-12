@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:31:57 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/11 21:26:10 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:16:32 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_calc_redpipe(char *str, char c)
 		}
 		if (str[i] == c && !check_quote)
 		{
-			if (i > 1 && str[i] == '|' && str[i - 1] == '>')
+			if (i >= 1 && str[i] == '|' && str[i - 1] == '>')
 				count++;
 		}
 	}

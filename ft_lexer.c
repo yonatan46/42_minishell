@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 12:34:54 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:19:00 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*ft_check_pipe_after_red(char *str)
 		ft_quote_zero_one(str[i], '|', &check_quote);
 		if (str[i] == '|' && !(check_quote))
 		{
-			if (i > 1 && str[i] == '|' && str[i - 1] == '>')
+			if (i >= 1 && str[i] == '|' && str[i - 1] == '>')
 				vars[j++] = str[++i];
 			else
 			vars[j++] = str[i];
