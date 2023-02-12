@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:01:48 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/11 16:07:27 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 08:20:44 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
 			free(ch);
 			free(ch1);
+			if (str[z] == '\0') break ;
 		}
 		else if (str[z] == '\"')
 		{
@@ -65,6 +66,7 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
 			free(ch);
 			free(ch1);
+			if (str[z] == '\0') break ;
 		}
 	}
 }

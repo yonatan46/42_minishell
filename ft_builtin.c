@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 15:22:01 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:36:29 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 	(void)envp;
 	char	res[1024];
 	char	*pwd;
-	int x = 0;
+	// int x = 0;
 
 
 	pwd = getcwd(res, 1024);
@@ -149,13 +149,13 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 	free(data->head);
 	// free_func(envp);
 	free_redirection(pipe);
-	while (x < pipe->cmd_len)
-	{
-		free(pipe[x].cmd);
-		free_func(pipe[x].arg);
-		free_func(pipe[x].f_cmd);
-		x++;
-	}
+	// while (x < pipe->cmd_len)
+	// {
+	// 	free(pipe[x].cmd);
+	// 	free_func(pipe[x].arg);
+	// 	free_func(pipe[x].f_cmd);
+	// 	x++;
+	// }
 	free(pipe);
 	exit(0);
 }

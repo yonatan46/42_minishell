@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_red_files_util.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 14:40:36 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 07:41:42 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 	tmp = get_next_line(0);
 	if (tmp == NULL)
 	{
-		printf("here\n");
+		// printf("here\n");
 		g_err_code = 0;
 		close(file1);
 		return (1);

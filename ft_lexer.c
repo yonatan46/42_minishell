@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/11 16:06:09 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 12:31:30 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ char	*ft_check_pipe_after_red(char *str)
 	int		count;
 	int		len;
 	int		check_quote;
-	char	ch;
 	char	*vars;
 
 	check_quote = 0;
@@ -116,25 +115,49 @@ char	*ft_check_pipe_after_red(char *str)
 	vars = (char *)malloc(sizeof(char) * (len - count + 1));
 	while (str[++i])
 	{
-		ch = ft_quote_zero_one(str[i], '|', &check_quote);
+		ft_quote_zero_one(str[i], '|', &check_quote);
 		if (str[i] == '|' && !(check_quote))
 		{
-			if (i > 1 && str[i] == '|' && str[i - 2] == '>')
-			{
-				i++;
-				vars[j] = str[i];
-				j++;
-			}
+			if (i > 1 && str[i] == '|' && str[i - 1] == '>')
+				vars[j++] = str[++i];
+			else
+			vars[j++] = str[i];
 		}
 		else
-		{
-			vars[j] = str[i];
-			j++;
-		}	
+			vars[j++] = str[i];
 	}
 	vars[j] = '\0';
 	return (vars);
 }
+
+void ft_print_cmd(t_pipe *f_struct)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (f_struct[i].arg || f_struct[i].red)
+	{
+	printf("---------<Structure = %i>--------\n", i);
+		printf("CMD = %s\n", f_struct[i].cmd);	
+		j =	0;
+		while (f_struct[i].arg && f_struct[i].arg[j])
+		{
+			printf("	ARG = %s\n", f_struct[i].arg[j]);
+			j++;
+		}
+		j =	0;
+		while (f_struct[i].red && f_struct[i].red[j])
+		{
+			printf("		SIGN = %s\n", f_struct[i].red[j]->red_sign);
+			printf("		NAME = %s\n", f_struct[i].red[j]->red_name);
+			j++;
+		}
+		i++;
+	}
+	printf("----------------------------------\n");
+ }
+
 
 t_pipe	*ft_lexer(char *str, t_data	*proc)
 {
@@ -146,10 +169,9 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 	t_pipe	*f_struct;
 
 	i = 0;
-	// pipes_num = ft_calc(str, '|');
-	pipes_num = ft_calc_redpipe(str, '|');
-	str = ft_add_sp_redname(str);
 	str = ft_check_pipe_after_red(str);
+	str = ft_add_sp_redname(str);
+	pipes_num = ft_calc(str, '|');
 	vars = ft_clean_sp_struct(ft_separate_sp_pipe(str, '|'));
 	f_struct = ft_calloc(sizeof(t_pipe), pipes_num + 2);
 	while (vars[i])
@@ -185,7 +207,6 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 		i++;
 	}
 	ft_delete_all_qoutes(f_struct);
-	// ft_print_cmd(f_struct);
 	free_func(vars);
 	if (str)
 		free(str);
