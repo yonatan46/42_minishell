@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 19:36:29 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:31:44 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,18 @@
 */
 void	ft_print_echo(t_pipe *pipe, int x)
 {
+	int	flag;
+
+	flag = 0;
 	while (pipe->arg[++x])
 	{
+		if (check_nns(pipe->arg[x]) == 0 && flag == 0)
+			continue ;
 		if (pipe->arg[x + 1] == NULL)
 			printf("%s", pipe->arg[x]);
 		else
 			printf("%s ", pipe->arg[x]);
+		flag = 1;
 	}
 }
 
@@ -34,6 +40,7 @@ void	ft_print_echo(t_pipe *pipe, int x)
 */
 void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 {
+	// else if (strcmp(pipe[proc->index].arg[1], "-n") == 0)
 	(void)envp;
 	int	x;
 
@@ -57,7 +64,7 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		free(proc->head);
 		free(pipe);
 	}
-	else if (strcmp(pipe[proc->index].arg[1], "-n") == 0)
+	else if (check_nns(pipe[proc->index].arg[1]) == 0)
 	{
 		x = 1;
 		ft_print_echo(&pipe[proc->index], x);
@@ -130,7 +137,7 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 	(void)envp;
 	char	res[1024];
 	char	*pwd;
-	// int x = 0;
+	int x = 0;
 
 
 	pwd = getcwd(res, 1024);
@@ -149,13 +156,13 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 	free(data->head);
 	// free_func(envp);
 	free_redirection(pipe);
-	// while (x < pipe->cmd_len)
-	// {
-	// 	free(pipe[x].cmd);
-	// 	free_func(pipe[x].arg);
-	// 	free_func(pipe[x].f_cmd);
-	// 	x++;
-	// }
+	while (x < pipe->cmd_len)
+	{
+		free(pipe[x].cmd);
+		free_func(pipe[x].arg);
+		free_func(pipe[x].f_cmd);
+		x++;
+	}
 	free(pipe);
 	exit(0);
 }

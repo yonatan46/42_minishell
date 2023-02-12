@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/11 15:16:33 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:31:55 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	expand_util_2(t_exp_var *var, char *str)
 {
 	char	*tmp;
 
+	if (str[var->x] == '\"')
+		while (str[var->x] && str[var->x] != '\"')
+			var->x++;
 	if (str[var->x] == '?')
 	{
 		tmp = ft_itoa(g_err_code);
@@ -50,7 +53,7 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 	char	*tmp;
 
 	tmp = ft_substr(str, var->start, var->x - var->start);
-	var->tmp = getenv(tmp);
+	var->tmp = ft_getenv(var->tmp_list, tmp);
 	free(tmp);
 	if (var->tmp == NULL)
 		var->cp = ftt_strjoin(var->cp, "");
@@ -70,7 +73,8 @@ int	expand_util(t_exp_var *var, char *str)
 	char	*tmp;
 
 	var->x++;
-	if (var->flag_sq == 0)
+	// printf("val : %c\n", str[var->x]);
+	if (var->flag_sq == 0 || var->flag_dq == 1)
 	{
 		if (expand_util_2(var, str) == 1)
 			return (1);
@@ -94,7 +98,7 @@ int	expand_util(t_exp_var *var, char *str)
 		}
 		var->start = var->x;
 		while (str[var->x] != '$' && str[var->x] \
-		!= ' ' && str[var->x] && str[var->x] != '\"' && str[var->x] != '=')
+		!= ' ' && str[var->x] && str[var->x] != '\"'  && str[var->x] != '\'' && str[var->x] != '/' && str[var->x] != '=' && str[var->x] != '\\')
 			var->x++;
 		get_env_and_replace(var, str);
 	}
@@ -110,6 +114,7 @@ void	expand_init_vars(t_exp_var *var, t_data *proc)
 	var->x = 0;
 	var->start = 0;
 	var->flag_sq = 0;
+	var->flag_dq = 0;
 	var->cp = NULL;
 	var->tmp = NULL;
 	var->tmp_list = *proc->head;
@@ -132,7 +137,9 @@ char	*expand(char *str, t_data *proc)
 		{
 			if (str[var.x] == '\'')
 				var.flag_sq = !var.flag_sq;
-			if (var.flag_sq == 1)
+			if (str[var.x] == '\"')
+				var.flag_dq = !var.flag_dq;
+			if (var.flag_sq == 1 && var.flag_dq == 0)
 			{
 				tmp = ft_substr(str, var.x, 1);
 				var.cp = ftt_strjoin(var.cp, tmp);
@@ -157,7 +164,16 @@ char	*expand(char *str, t_data *proc)
 					free(tmp);
 					break ;
 				}
-				expand_util(&var, str);
+				else if (ft_isdigit(str[var.x + 1]) == 1)
+					var.x += 2;
+				else if (ft_isalpha(str[var.x + 1]) == 0 && str[var.x + 1] != '?')
+				{
+					tmp = ft_substr(str, var.x, 1);
+					var.cp = ftt_strjoin(var.cp, tmp);
+					var.x++;
+				}
+				else
+					expand_util(&var, str);
 			}
 			if (str[var.x] == '\0')
 				break ;

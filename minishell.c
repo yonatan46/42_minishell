@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 07:56:29 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:51:21 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

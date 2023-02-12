@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/11 16:02:18 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:26:49 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ typedef struct s_exp_var
 	int			y;
 	int			start;
 	int			flag_sq;
+	int			flag_dq;
+	int			first_sq;
+	int			first_dq;
 	int			flag_pwd;
 	int			flag_shlvl;
 	int			flag_oldpwd;
@@ -106,6 +109,7 @@ int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);
 int		ft_cd(t_pipe *pipe, t_data *proc);
 int		ft_atoi_ultra(const char *str, t_pipe *pipe, t_data *proc);
+int		check_nns(char *str);
 /**
  * redirectin functions
 */

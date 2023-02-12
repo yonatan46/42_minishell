@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:51:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 13:24:33 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:29:12 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ int	search(char **envp)
 	x = -1;
 	while (envp[++x])
 		if (ft_strnstr(envp[x], "PATH=", 5))
+			return (1);
+	return (0);
+}
+
+int	check_nns(char *str)
+{
+	int	x;
+
+	x = 0;
+	if (str[x] != '-')
+		return (1);
+	while (str[++x])
+		if (str[x] != 'n')
 			return (1);
 	return (0);
 }
