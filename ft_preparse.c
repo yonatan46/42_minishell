@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:42:54 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 08:31:15 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:24:59 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ int	ft_check_count_red(char *str, int i, char c)
 	count = 0;
 	while (str[i])
 	{
-		if (str[i] == c)
-			count++;
+		if (str[i] == c || ft_isspace(str[i]))
+		{
+			if (str[i] == c)
+				count++;
+		}
 		else
 			break;
 		i++;
