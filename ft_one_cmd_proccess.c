@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 22:34:38 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:17:30 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		terminate("fork", proc, av);
 	if (proc->id == 0)
 	{
-		signal(SIGINT, child_signal_handler);
 		if (av->red_len > 0)
 			red_one_cmd(av, proc);
 		if (av->cmd == NULL)
@@ -128,9 +127,9 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	else
 	{
 		one_cmd_process(proc, av, envp);
-		signal(SIGINT, SIG_DFL);
+		// signal(SIGINT, SIG_IGN);
+		// signal(SIGINT, child_signal_handler);
 		waitpid(-1, &proc->err_no, 0);
-		signal(SIGINT, handler_signal);
 		if (WIFEXITED(proc->err_no))
 		{
 			return (WEXITSTATUS(proc->err_no));

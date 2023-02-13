@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 21:32:49 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:19:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ void	handler_signal(int num)
 {
 	if (num == SIGINT)
 	{
-		wait(0);
 		rl_on_new_line();
 		rl_redisplay();
 		ft_putstr_fd("  \n", 2);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		printf("herre\n");
+		// if (waitpid(-1, 0, WNOHANG) == -1)
+		// 	return ;
 		g_err_code = 1;
 	}
 }
@@ -35,12 +37,8 @@ void	child_signal_handler(int num)
 	if (num == SIGINT)
 	{
 		rl_on_new_line();
-		rl_redisplay();
-		ft_putstr_fd("  \n", 2);
-		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		printf("hello\n");
 		g_err_code = 1;
 	}
 }
@@ -54,8 +52,8 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 {
 	if (ac > 1)
 		exit(write(2, "Error: execute like <./minishell>\n", 35));
-	g_err_code = 0;
 	signal(SIGINT, handler_signal);
+	g_err_code = 0;
 	if (env[0] == NULL)
 		exit(printf("\033[1;31mError\033[0m: No env variable found:\n"));
 	ft_linked_env(proc, env);

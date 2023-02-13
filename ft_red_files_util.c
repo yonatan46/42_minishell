@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_red_files_util.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 07:41:42 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:04:32 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int	check_and_update_heredoc(t_pipe *av, t_data *proc)
 	int		y;
 
 	x = 0;
+	signal(SIGINT, SIG_IGN);
 	while (x < av->cmd_len)
 	{
 		y = 0;
