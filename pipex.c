@@ -143,5 +143,7 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 		ret = pipex_three_cmd(f_pipe, &proc, envp);
 	else
 		printf("Error : no command input\n");
+	if(envp)
+		free_func(envp);
 	return (ret);
 }

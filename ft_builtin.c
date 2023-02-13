@@ -152,6 +152,7 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 		exit(1);
 	}
 	printf("%s\n", pwd);
+	free_func(envp);
 	free_list(*data->head);
 	free(data->head);
 	free_redirection(pipe);

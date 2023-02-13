@@ -146,5 +146,6 @@ char	*ft_getenv(t_list *head, char *str)
 			return (free(tmp_val), tmp->value);
 		tmp = tmp->next;
 	}
+	free(tmp_val);
 	return (NULL);
 }

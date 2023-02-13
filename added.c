@@ -17,16 +17,17 @@
 */
 void	free_func(char **args)
 {
-	// int	size;
+	int	size;
 	int	i;
 
 	i = 0;
-	// size = 0;
-	// while (args[size])
-	// 	size++;
-	while (args[i])
+	size = 0;
+	while (args[size])
+		size++;
+	while (i < size)
 	{
-		if (args[i])
+		// printf("val: %s\n", args[i]);
+		// if (args[i])
 			free(args[i++]);
 	}
 	if (args)
