@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 10:07:23 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 21:08:06 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:30:55 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,24 @@ void	ft_check_pipe_space(char *str, int *i)
 		count++;
 }
 
-/* check if the string has || or |; or ;; that it's error*/
-int	ft_check_sem_pipe(char *str, int i)
+int	ft_check_sem_pipe_two(char *str, int *i)
 {
 	int	count;
 
 	count = ft_strlen(str);
+	if (str[*i] == '|' && str[(*i) + 1] == ';')
+		return (1);
+	else if (str[*i] == ';' && str[(*i) + 1] == ';')
+		return (1);
+	else if (str[count - 1] == '|' || str[count - 1] == '<'
+		|| str[count - 1] == '>')
+		return (1);
+	return (0);
+}
+
+/* check if the string has || or |; or ;; that it's error*/
+int	ft_check_sem_pipe(char *str, int i)
+{
 	if (str[i] == '|' && str[i + 1] == '|')
 		return (1);
 	else if (str[i] == '|' && str[i + 1] == ' ')
@@ -110,12 +122,7 @@ int	ft_check_sem_pipe(char *str, int i)
 		if (str[i] == '<' || str[i] == '>')
 			return (1);
 	}
-	else if (str[i] == '|' && str[i + 1] == ';')
-		return (1);
-	else if (str[i] == ';' && str[i + 1] == ';')
-		return (1);
-	else if (str[count - 1] == '|' || str[count - 1] == '<'
-		|| str[count - 1] == '>')
+	if (ft_check_sem_pipe_two(str, &i))
 		return (1);
 	return (0);
 }
