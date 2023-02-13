@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 15:19:00 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:44:35 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ft_delete_argquotes(t_pipe *f_struct, char *str, int *i, int *j)
 			f = z;
 			ch = ft_del_quotes(str, &z, '\"');
 			ch1 = ft_substr(str, k, f);
-			// f_struct[*i].arg[*j] = ft_strjoin(ch1, ch);
 			tmp = f_struct[*i].arg[*j];
 			f_struct[*i].arg[*j] = ft_strjoin(ch1, ch);
 			free(ch);
@@ -163,7 +162,7 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 {
 	(void)proc;
 	int		i;
-	int		x;
+	// int		x;
 	char	**vars;
 	int		pipes_num;
 	t_pipe	*f_struct;
@@ -181,31 +180,38 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 		i++;
 	}
 	ft_count_struct(f_struct);
-	i = 0;
-	x = 0;
-	while (i < f_struct->cmd_len)
-	{
-		f_struct[i].cmd = expand(f_struct[i].cmd, proc);
-		// f_struct[i].cmd = expand_dollar_sign(f_struct[i].cmd);
+
+				/**
+				 * to be changed!!!!!!!!!!
+				*/
+
+
+
+	// i = 0;
+	// x = 0;
+	// while (i < f_struct->cmd_len)
+	// {
+	// 	f_struct[i].cmd = expand(f_struct[i].cmd, proc);
+	// 	// f_struct[i].cmd = expand_dollar_sign(f_struct[i].cmd);
 		
-		x = 0;
-		while (f_struct[i].arg && f_struct[i].arg[x])
-		{
-			f_struct[i].arg[x] = expand(f_struct[i].arg[x], proc);
-			// f_struct[i].arg[x] = expand_dollar_sign(f_struct[i].arg[x]);
-			x++;
-		}
-		x = 0;
-		while (x < f_struct[i].red_len)
-		{
-			f_struct[i].red[x]->red_sign = expand(f_struct[i].red[x]->red_sign, proc);
-			// f_struct[i].red[x]->red_sign = expand_dollar_sign(f_struct[i].red[x]->red_sign);
-			f_struct[i].red[x]->red_name = expand(f_struct[i].red[x]->red_name, proc);
-			// f_struct[i].red[x]->red_name = expand_dollar_sign(f_struct[i].red[x]->red_name);
-			x++;
-		}
-		i++;
-	}
+	// 	x = 0;
+	// 	while (f_struct[i].arg && f_struct[i].arg[x])
+	// 	{
+	// 		f_struct[i].arg[x] = expand(f_struct[i].arg[x], proc);
+	// 		// f_struct[i].arg[x] = expand_dollar_sign(f_struct[i].arg[x]);
+	// 		x++;
+	// 	}
+	// 	x = 0;
+	// 	while (x < f_struct[i].red_len)
+	// 	{
+	// 		f_struct[i].red[x]->red_sign = expand(f_struct[i].red[x]->red_sign, proc);
+	// 		// f_struct[i].red[x]->red_sign = expand_dollar_sign(f_struct[i].red[x]->red_sign);
+	// 		f_struct[i].red[x]->red_name = expand(f_struct[i].red[x]->red_name, proc);
+	// 		// f_struct[i].red[x]->red_name = expand_dollar_sign(f_struct[i].red[x]->red_name);
+	// 		x++;
+	// 	}
+	// 	i++;
+	// }
 	ft_delete_all_qoutes(f_struct);
 	free_func(vars);
 	if (str)

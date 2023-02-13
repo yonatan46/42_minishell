@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 20:25:44 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:35:11 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,8 @@ void	cmd_not_found(t_pipe *av, t_data *proc, int counter)
 {
 	free_func(proc->envp);
 	write(2, av[counter].cmd, ft_strlen(av[counter].cmd));
-	write(2, ": command not found\n", 21);
+	// write(2, ": command not found\n", 21);
+	ft_putstr_fd(": command not found\n", 2);
 	int x = 0;
 	while (x < av->cmd_len)
 	{
