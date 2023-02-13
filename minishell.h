@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 20:50:43 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:06:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_pipe
 	int		red_len;//5
 	char	*cmd;//ls
 	char	**arg;//ls, -la,NULL
-	t_red	**red;//< infile,, > outf.....
+	t_red	**red;//< infile,, > outf...	..
 	char	**f_cmd;
 }		t_pipe;
 

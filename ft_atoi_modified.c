@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 21:42:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 21:47:22 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:02:10 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void	atoi_utl_with_exit(char *str, int x, unsigned long long *res, \
 unsigned long long *copy, t_data *proc, t_pipe *pipe)
 {
+	int	x;
+
+	x = 0;
 	while (str[x] >= '0' && str[x] <= '9')
 	{
 		*copy = *res;
@@ -22,19 +25,8 @@ unsigned long long *copy, t_data *proc, t_pipe *pipe)
 		if (*copy > *res)
 		{
 			ft_putstr_fd(": numeric argument required\n", 2);
-			free_list(*proc->head);
-			free(proc->head);
 			free_func(proc->envp);
-			free_redirection(pipe);
-			int x = 0;
-			while (x < pipe->cmd_len)
-			{
-				free(pipe[x].cmd);
-				free_func(pipe[x].arg);
-				free_func(pipe[x].f_cmd);
-				x++;
-			}
-			free(pipe);
+			ultimate_free(proc, pipe);
 			exit(255);
 		}
 	}
