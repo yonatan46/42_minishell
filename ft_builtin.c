@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 19:02:28 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:38:05 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,130 +40,49 @@ void	ft_print_echo(t_pipe *pipe, int x)
 */
 void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 {
-	// else if (strcmp(pipe[proc->index].arg[1], "-n") == 0)
-	(void)envp;
-	int	x;
-
-	x = 0;
 	if (pipe[proc->index].arg[1] == NULL || pipe[proc->index].arg[1][0] == '\0')
 	{
 		printf("\n");
 		free_func(envp);
-		int x = 0;
-		while (x < pipe->cmd_len)
-		{
-			if (pipe[x].arg)
-				free_func(pipe[x].arg);
-			if (pipe[x].cmd)
-				free(pipe[x].cmd);
-			free_func(pipe[x].f_cmd);
-			x++;
-		}
 		free_redirection(pipe);
-		free_list(*proc->head);
-		free(proc->head);
-		free(pipe);
+		ultimate_free(proc, pipe);
 	}
 	else if (check_nns(pipe[proc->index].arg[1]) == 0)
 	{
-		x = 1;
-		ft_print_echo(&pipe[proc->index], x);
+		ft_print_echo(&pipe[proc->index], 1);
 		free_func(envp);
-		x = 0;
-		while (x < pipe->cmd_len)
-		{
-			if (pipe[x].arg)
-				free_func(pipe[x].arg);
-			if (pipe[x].cmd)
-				free(pipe[x].cmd);
-			free_func(pipe[x].f_cmd);
-			x++;
-		}
-		free_redirection(pipe);
-		free_list(*proc->head);
-		free(proc->head);
-		free(pipe);
+		ultimate_free(proc, pipe);
 	}
 	else
 	{
-		x = 0;
-		ft_print_echo(&pipe[proc->index], x);
+		ft_print_echo(&pipe[proc->index], 0);
 		printf("\n");
-		while (x < pipe->cmd_len)
-		{
-			if (pipe[x].arg)
-				free_func(pipe[x].arg);
-			if (pipe[x].cmd)
-				free(pipe[x].cmd);
-			free_func(pipe[x].f_cmd);
-			x++;
-		}
 		free_redirection(pipe);
 		free_func(envp);
-		free_list(*proc->head);
-		free(proc->head);
-		free(pipe);
+		ultimate_free(proc, pipe);
 	}
 	exit(0);
 }
 
-void	free_redirection(t_pipe *pipe)
-{
-	int	x;
-	int	i;
-
-	x = 0;
-	while (x < pipe->cmd_len)
-	{
-		i = 0;
-		while (i < pipe[x].red_len)
-		{
-			free(pipe[x].red[i]->red_name);
-			free(pipe[x].red[i]->red_sign);
-			free(pipe[x].red[i]);
-			i++;
-		}
-		free(pipe[x].red);
-		x++;
-	}
-}
 /**
  * ft_pwd: will print the current directory
 */
 void	ft_pwd(t_data *data, t_pipe *pipe, char **envp)
 {
-	(void)pipe;
-	(void)data;
-	(void)envp;
-	char	res[1024];
+	char	res[4096];
 	char	*pwd;
-	int x = 0;
 
-
-	pwd = getcwd(res, 1024);
+	pwd = getcwd(res, 4096);
+	free_redirection(pipe);
+	free_func(envp);
 	if (!pwd)
 	{
-		// perror(" ");
 		ft_putstr_fd("Error: sorry dir is deleted or incorrect!\n", 2);
-		// free_func(pipe->arg);
-		free_func(envp);
-		// free(pipe->cmd);
-		// free_func(envp);
+		ultimate_free(data, pipe);
 		exit(1);
 	}
 	printf("%s\n", pwd);
-	free_func(envp);
-	free_list(*data->head);
-	free(data->head);
-	free_redirection(pipe);
-	while (x < pipe->cmd_len)
-	{
-		free(pipe[x].cmd);
-		free_func(pipe[x].arg);
-		free_func(pipe[x].f_cmd);
-		x++;
-	}
-	free(pipe);
+	ultimate_free(data, pipe);
 	exit(0);
 }
 
@@ -192,24 +111,10 @@ int	scan_exit_codes(t_pipe *pipe)
 */
 void	ft_exit(t_pipe *pipe, t_data *proc)
 {
-	int		err_code;
-
-	err_code = 0;
+	proc->x = 0;
 	if (pipe[proc->index].arg[1] == NULL)
 	{
-		free_list(*proc->head);
-		free(proc->head);
-		free_func(proc->envp);
-		free_redirection(pipe);
-		int x = 0;
-		while (x < pipe->cmd_len)
-		{
-			free(pipe[x].cmd);
-			free_func(pipe[x].arg);
-			free_func(pipe[x].f_cmd);
-			x++;
-		}
-		free(pipe);
+		comb_free(pipe, proc);
 		exit(g_err_code);
 	}
 	if (pipe[proc->index].arg[2])
@@ -222,35 +127,11 @@ void	ft_exit(t_pipe *pipe, t_data *proc)
 	{
 		write(2, pipe[proc->index].cmd, ft_strlen(pipe[proc->index].cmd));
 		ft_putstr_fd(": numeric argument required\n", 2);
-		free_list(*proc->head);
-		free(proc->head);
-		free_func(proc->envp);
-		free_redirection(pipe);
-		int x = 0;
-		while (x < pipe->cmd_len)
-		{
-			free(pipe[x].cmd);
-			free_func(pipe[x].arg);
-			free_func(pipe[x].f_cmd);
-			x++;
-		}
-		free(pipe);
+		comb_free(pipe, proc);
 		exit(255);
 	}
 	if (pipe[proc->index].arg[1])
-		err_code = (unsigned char)ft_atoi_ultra(pipe[proc->index].arg[1], pipe, proc);
-	free_list(*proc->head);
-	free(proc->head);
- 	free_func(proc->envp);
-	free_redirection(pipe);
-	int x = 0;
-	while (x < pipe->cmd_len)
-	{
-		free(pipe[x].cmd);
-		free_func(pipe[x].arg);
-		free_func(pipe[x].f_cmd);
-		x++;
-	}
-	free(pipe);
-	exit(err_code);
+		proc->x = (unsigned char)atoi_md(pipe[proc->index].arg[1], pipe, proc);
+	comb_free(pipe, proc);
+	exit(proc->x);
 }

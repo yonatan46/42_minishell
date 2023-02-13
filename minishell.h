@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 22:25:11 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:37:42 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,11 @@ void	cmd_not_found(t_pipe *av, t_data *proc, int counter);
 int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);
 int		ft_cd(t_pipe *pipe, t_data *proc);
-int		ft_atoi_ultra(const char *str, t_pipe *pipe, t_data *proc);
+int		atoi_md(const char *str, t_pipe *pipe, t_data *proc);
 int		check_nns(char *str);
 void	child_signal_handler(int num);
 void	ultimate_free(t_data *data, t_pipe *pipe);
+void	comb_free(t_pipe *pipe, t_data *proc);
 /**
  * redirectin functions
 */

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 15:48:21 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:42:30 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 {
 	char	*tmp;
-	
+
 	if (chdir(pipe->arg[1]) == 0)
 	{
 		if (pwd)
@@ -34,13 +34,9 @@ static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 		pwd = getcwd(proc->pwd, 1024);
 		tmp = ft_strjoin("PWD=", pwd);
 		if (pwd)
-		{
-			int val = chek_exp_a_rplc(*proc->head, tmp);
-			free(tmp);
-			return (val);
-		}
-		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
-	
+			return (free(tmp), chek_exp_a_rplc(*proc->head, tmp));
+		ft_putstr_fd("cd: error retrieving current directory: getcwd: \
+		cannot access parent directories: No such file or directory\n", 2);
 		return (1);
 	}
 	else
@@ -62,7 +58,7 @@ static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 static int	ft_cd_util_2(char *pwd, t_data *proc)
 {
 	char	*tmp;
-	int		ret;
+
 	if (chdir(ft_getenv(*proc->head, "HOME")) == 0)
 	{
 		if (pwd)
@@ -76,10 +72,7 @@ static int	ft_cd_util_2(char *pwd, t_data *proc)
 		if (pwd)
 		{
 			tmp = ft_strjoin("PWD=", pwd);
-			ret = chek_exp_a_rplc(*proc->head, tmp);
-			if (tmp)
-				free(tmp);
-			return (ret);
+			return (free(tmp), chek_exp_a_rplc(*proc->head, tmp));
 		}
 		return (1);
 	}
@@ -93,9 +86,7 @@ static int	ft_cd_util_2(char *pwd, t_data *proc)
 			write(2, tmp, ft_strlen(tmp));
 			perror(" ");
 		}
-		if (tmp)
-			free(tmp);
-		return (1);
+		return (free(tmp), 1);
 	}
 	return (0);
 }
@@ -115,7 +106,7 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 	if (pipe->arg[1])
 	{
 		ret = ft_cd_util(pipe, pwd, proc);
-		if(pipe->cmd_len > 1)
+		if (pipe->cmd_len > 1)
 		{
 			free_list(*proc->head);
 			free(proc->head);

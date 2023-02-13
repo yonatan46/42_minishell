@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 21:42:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 22:26:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:35:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	atoi_utl_with_exit(char *str, int x, t_data *proc, t_pipe *pipe)
 	}
 }
 
-int	ft_atoi_ultra(const char *str, t_pipe *pipe, t_data *proc)
+int	atoi_md(const char *str, t_pipe *pipe, t_data *proc)
 {
 	int						x;
 	int						sign;

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:17:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 20:58:25 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:41:50 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,36 @@ void	free_list(t_list *head)
 		current = next;
 	}
 	head = NULL;
+}
+
+/**
+ * free_redirection: a function to free all the redirections we have
+ * @pipe: a structure that hold the whole commands and args
+*/
+void	free_redirection(t_pipe *pipe)
+{
+	int	x;
+	int	i;
+
+	x = 0;
+	while (x < pipe->cmd_len)
+	{
+		i = 0;
+		while (i < pipe[x].red_len)
+		{
+			free(pipe[x].red[i]->red_name);
+			free(pipe[x].red[i]->red_sign);
+			free(pipe[x].red[i]);
+			i++;
+		}
+		free(pipe[x].red);
+		x++;
+	}
+}
+
+void	comb_free(t_pipe *pipe, t_data *proc)
+{
+	free_func(proc->envp);
+	free_redirection(pipe);
+	ultimate_free(proc, pipe);
 }
