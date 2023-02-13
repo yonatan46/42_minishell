@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 21:22:19 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:48:41 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ typedef struct s_exp_var
 	int			y;
 	int			start;
 	int			flag_sq;
-	int			flag_dq;
-	int			first_sq;
-	int			first_dq;
 	int			flag_pwd;
 	int			flag_shlvl;
 	int			flag_oldpwd;

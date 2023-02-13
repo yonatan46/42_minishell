@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 19:17:51 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:14:39 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,9 @@ char	*get_next_line(int fd)
 {
     if (fd < 0) return(NULL);
     char *copy, *tmp;
-    copy = ft_calloc(sizeof(char), 100000);  
+    copy = ft_calloc(sizeof(char), 100000);
     tmp = copy;
-    while (read(fd, tmp, 1)) 
+    while (read(fd, tmp, 1))
 		if (*(tmp++) == '\n')
 			break ;
 	if (copy[0] == '\0')

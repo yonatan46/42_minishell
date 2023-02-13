@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 15:07:49 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:48:31 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	expand_util(t_exp_var *var, char *str)
 	char	*tmp;
 
 	var->x++;
-	if (var->flag_sq == 0 || var->flag_dq == 1)
+	if (var->flag_sq == 0)
 	{
 		if (expand_util_2(var, str) == 1)
 			return (1);
@@ -113,7 +113,6 @@ void	expand_init_vars(t_exp_var *var, t_data *proc)
 	var->x = 0;
 	var->start = 0;
 	var->flag_sq = 0;
-	var->flag_dq = 0;
 	var->cp = NULL;
 	var->tmp = NULL;
 	var->tmp_list = *proc->head;
@@ -136,9 +135,7 @@ char	*expand(char *str, t_data *proc)
 		{
 			if (str[var.x] == '\'')
 				var.flag_sq = !var.flag_sq;
-			if (str[var.x] == '\"')
-				var.flag_dq = !var.flag_dq;
-			if (var.flag_sq == 1 && var.flag_dq == 0)
+			if (var.flag_sq == 1)
 			{
 				tmp = ft_substr(str, var.x, 1);
 				var.cp = ftt_strjoin(var.cp, tmp);

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/11 15:07:32 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:59:34 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,30 @@ char **args)
 {
 	int		x;
 	t_list	*tmp;
+	char	*tmp_copy;
 
 	x = -1;
 	while (args[++x])
 	{
 		if (ft_strchr(args[x], '='))
+		{
+			write(2, args[x], ft_strlen(args[x]));
+			ft_putstr_fd(" : not a valid identifier\n", 2);
 			return (1);
+		}
 		tmp = *main_head;
 		while (tmp)
 		{
-			if (strncmp(tmp->key, args[x], \
-			ft_strlen(tmp->key) - 1) == 0)
+			tmp_copy = ft_strjoin(args[x], "=");
+			if (strcmp(tmp->key, tmp_copy) == 0)
 			{
+				if (tmp_copy)
+					free(tmp_copy);
 				remove_element(main_head, tmp->index);
 				return (0);
 			}
+			if (tmp_copy)
+				free(tmp_copy);
 			tmp = tmp->next;
 		}
 	}

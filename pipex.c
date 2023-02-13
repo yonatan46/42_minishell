@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 19:13:30 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:06:35 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void	close_pipes(t_data *proc)
 */
 int	pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 {
+	signal(SIGINT, SIG_IGN);
 	proc->pid1 = first_process(proc, av, envp);
 	proc->pid2 = last_process(proc, av, envp);
 	close_pipes(proc);
-	signal(SIGINT, SIG_IGN);
 	waitpid(proc->pid2, &proc->err_no, 0);
 	waitpid(proc->pid1, 0, 0);
 	signal(SIGINT, handler_signal);
@@ -83,6 +83,7 @@ int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 {
 	int x = 0;
 	proc->counter = 0;
+	signal(SIGINT, SIG_IGN);
 	first_process(proc, av, envp);
 	while (proc->counter < proc->middle_cmd)
 	{
