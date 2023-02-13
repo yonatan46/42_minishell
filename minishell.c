@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 18:47:07 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:11:32 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,14 +137,14 @@ int	main(int ac, char **av, char **env)
 			x = 0;
 			while (x < pipe->cmd_len)
 			{
+				if (pipe[x].arg)
+					free_func(pipe[x].arg);
+				if (pipe[x].cmd)
+					free(pipe[x].cmd);
 				free_func(pipe[x].f_cmd);
 				x++;
 			}
 			free_redirection(pipe);
-			if (pipe->arg)
-				free_func(pipe->arg);
-			if (pipe->cmd)
-				free(pipe->cmd);
 			if (pipe)
 				free(pipe);
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 18:45:32 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:49:24 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 	file1 = open(".tmp", O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0777);
 	if (file1 == -1)
 		terminate(av[proc->index].red[*x]->red_name, proc, av);
-	signal(SIGINT, SIG_IGN);
 	while (1)
 	{
+		signal(SIGINT, SIG_IGN);
 		tmp = get_next_line(0);
 		tmp2 = ft_strjoin(av[*x].red[*y]->red_name, "\n");
 		if (tmp == NULL)

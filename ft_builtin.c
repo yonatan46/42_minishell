@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 22:37:45 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:02:28 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 		}
 		free_redirection(pipe);
 		free_func(envp);
-		// free_list(*proc->head);
-		// free(proc->head);
+		free_list(*proc->head);
+		free(proc->head);
 		free(pipe);
 	}
 	exit(0);

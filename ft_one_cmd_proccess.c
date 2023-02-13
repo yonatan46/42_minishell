@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 17:12:21 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:17:51 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 				x++;
 			}
 			free_redirection(av);
-			if(av->arg)
+			if (av->arg)
 				free_func(av->arg);
 			if (av->cmd)
 				free(av->cmd);

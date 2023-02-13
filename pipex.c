@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 22:38:26 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:13:30 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 {
 	int x = 0;
 	proc->counter = 0;
-	signal(SIGINT, SIG_IGN);
 	first_process(proc, av, envp);
 	while (proc->counter < proc->middle_cmd)
 	{
@@ -99,7 +98,6 @@ int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 		waitpid(-1, 0, 0);
 		x++;
 	}
-	signal(SIGINT, handler_signal);
 	if (WIFEXITED(proc->err_no))
 		return (WEXITSTATUS(proc->err_no));
 	else if (WIFSIGNALED(proc->err_no))
