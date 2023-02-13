@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 19:33:52 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:28:09 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp, int counter)
 
 void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 {
+	int 	x;
 	proc->index = counter;
 	proc->flag_out = 0;
 	proc->flag_in = 0;
@@ -142,6 +143,26 @@ void	middl_process(t_data *proc, t_pipe *av, char **envp, int counter)
 		if (proc->flag_in == 0)
 			dup2(proc->fd[proc->counter][0], STDIN_FILENO);
 		close_pipes(proc);
+		if (av[counter].cmd == NULL)
+		{
+			x = 0;
+			while (x < av->cmd_len)
+			{
+				if (av[x].arg)
+					free_func(av[x].arg);
+				if (av[x].cmd)
+					free(av[x].cmd);
+				free_func(av[x].f_cmd);
+				x++;
+			}
+			free_redirection(av);
+			if (av)
+				free(av);
+			free_list(*proc->head);
+			free(proc->head);
+			free_func(proc->envp);
+			exit(0);
+		}
 		proc->check = ft_check_builtin(av[counter].cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute(proc, av, envp);

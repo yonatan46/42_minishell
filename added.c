@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 21:53:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:25:44 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ void	free_func(char **args)
 	while (args[size])
 		size++;
 	while (i < size)
-	{
-		// printf("val: %s\n", args[i]);
-		// if (args[i])
+		if (args[i])
 			free(args[i++]);
-	}
 	if (args)
 		free(args);
 	args = NULL;
@@ -118,15 +115,8 @@ void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	(void)envp;
 
 	int x = 0;
-
-	// while (x < av->cmd_len)
-	// {
-	// 	// free(av[x].cmd);
-	// 	// free_func(av[x].arg);
-	// 	// free_func(av[x].f_cmd);
-	// 	x++;
-	// }
 	free_func(proc->envp);
+	free_redirection(av);
 	if (av[proc->index].cmd && av[proc->index].cmd[0] != '\0')
 	{
 		ft_putstr_fd(av[proc->index].cmd, 2);
