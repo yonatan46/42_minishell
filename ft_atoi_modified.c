@@ -6,23 +6,19 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 21:42:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 21:02:10 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:26:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	atoi_utl_with_exit(char *str, int x, unsigned long long *res, \
-unsigned long long *copy, t_data *proc, t_pipe *pipe)
+void	atoi_utl_with_exit(char *str, int x, t_data *proc, t_pipe *pipe)
 {
-	int	x;
-
-	x = 0;
 	while (str[x] >= '0' && str[x] <= '9')
 	{
-		*copy = *res;
-		*res = (*res * 10) + (str[x++] - '0');
-		if (*copy > *res)
+		*proc->copy_atoi = *proc->res_atoi;
+		*proc->res_atoi = (*proc->res_atoi * 10) + (str[x++] - '0');
+		if (*proc->copy_atoi > *proc->res_atoi)
 		{
 			ft_putstr_fd(": numeric argument required\n", 2);
 			free_func(proc->envp);
@@ -54,7 +50,9 @@ int	ft_atoi_ultra(const char *str, t_pipe *pipe, t_data *proc)
 			sign = -1;
 		x++;
 	}
-	atoi_utl_with_exit((char *)str, x, &res, &copy, proc, pipe);
+	proc->res_atoi = &res;
+	proc->copy_atoi = &copy;
+	atoi_utl_with_exit((char *)str, x, proc, pipe);
 	ft_util(res, sign);
 	return (res * sign);
 }

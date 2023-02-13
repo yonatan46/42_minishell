@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 21:06:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:25:11 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct s_data
 	int		index;
 	char	*pars;
 	char	**envp;
+	unsigned long long *res_atoi;
+	unsigned long long *copy_atoi;
 }	t_data;
 
 typedef struct s_red
@@ -97,6 +99,7 @@ typedef struct s_exp_var
 	int			last_index;
 	int			last_pos;
 	t_list		*tmp_list;
+
 }		t_exp_var;
 
 int		g_err_code;
