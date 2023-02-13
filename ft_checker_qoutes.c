@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checker_qoutes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 10:07:23 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 17:16:08 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:08:06 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

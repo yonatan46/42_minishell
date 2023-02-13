@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:42:54 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 18:24:59 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:01:11 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,31 @@ int	ft_check_red_pipe(char *str)
 	return (0);
 }
 
-
+//HERE
 int	ft_check_count_red_one(char *str)
 {
-	int i;
+	int		i;
+	char	ch;
+	int		check_quote;
 
 	i = -1;
+	check_quote = 0;
 	while (str[++i])
 	{
-		if (str[i] == '>')
+		if (!check_quote || ch == str[i])
+		{
+			if (str[i] == '\'' || str[i] == '\"')
+			{
+				ch = str[i];
+				check_quote = !check_quote;
+			}
+		}
+		if (str[i] == '>' && !check_quote)
 		{
 			if (ft_check_count_red(str, i, '>'))
 				return (1);
 		}
-		else if (str[i] == '<')
+		else if (str[i] == '<' && !check_quote)
 		{
 			if (ft_check_count_red(str, i, '<'))
 				return (1);
