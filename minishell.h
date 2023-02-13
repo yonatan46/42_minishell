@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 19:48:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:50:43 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		ft_cd(t_pipe *pipe, t_data *proc);
 int		ft_atoi_ultra(const char *str, t_pipe *pipe, t_data *proc);
 int		check_nns(char *str);
 void	child_signal_handler(int num);
+void	ultimate_free(t_data *data, t_pipe *pipe);
 /**
  * redirectin functions
 */
