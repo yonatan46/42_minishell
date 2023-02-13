@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 14:17:30 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:12:21 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		proc->check = ft_check_builtin(av->cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute_one_cmd(proc, av, envp);
-		// if (av->cmd[0] == '\0')
-		// 	free_func_one_cmd(av, proc, envp);
 		tmp = parsing(proc, envp, av->cmd);
 		if (av->cmd && tmp && av->cmd[0])
 		{
@@ -92,7 +90,7 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 		}
 		else
 		{
-			if(tmp && tmp[0])
+			if (tmp && tmp[0])
 				free(tmp);
 			cmd_not_found(av, proc, 0);
 		}
@@ -126,9 +124,10 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 		return (ft_export_print_linked(av, proc));
 	else
 	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, child_signal_handler);
+		signal(SIGQUIT, child_signal_handler);
 		one_cmd_process(proc, av, envp);
-		// signal(SIGINT, SIG_IGN);
-		// signal(SIGINT, child_signal_handler);
 		waitpid(-1, &proc->err_no, 0);
 		if (WIFEXITED(proc->err_no))
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checker_qoutes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 10:07:23 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 18:08:51 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:16:08 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	ft_check_sem_pipe(char *str, int i)
 	else if ((str[i] == '>' || str[i] == '<')
 		&& (ft_isspace(str[i + 1])) && (str[i + 2] == '|'))
 		return (1);
-	else if (str[i] == '>' || str[i + 1] == '|')
+	else if (str[i] == '>' && str[i + 1] == '|')
 	{
 		i++;
 		ft_check_pipe_space(str, &i);

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 14:04:32 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:45:32 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,16 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 	char	*tmp;
 	char	*tmp2;
 
-	// signal(SIGINT, SIG_IGN);
 	file1 = open(".tmp", O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0777);
 	if (file1 == -1)
 		terminate(av[proc->index].red[*x]->red_name, proc, av);
-	tmp = get_next_line(0);
-	if (tmp == NULL)
+	signal(SIGINT, SIG_IGN);
+	while (1)
 	{
-		// printf("here\n");
-		g_err_code = 0;
-		close(file1);
-		return (1);
-	}
-	while (tmp)
-	{
+		tmp = get_next_line(0);
 		tmp2 = ft_strjoin(av[*x].red[*y]->red_name, "\n");
 		if (tmp == NULL)
 		{
-			printf("should\n");
 			if (tmp2)
 				free(tmp2);
 			g_err_code = 0;
@@ -110,7 +102,6 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 			free(tmp2);
 		write(file1, tmp, ft_strlen(tmp));
 		free(tmp);
-		tmp = get_next_line(0);
 	}
 	if (tmp == NULL)
 	{
@@ -127,7 +118,6 @@ int	check_and_update_heredoc(t_pipe *av, t_data *proc)
 	int		y;
 
 	x = 0;
-	signal(SIGINT, SIG_IGN);
 	while (x < av->cmd_len)
 	{
 		y = 0;

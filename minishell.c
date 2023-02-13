@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 14:19:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:47:07 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,21 @@ void	handler_signal(int num)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		printf("herre\n");
-		// if (waitpid(-1, 0, WNOHANG) == -1)
-		// 	return ;
 		g_err_code = 1;
 	}
 }
+
 void	child_signal_handler(int num)
 {
 	if (num == SIGINT)
 	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_err_code = 1;
+		ft_putstr_fd("\n", 2);
+		g_err_code = 130;
+	}
+	else if (num == SIGQUIT)
+	{
+		ft_putstr_fd("Quit: 3\n", 2);
+		g_err_code = 130;
 	}
 }
 /**
@@ -52,7 +53,7 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 {
 	if (ac > 1)
 		exit(write(2, "Error: execute like <./minishell>\n", 35));
-	signal(SIGINT, handler_signal);
+	// signal(SIGINT, handler_signal);
 	g_err_code = 0;
 	if (env[0] == NULL)
 		exit(printf("\033[1;31mError\033[0m: No env variable found:\n"));
@@ -111,8 +112,14 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-					proc.main_line = readline \
-		("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");
+		unlink(".tmp");
+		signal(SIGINT, handler_signal);
+		if (g_err_code == 0)
+			proc.main_line = readline \
+				("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");
+		else
+			proc.main_line = readline \
+					("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
 		{
 			free(proc.main_line);
@@ -142,6 +149,8 @@ int	main(int ac, char **av, char **env)
 				free(pipe);
 			continue ;
 		}
+		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, handler_signal);
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
 		x = 0;
 		while (x < pipe->cmd_len)
@@ -160,9 +169,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-		/**
-		 * // if (g_err_code == 0)
-		// // else
-		// 	proc.main_line = readline \
-		// 	("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
-		*/
