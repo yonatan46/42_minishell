@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/02/14 13:01:11 by dkaratae         ###   ########.fr       */
-=======
-/*   Updated: 2023/02/14 13:03:01 by yonamog2         ###   ########.fr       */
->>>>>>> b1411a5ef34647d92664d2851bdcd52062f070cd
+/*   Updated: 2023/02/14 13:10:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,11 +290,7 @@ void	terminate(char *m, t_data *proc, t_pipe *pipe);
 char	*expand_env_vars(const char *str);
 char	*expand_dollar_sign(const char *input);
 
-<<<<<<< HEAD
-
-=======
 void	ft_delete_cmd_quotes_two(t_pipe *f_struct);
->>>>>>> b1411a5ef34647d92664d2851bdcd52062f070cd
 char	*ft_del_quotes_two(char *str, char c);
 int		ft_calc_redpipe(char *str, char c);
 char	*ft_check_pipe_after_red(char *str);
