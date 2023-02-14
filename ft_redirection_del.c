@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_del.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:01:48 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 12:58:52 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:14:36 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,29 @@ void	ft_delete_redname_quotes(t_pipe *f_struct)
 
 void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 {
-	int		z;
-	int		f;
-	char	*ch;
-	char	*ch1;
+	t_pars_var	var;
 
-	z = -1;
-	while (str[++z])
+	var.z = -1;
+	while (str[++var.z])
 	{
-		if (str[z] == '\'')
+		var.f = var.z;
+		if (str[var.z] == '\'')
 		{
-			f = z;
-			ch = ft_del_quotes(str, &z, '\'');
-			ch1 = ft_substr(str, 0, f);
-			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
-			free(ch);
-			free(ch1);
+			var.ch = ft_del_quotes(str, &var.z, '\'');
+			var.ch1 = ft_substr(str, 0, var.f);
+			f_struct[*i].red[*j]->red_name = ft_strjoin(var.ch1, var.ch);
+			simple_free(var.ch);
+			simple_free(var.ch1);
 		}
-		else if (str[z] == '\"')
+		else if (str[var.z] == '\"')
 		{
-			f = z;
-			ch = ft_del_quotes(str, &z, '\"');
-			ch1 = ft_substr(str, 0, f);
-			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
-			free(ch);
-			free(ch1);
+			var.ch = ft_del_quotes(str, &var.z, '\"');
+			var.ch1 = ft_substr(str, 0, var.f);
+			f_struct[*i].red[*j]->red_name = ft_strjoin(var.ch1, var.ch);
+			simple_free(var.ch);
+			simple_free(var.ch1);
 		}
-		if (str[z] == '\0')
+		if (str[var.z] == '\0')
 			break ;
 	}
 }
