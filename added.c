@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 21:00:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:41:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	free_func(char **args)
 		size++;
 	while (i < size)
 		if (args[i])
-			free(args[i++]);
+			simple_free(args[i++]);
 	if (args)
-		free(args);
+		simple_free(args);
 	args = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 11:22:28 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:42:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	pipex_two_cmd(t_pipe *av, t_data *proc, char **envp)
 */
 int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 {
-	int x = 0;
+	proc->x = 0;
 	proc->counter = 0;
 	signal(SIGINT, SIG_IGN);
 	first_process(proc, av, envp);
@@ -94,10 +94,10 @@ int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 	close_pipes(proc);
 	proc->counter = -1;
 	waitpid(proc->pid2, &proc->err_no, 0);
-	while (x < (av->cmd_len - 1))
+	while (proc->x < (av->cmd_len - 1))
 	{
 		waitpid(-1, 0, 0);
-		x++;
+		proc->x++;
 	}
 	if (WIFEXITED(proc->err_no))
 		return (WEXITSTATUS(proc->err_no));
@@ -117,22 +117,18 @@ int	pipex_three_cmd(t_pipe *av, t_data *proc, char **envp)
 int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 {
 	t_data	proc;
-	int		cmd_len;
 	int		counter;
-	char 	**envp;
+	char	**envp;
 	int		ret;
 
-	ret = 0;
 	proc = *proc_inp;
 	envp = linked_to_array(*proc.head);
-	cmd_len = ac;
-	proc.ac = ac;
-	proc.middle_cmd = cmd_len - 2;
-	proc.total_pipe = cmd_len - 1;
+	proc.middle_cmd = ac - 2;
+	proc.total_pipe = ac - 1;
 	proc.counter = 0;
 	counter = -1;
 	if (ac > 1)
-		while (++counter < cmd_len - 1)
+		while (++counter < ac - 1)
 			pipe(proc.fd[counter]);
 	if (ac == 1)
 		ret = pipex_one_cmd(f_pipe, &proc, envp);
@@ -142,7 +138,6 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 		ret = pipex_three_cmd(f_pipe, &proc, envp);
 	else
 		printf("Error : no command input\n");
-	if (envp)
-		free_func(envp);
+	free_func(envp);
 	return (ret);
 }

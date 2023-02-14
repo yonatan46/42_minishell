@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 11:33:04 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:39:23 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 {
 	if (ac > 1)
 		exit(write(2, "Error: execute like <./minishell>\n", 35));
-	// signal(SIGINT, handler_signal);
 	g_err_code = 0;
 	if (env[0] == NULL)
 		exit(printf("\033[1;31mError\033[0m: No env variable found:\n"));
@@ -67,33 +66,27 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 */
 int	validate_input(t_data *proc)
 {
-	char **split;
+	char	**split;
 
-	if(proc->main_line)
+	if (proc->main_line)
 	{
 		split = ft_split(proc->main_line, ' ');
 		if (split[0] == NULL)
-		{
-			free_func(split);
-			return (1);
-		}
+			return (free_func(split), 1);
 		free_func(split);
 	}
 	if (!proc->main_line)
 	{
 		printf("exit\n");
 		free_list(*proc->head);
-		free(proc->head);
+		simple_free(proc->head);
 		exit(g_err_code);
 	}
 	if (proc->main_line[0] == '\0')
 		return (1);
 	add_history(proc->main_line);
 	if (ft_preparsing(proc->main_line))
-	{
-		printf("Error!!!\n");
-		return (1);
-	}
+		return (ft_putstr_fd("Syntax error near unexpected token\n", 2), 1);
 	return (0);
 }
 
@@ -113,7 +106,6 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		// unlink(".tmp");
 		signal(SIGINT, handler_signal);
 		// if (g_err_code == 0)
 			proc.main_line = readline \
