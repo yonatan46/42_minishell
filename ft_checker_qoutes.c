@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 10:07:23 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 21:30:55 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:51:14 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,6 @@ int	f_check_aft_red_zero(char *str)
 	if (count == space)
 		return (1);
 	return (0);
-}
-
-void	ft_check_pipe_space(char *str, int *i)
-{
-	int count;
-
-	count = 0;
-	while (ft_isspace(str[++(*i)]))
-		count++;
 }
 
 int	ft_check_sem_pipe_two(char *str, int *i)

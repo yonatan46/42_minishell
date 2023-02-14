@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:31:57 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 21:32:45 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:56:59 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ char	*ft_copy_to_struct(char **vars, char *str, int *arr)
 	return (ft_strcopy(vars[arr[0]], str + arr[1], arr[2] - arr[1]));
 }
 
-
-
 char	**ft_separate_sp_pipe(char *str, char c)
 {
 	int		v[3];
@@ -111,7 +109,7 @@ char	**ft_separate_sp_pipe(char *str, char c)
 			vars[v[0]] = ft_copy_to_struct(vars, str, &(*v));
 			v[0]++;
 			v[1] = v[2] + 1;
-	}
+		}
 	}
 	vars[v[0]] = ft_copy_to_struct(vars, str, &(*v));
 	vars[++v[0]] = NULL;

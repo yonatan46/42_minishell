@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:15:36 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/06 18:12:58 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:22:22 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_isspace(char ch)
+{
+	if (ch == ' ' || ch == '\n' || ch == '\t' || \
+		ch == '\v' || ch == '\f' || ch == '\r')
+		return (1);
+	return (0);
+}
 
 int	ft_check_red_not_three(char *str)
 {
@@ -67,4 +75,33 @@ int	ft_count_red(char **s1)
 		i++;
 	}
 	return (count);
+}
+
+char	*ft_del_quotes(char *str, int *i, char c)
+{
+	int		j;
+	int		count;
+	int		count_quotes;
+	char	*ch;
+
+	j = 0;
+	count_quotes = 0;
+	count = ft_strlen(str);
+	if (c == '\'')
+		count_quotes = ft_count_quotes(str, '\'');
+	else if (c == '\"')
+		count_quotes = ft_count_quotes(str, '\"');
+	count = count - count_quotes;
+	ch = (char *)malloc(sizeof(char) * (count + 1));
+	while (str[*i])
+	{
+		if (str[*i] != c)
+		{
+			ch[j] = str[*i];
+			j++;
+		}
+		(*i)++;
+	}
+	ch[j] = '\0';
+	return (ch);
 }

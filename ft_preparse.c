@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_preparse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:42:54 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 10:39:58 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:18:02 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_isspace(char ch)
-{
-	if (ch == ' ' || ch == '\n' || ch == '\t' || \
-		ch == '\v' || ch == '\f' || ch == '\r')
-		return (1);
-	return (0);
-}
 
 int	ft_check_loop_space(char *str, int *i)
 {

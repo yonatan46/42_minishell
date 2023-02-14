@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 11:18:27 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:01:11 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,18 +172,21 @@ void	get_env_and_replace(t_exp_var *var, char *str);
 */
 
 /* ft_preparse */
-int		ft_isspace(char ch);
 int		ft_check_loop_space(char *str, int *i);
+int		ft_check_count_red(char *str, int i, char c);
 int		ft_check_red_pipe(char *str);
+int		ft_check_count_red_one(char *str);
 int		ft_preparsing(char *str);
 
 /* ft_checker_qoutes */
 int		ft_check_qoutes(char *str);
 int		ft_check_quote(char *str, char c, int *i);
 int		f_check_aft_red_zero(char *str);
+int		ft_check_sem_pipe_two(char *str, int *i);
 int		ft_check_sem_pipe(char *str, int i);
 
 /* ft_copy_to_struct */
+int		ft_calc_redpipe(char *str, char c);
 int		ft_calc(char *str, char c);
 char	*ft_strcopy(char *dest, char *src, size_t n);
 char	*ft_copy_to_struct(char **vars, char *str, int *arr);
@@ -200,10 +203,11 @@ t_pipe	*ft_lexer(char *str, t_data	*proc);
 void	ft_delete_all_qoutes(t_pipe *f_struct);
 void	ft_delete_redname_quotes(t_pipe *f_struct);
 void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j);
-void	ft_delete_cmd_quotes(t_pipe *f_struct);
-char	*ft_del_quotes(char *str, int *i, char c);
+void	ft_delete_cmd_quotes_two(t_pipe *f_struct);
+char	*ft_del_quotes_two(char *str, char c);
 
 /* ft_redirection_one */
+void	ft_check_pipe_space(char *str, int *i);
 int		ft_count_red_after(char *str);
 char	ft_quote_zero_one(char str, char ch, int *check_quote);
 void	ft_copy_dred_new_string(char *str, char *new_str, int *i, int *j);
@@ -217,9 +221,11 @@ void	ft_copy_sred_before(char *str, char *new_str, int *i, int *j);
 char	*ft_add_sp_red_before(char *str);
 
 /* ft_redirection_utils */
+int		ft_isspace(char ch);
 int		ft_check_red_not_three(char *str);
 char	*ft_add_sp_redname(char *str);
 int		ft_count_red(char **s1);
+char	*ft_del_quotes(char *str, int *i, char c);
 
 /* ft_separate_struct */
 void	ft_copy_red_sign(t_pipe *f_struct, int i, int j, int r);
@@ -245,7 +251,6 @@ int		main(int ac, char **av, char **env);
 
 void	print_2d(char **str);
 void	ft_delete_arg_quotes(t_pipe *f_struct);
-void	ft_delete_cmd_quotes(t_pipe *f_struct);
 // char	*ft_del_quotes(char *str, int *i, char c);
 int		ft_count_quotes(char *str, char c);
 char	*ft_dollar(char *str, int *i, char **env);
@@ -275,7 +280,6 @@ char	*expand_env_vars(const char *str);
 char	*expand_dollar_sign(const char *input);
 
 
-void	ft_delete_cmd_quotes_two(t_pipe *f_struct);
 char	*ft_del_quotes_two(char *str, char c);
 int		ft_calc_redpipe(char *str, char c);
 char	*ft_check_pipe_after_red(char *str);

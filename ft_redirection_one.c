@@ -6,11 +6,20 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:07:04 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/05 15:59:43 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:55:58 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_check_pipe_space(char *str, int *i)
+{
+	int	count;
+
+	count = 0;
+	while (ft_isspace(str[++(*i)]))
+		count++;
+}
 
 int	ft_count_red_after(char *str)
 {

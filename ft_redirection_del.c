@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:01:48 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 10:24:05 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:58:52 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
 			free(ch);
 			free(ch1);
-			if (str[z] == '\0') break ;
 		}
 		else if (str[z] == '\"')
 		{
@@ -64,8 +63,9 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
 			free(ch);
 			free(ch1);
-			if (str[z] == '\0') break ;
 		}
+		if (str[z] == '\0')
+			break ;
 	}
 }
 
@@ -89,7 +89,7 @@ char	*ft_del_quotes_two(char *str, char c)
 	int		count_quotes;
 	char	*ch;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	count_quotes = 0;
 	count = 0;
@@ -100,44 +100,12 @@ char	*ft_del_quotes_two(char *str, char c)
 		count_quotes = ft_count_quotes(str, '\"');
 	count = count - count_quotes;
 	ch = (char *)malloc(sizeof(char) * (count + 1));
-	while (str[i])
+	while (str[++i])
 	{
 		if (str[i] != c)
-		{
-			ch[j] = str[i];
-			j++;
-		}
-		(i)++;
+			ch[j++] = str[i];
 	}
 	ch[j] = '\0';
 	free(str);
-	return (ch);
-}
-char	*ft_del_quotes(char *str, int *i, char c)
-{
-	int		j;
-	int		count;
-	int		count_quotes;
-	char	*ch;
-
-	j = 0;
-	count_quotes = 0;
-	count = ft_strlen(str);
-	if (c == '\'')
-		count_quotes = ft_count_quotes(str, '\'');
-	else if (c == '\"')
-		count_quotes = ft_count_quotes(str, '\"');
-	count = count - count_quotes;
-	ch = (char *)malloc(sizeof(char) * (count + 1));
-	while (str[*i])
-	{
-		if (str[*i] != c)
-		{
-			ch[j] = str[*i];
-			j++;
-		}
-		(*i)++;
-	}
-	ch[j] = '\0';
 	return (ch);
 }
