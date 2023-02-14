@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 09:50:04 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:08:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,20 @@ void	re_index(t_list *head)
 }
 
 /**
+ * first_element: remove element at index 0
+ * @head: the linked list which contains the env
+ * @index: index of list to be removed from the linked list
+*/
+static void	first_element(t_list **head)
+{
+	t_list	*current;
+
+	current = *head;
+	*head = current->next;
+	free(current);
+}
+
+/**
  * remove_element: is a function that removes an element at position of index
  * form the linked list
  * @head: the linked list which contains the env
@@ -77,10 +91,7 @@ int	remove_element(t_list **head, int index)
 	current = *head;
 	prev = NULL;
 	if (index == 0)
-	{
-		*head = current->next;
-		free(current);
-	}
+		first_element(head);
 	else
 	{
 		while (current != NULL)
@@ -124,28 +135,4 @@ char	**linked_to_array(t_list *head)
 	copy_env[x] = NULL;
 	x = 0;
 	return (copy_env);
-}
-
-/**
- * ft_getenv: variable that check for the variable name from the linked list
- * and return the values
- * @head: the head of the linked list
- * @str: the variable name
-*/
-
-char	*ft_getenv(t_list *head, char *str)
-{
-	t_list	*tmp;
-	char	*tmp_val;
-
-	tmp = head;
-	tmp_val = ft_strjoin(str, "=");
-	while (tmp)
-	{
-		if (strcmp(tmp->key, tmp_val) == 0)
-			return (free(tmp_val), tmp->value);
-		tmp = tmp->next;
-	}
-	free(tmp_val);
-	return (NULL);
 }

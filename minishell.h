@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 09:52:08 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:08:43 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	child_signal_handler(int num);
 void	ultimate_free(t_data *data, t_pipe *pipe);
 void	comb_free(t_pipe *pipe, t_data *proc);
 int		expand_util(t_exp_var *var, char *str);
-void	simple_free(char *str);
+void	simple_free(void *str);
 /**
  * redirectin functions
 */
