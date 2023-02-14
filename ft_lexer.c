@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 20:44:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:29:30 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,47 +40,49 @@ int	ft_count_quotes(char *str, char c)
 	return (count);
 }
 
-void	ft_delete_argquotes(t_pipe *f_struct, char *str, int *i, int *j)
+int	ft_del_qt_util(t_pars_var *var, t_pipe *f_struct, char *str)
 {
-	int		z;
-	int		f;
-	int		k;
-	char	*ch;
-	char	*ch1;
-	char 	*tmp;
-
-	z = -1;
-	k = 0;
-	tmp = NULL;
-	while (str[++z])
+	if (str[var->z] == '\'')
 	{
-		if (str[z] == '\'')
-		{
-			f = z;
-			ch = ft_del_quotes(str, &z, '\'');
-			ch1 = ft_substr(str, k, f);
-			tmp = f_struct[*i].arg[*j];
-			f_struct[*i].arg[*j] = ft_strjoin(ch1, ch);
-			free(ch);
-			free(ch1);
-		}
-		else if (str[z] == '\"')
-		{
-			f = z;
-			ch = ft_del_quotes(str, &z, '\"');
-			ch1 = ft_substr(str, k, f);
-			tmp = f_struct[*i].arg[*j];
-			f_struct[*i].arg[*j] = ft_strjoin(ch1, ch);
-			free(ch);
-			free(ch1);
-		}
-		if (str[z] == '\0')
-			break ;
-		if (tmp)
-			free(tmp);
+		var->f = var->z;
+		var->ch = ft_del_quotes(str, &var->z, '\'');
+		var->ch1 = ft_substr(str, var->k, var->f);
+		var->tmp = f_struct[var->i].arg[var->j];
+		f_struct[var->i].arg[var->j] = ft_strjoin(var->ch1, var->ch);
+		free(var->ch);
+		free(var->ch1);
 	}
-	if (tmp)
-		free(tmp);
+	else if (str[var->z] == '\"')
+	{
+		var->f = var->z;
+		var->ch = ft_del_quotes(str, &var->z, '\"');
+		var->ch1 = ft_substr(str, var->k, var->f);
+		var->tmp = f_struct[var->i].arg[var->j];
+		f_struct[var->i].arg[var->j] = ft_strjoin(var->ch1, var->ch);
+		free(var->ch);
+		free(var->ch1);
+	}
+	if (str[var->z] == '\0')
+		return (1);
+	if (var->tmp)
+		free(var->tmp);
+	return (0);
+}
+
+void	ft_delete_argquotes(t_pipe *f_struct, char *str, int i, int j)
+{
+	t_pars_var	var;
+
+	var.z = -1;
+	var.k = 0;
+	var.tmp = NULL;
+	var.i = i;
+	var.j = j;
+	while (str[++var.z])
+		if (ft_del_qt_util(&var, f_struct, str) == 1)
+			break ;
+	if (var.tmp)
+		free(var.tmp);
 }
 
 void	ft_delete_arg_quotes(t_pipe *f_struct)
@@ -93,69 +95,37 @@ void	ft_delete_arg_quotes(t_pipe *f_struct)
 	{
 		j = -1;
 		while (f_struct[i].arg[++j])
-			ft_delete_argquotes(f_struct, f_struct[i].arg[j], &i, &j);
+			ft_delete_argquotes(f_struct, f_struct[i].arg[j], i, j);
 	}
 }
 
 char	*ft_check_pipe_after_red(char *str)
 {
-	int		i;
-	int		j;
-	int		count;
-	int		len;
+	t_pars_var	var;
 	int		check_quote;
-	char	*vars;
 
 	check_quote = 0;
-	i = -1;
-	j = 0;
-	count = ft_calc_redpipe(str, '|');
-	len = ft_strlen(str);
-	vars = (char *)malloc(sizeof(char) * (len - count + 1));
-	while (str[++i])
+	var.i = -1;
+	var.j = 0;
+	var.k = ft_calc_redpipe(str, '|');
+	var.f = ft_strlen(str);
+	var.tmp = (char *)malloc(sizeof(char) * (var.f - var.k + 1));
+	while (str[++var.i])
 	{
-		ft_quote_zero_one(str[i], '|', &check_quote);
-		if (str[i] == '|' && !(check_quote))
+		ft_quote_zero_one(str[var.i], '|', &check_quote);
+		if (str[var.i] == '|' && !(check_quote))
 		{
-			if (i >= 1 && str[i] == '|' && str[i - 1] == '>')
-				vars[j++] = str[++i];
+			if (var.i >= 1 && str[var.i] == '|' && str[var.i - 1] == '>')
+				var.tmp[var.j++] = str[++var.i];
 			else
-			vars[j++] = str[i];
+				var.tmp[var.j++] = str[var.i];
 		}
 		else
-			vars[j++] = str[i];
+			var.tmp[var.j++] = str[var.i];
 	}
-	vars[j] = '\0';
-	return (vars);
+	var.tmp[var.j] = '\0';
+	return (var.tmp);
 }
-
-void ft_print_cmd(t_pipe *f_struct)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (f_struct[i].arg || f_struct[i].red)
-	{
-	printf("---------<Structure = %i>--------\n", i);
-		printf("CMD = %s\n", f_struct[i].cmd);	
-		j =	0;
-		while (f_struct[i].arg && f_struct[i].arg[j])
-		{
-			printf("	ARG = %s\n", f_struct[i].arg[j]);
-			j++;
-		}
-		j =	0;
-		while (f_struct[i].red && f_struct[i].red[j])
-		{
-			printf("		SIGN = %s\n", f_struct[i].red[j]->red_sign);
-			printf("		NAME = %s\n", f_struct[i].red[j]->red_name);
-			j++;
-		}
-		i++;
-	}
-	printf("----------------------------------\n");
- }
 
 
 t_pipe	*ft_lexer(char *str, t_data	*proc)
@@ -184,9 +154,6 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 				/**
 				 * to be changed!!!!!!!!!!
 				*/
-
-
-
 	// i = 0;
 	// x = 0;
 	// while (i < f_struct->cmd_len)

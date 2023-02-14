@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 11:42:01 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:52:12 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 	char	**envp;
 	int		ret;
 
+	ret = 0;
 	proc = *proc_inp;
 	envp = linked_to_array(*proc.head);
 	proc.middle_cmd = ac - 2;

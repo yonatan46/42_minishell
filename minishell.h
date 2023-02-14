@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 11:18:27 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:58:46 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,17 @@ typedef struct s_heredoc_var
 	int		ret;
 }	t_heredoc_var;
 
+typedef struct s_pars_var
+{
+	int		z;
+	int		f;
+	int		k;
+	int		i;
+	int		j;
+	char	*ch;
+	char	*ch1;
+	char	*tmp;
+}	t_pars_var;
 
 int		g_err_code;
 void	free_func(char **args);
@@ -192,7 +203,7 @@ char	**ft_separate_sp_pipe(char *str, char c);
 /* ft_lexer */
 int		ft_count_arg(char **str);
 int		ft_count_quotes(char *str, char c);
-void	ft_delete_argquotes(t_pipe *f_struct, char *str, int *i, int *j);
+void	ft_delete_argquotes(t_pipe *f_struct, char *str, int i, int j);
 void	ft_delete_arg_quotes(t_pipe *f_struct);
 t_pipe	*ft_lexer(char *str, t_data	*proc);
 

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 11:39:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:34:29 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	main(int ac, char **av, char **env)
 				/**
 				 * to be changed!!!!!!!!!!
 				*/
-				proc.main_line = expand(proc.main_line, &proc);
+		proc.main_line = expand(proc.main_line, &proc);
 		// else
 		// 	proc.main_line = readline \
 		// 			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
