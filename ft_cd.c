@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 19:47:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:55:12 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,25 +114,15 @@ int	ft_cd(t_pipe *pipe, t_data *proc)
 
 	pwd = getcwd(proc->pwd, 1024);
 	proc->x = 0;
-	if (pipe->arg[1])
-	{
-		proc->x = ft_cd_util(pipe, pwd, proc);
-		if (pipe->cmd_len > 1)
-		{
-			free_redirection(pipe);
-			free_func(proc->envp);
-			ultimate_free(proc, pipe);
-		}
-	}
-	else if (pipe->arg[1] == NULL)
-	{
+	if (pipe[proc->index].arg[1])
+		proc->x = ft_cd_util(&pipe[proc->index], pwd, proc);
+	else if (pipe[proc->index].arg[1] == NULL)
 		proc->x = ft_cd_util_2(pwd, proc);
-		if (pipe->cmd_len > 1)
-		{
-			free_func(proc->envp);
-			free_redirection(pipe);
-			ultimate_free(proc, pipe);
-		}
+	if (pipe->cmd_len > 1)
+	{
+		free_func(proc->envp);
+		free_redirection(pipe);
+		ultimate_free(proc, pipe);
 	}
 	return (proc->x);
 }
