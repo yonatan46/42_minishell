@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 19:44:55 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:47:35 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 {
 	char	*tmp;
 
-	proc->x = 0;
 	if (chdir(pipe->arg[1]) == 0)
 	{
 		if (pwd)
@@ -44,11 +43,8 @@ static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 		return (1);
 	}
 	else
-	{
-		write(1, pipe->arg[1], ft_strlen(pipe->arg[1]));
-		perror(" ");
-		return (1);
-	}
+		return (write(1, pipe->arg[1], \
+		ft_strlen(pipe->arg[1])), perror(" "), 1);
 	return (0);
 }
 
@@ -74,7 +70,8 @@ static	int	ft_cd_util_3(char *pwd, t_data *proc)
 	if (pwd)
 	{
 		tmp = ft_strjoin("PWD=", pwd);
-		return (free(tmp), chek_exp_a_rplc(*proc->head, tmp));
+		proc->x = chek_exp_a_rplc(*proc->head, tmp);
+		return (free(tmp), proc->x);
 	}
 	return (1);
 }
