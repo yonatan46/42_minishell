@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 10:20:58 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:33:18 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,20 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 	}
 }
 
+int	set_signal_exe(t_pipe *av, t_data *proc, char **envp)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, child_signal_handler);
+	signal(SIGQUIT, child_signal_handler);
+	one_cmd_process(proc, av, envp);
+	waitpid(-1, &proc->err_no, 0);
+	if (WIFEXITED(proc->err_no))
+		return (WEXITSTATUS(proc->err_no));
+	else if (WIFSIGNALED(proc->err_no))
+		return (WTERMSIG(proc->err_no) + 128);
+	return (0);
+}
+
 /**
  * pipex_one_cmd: execute and return err_code for one cmd
  * @av: a structure that contains the whole variables
@@ -112,18 +126,6 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	else if (av[0].cmd && strcmp(av[0].cmd, "export") == 0)
 		return (ft_export_print_linked(av, proc));
 	else
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGINT, child_signal_handler);
-		signal(SIGQUIT, child_signal_handler);
-		one_cmd_process(proc, av, envp);
-		waitpid(-1, &proc->err_no, 0);
-		if (WIFEXITED(proc->err_no))
-		{
-			return (WEXITSTATUS(proc->err_no));
-		}
-		else if (WIFSIGNALED(proc->err_no))
-			return (WTERMSIG(proc->err_no) + 128);
-	}
+		return (set_signal_exe (av, proc, envp));
 	return (0);
 }

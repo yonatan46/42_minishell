@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:00:23 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/10 15:44:13 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:33:50 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 */
 void	free_short(char *path, char **path_split)
 {
-	if(path)
-		free(path);
+	simple_free(path);
 	free_func(path_split);
 }
 
