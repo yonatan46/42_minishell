@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 11:41:01 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:04:38 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	free_func(char **args)
 			simple_free(args[i++]);
 	if (args)
 		simple_free(args);
-	args = NULL;
 }
 
 /**
