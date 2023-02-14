@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_del.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:01:48 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/12 14:39:12 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:24:05 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,17 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 {
 	int		z;
 	int		f;
-	int		k;
 	char	*ch;
 	char	*ch1;
 
 	z = -1;
-	k = 0;
 	while (str[++z])
 	{
 		if (str[z] == '\'')
 		{
 			f = z;
 			ch = ft_del_quotes(str, &z, '\'');
-			ch1 = ft_substr(str, k, f);
+			ch1 = ft_substr(str, 0, f);
 			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
 			free(ch);
 			free(ch1);
@@ -62,7 +60,7 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 		{
 			f = z;
 			ch = ft_del_quotes(str, &z, '\"');
-			ch1 = ft_substr(str, k, f);
+			ch1 = ft_substr(str, 0, f);
 			f_struct[*i].red[*j]->red_name = ft_strjoin(ch1, ch);
 			free(ch);
 			free(ch1);
