@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:00:23 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 10:33:50 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:37:13 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ char	*parsing_middle(t_data *proc, char **envp, char *s)
 			free_short(proc->path, proc->path_split);
 			return (proc->result);
 		}
-		if (proc->path)
-			free(proc->path);
-		free(proc->result);
+		simple_free(proc->path);
+		simple_free(proc->result);
 	}
 	return (free_short(NULL, proc->path_split), NULL);
 }
@@ -70,9 +69,10 @@ void	init_parsing(t_data *proc)
 char	*parsing(t_data *proc, char **envp, char *s)
 {
 	init_parsing(proc);
-	if (ft_strnstr(s, "/", ft_strlen(s)) || strcmp(s, ".") == 0 || strcmp(s, "..") == 0 || s[0] == '\0')
+	if (ft_strnstr(s, "/", ft_strlen(s)) || \
+	strcmp(s, ".") == 0 || strcmp(s, "..") == 0 || s[0] == '\0')
 		return (s);
-	if (search(envp) == 0 )
+	if (search(envp) == 0)
 		return (NULL);
 	while (envp[++proc->x])
 	{
