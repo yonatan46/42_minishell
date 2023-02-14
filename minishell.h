@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 17:06:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:58:48 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_pars_var
 
 int		g_err_code;
 void	free_func(char **args);
+char	*ft_join_spltd(char *str);
 void	cmd_not_found(t_pipe *av, t_data *proc, int counter);
 int		search(char **envp);
 int		pipex(int ac, t_pipe *av, t_data *proc);

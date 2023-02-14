@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 17:01:45 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:22:10 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 		var->cp = NULL;
 	}
 	else
-	{
 		var->cp = ftt_strjoin(var->cp, var->tmp);
-	}
 }
 
 /**

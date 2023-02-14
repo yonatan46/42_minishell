@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:01:48 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 13:14:36 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:25:15 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ void	ft_delete_cmd_quotes_two(t_pipe *f_struct)
 	i = -1;
 	while (f_struct[++i].cmd)
 	{
-		f_struct[i].cmd = ft_del_quotes_two(f_struct[i].cmd, '\'');
-		f_struct[i].cmd = ft_del_quotes_two(f_struct[i].cmd, '\"');
+		if (f_struct[i].cmd != NULL)
+		{
+			f_struct[i].cmd = ft_del_quotes_two(f_struct[i].cmd, '\'');
+			f_struct[i].cmd = ft_del_quotes_two(f_struct[i].cmd, '\"');
+		}
 	}
 }
 
