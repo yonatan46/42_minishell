@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 11:21:42 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:58:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,24 @@
 */
 void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp)
 {
-	(void)envp;
+	int	ret;
+
+	ret = 0;
 	if (proc->check == 1)
 		ft_exit(av, proc);
 	else if (proc->check == 2)
 		ft_echo(av, proc, envp);
 	else if (proc->check == 3)
-		ft_cd(av, proc);
+		ret = ft_cd(av, proc);
 	else if (proc->check == 4)
 		ft_pwd(proc, av, envp);
 	else if (proc->check == 5)
 		ft_env_print_linked(proc);
 	else if (proc->check == 6)
-		ft_export_print_linked(av, proc);
+		ret = ft_export_print_linked(av, proc);
 	else if (proc->check == 7)
-		ft_unset(av, proc);
-	exit(0);
+		ret = ft_unset(av, proc);
+	exit(ret);
 }
 
 /**
