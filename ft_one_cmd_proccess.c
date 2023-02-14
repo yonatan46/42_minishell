@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 20:14:39 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:20:58 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ t_pipe *av, char **envp)
 	exit(1);
 }
 
+void	check_and_execute(t_data *proc, t_pipe *av, char **envp, char *tmp)
+{
+	if (av->cmd && tmp && av->cmd[0])
+	{
+		execve(tmp, av->arg, envp);
+		free_func_one_cmd(av, proc, envp);
+	}
+	else
+	{
+		simple_free(tmp);
+		cmd_not_found(av, proc, 0);
+	}
+}
+
 /**
  * one_cmd_process: a function that execute one command
  * @proc: struct that have all the variables i use
@@ -49,8 +63,8 @@ t_pipe *av, char **envp)
 */
 void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 {
-	(void)envp;
-	char *tmp;
+	char	*tmp;
+
 	proc->envp = envp;
 	proc->id = fork();
 	if (proc->id < 0)
@@ -61,39 +75,14 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 			red_one_cmd(av, proc);
 		if (av->cmd == NULL)
 		{
-			int x = 0;
-			while (x < av->cmd_len)
-			{
-				free_func(av[x].f_cmd);
-				x++;
-			}
-			free_redirection(av);
-			if (av->arg)
-				free_func(av->arg);
-			if (av->cmd)
-				free(av->cmd);
-			if (av)
-				free(av);
-			free_list(*proc->head);
-			free(proc->head);
-			free_func(proc->envp);
+			comb_free(av, proc);
 			exit(0);
 		}
 		proc->check = ft_check_builtin(av->cmd);
 		if (proc->check > 0)
 			check_built_ins_and_exexute_one_cmd(proc, av, envp);
 		tmp = parsing(proc, envp, av->cmd);
-		if (av->cmd && tmp && av->cmd[0])
-		{
-			execve(tmp, av->arg, envp);
-			free_func_one_cmd(av, proc, envp);
-		}
-		else
-		{
-			if (tmp && tmp[0])
-				free(tmp);
-			cmd_not_found(av, proc, 0);
-		}
+		check_and_execute(proc, av, envp, tmp);
 	}
 }
 
@@ -137,19 +126,4 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 			return (WTERMSIG(proc->err_no) + 128);
 	}
 	return (0);
-}
-
-char	*get_next_line(int fd)
-{
-    if (fd < 0) return(NULL);
-    char *copy, *tmp;
-    copy = ft_calloc(sizeof(char), 100000);
-    tmp = copy;
-    while (read(fd, tmp, 1))
-		if (*(tmp++) == '\n')
-			break ;
-	if (copy[0] == '\0')
-		return (free(copy), NULL);
-	else
-		return (copy);
 }

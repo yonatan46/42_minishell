@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:17:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 09:51:56 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:08:46 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	comb_free(t_pipe *pipe, t_data *proc)
 	ultimate_free(proc, pipe);
 }
 
-void	simple_free(char *str)
+void	simple_free(void *str)
 {
 	if (str)
 		free(str);
