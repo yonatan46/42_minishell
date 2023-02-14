@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 18:49:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:42:34 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,79 +56,11 @@ int	red_append_mode(t_pipe *av, int x, t_data *proc)
 {
 	int	file1;
 
-	file1 = open(av[proc->index].red[x]->red_name, O_RDWR | O_CREAT | O_APPEND, 0777);
+	file1 = open(av[proc->index].red[x]->red_name, O_RDWR | \
+	O_CREAT | O_APPEND, 0777);
 	if (file1 == -1)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
 	dup2(file1, STDOUT_FILENO);
 	close(file1);
 	return (1);
-}
-
-int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
-{
-	int		file1;
-	char	*tmp;
-	char	*tmp2;
-
-	file1 = open(".tmp", O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0777);
-	if (file1 == -1)
-		terminate(av[proc->index].red[*x]->red_name, proc, av);
-	while (1)
-	{
-		signal(SIGINT, SIG_IGN);
-		tmp = get_next_line(0);
-		tmp2 = ft_strjoin(av[*x].red[*y]->red_name, "\n");
-		if (tmp == NULL)
-		{
-			if (tmp2)
-				free(tmp2);
-			g_err_code = 0;
-			close(file1);
-			return (1);
-		}
-		else if (strcmp(tmp, tmp2) == 0)
-		{
-			if (tmp2)
-				free(tmp2);
-			free(av[*x].red[*y]->red_name);
-			free(av[*x].red[*y]->red_sign);
-			av[*x].red[*y]->red_name = ft_strdup(".tmp");
-			av[*x].red[*y]->red_sign = ft_strdup("<");
-			close(file1);
-			free(tmp);
-			break ;
-		}
-		if (tmp2)
-			free(tmp2);
-		write(file1, tmp, ft_strlen(tmp));
-		free(tmp);
-	}
-	if (tmp == NULL)
-	{
-		g_err_code = 0;
-		close(file1);
-		return (1);
-	}
-	return (0);
-}
-
-int	check_and_update_heredoc(t_pipe *av, t_data *proc)
-{
-	int		x;
-	int		y;
-
-	x = 0;
-	while (x < av->cmd_len)
-	{
-		y = 0;
-		while (y < av[x].red_len)
-		{
-			if (strcmp(av[x].red[y]->red_sign, "<<") == 0)
-				if(replace_heredocs(av, &x, &y, proc) == 1)
-					return (1);
-			y++;
-		}
-		x++;
-	}
-	return (0);
 }

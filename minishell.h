@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 10:08:43 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:51:59 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,15 @@ typedef struct s_exp_var
 	t_list		*tmp_list;
 
 }		t_exp_var;
+
+typedef struct s_heredoc_var
+{
+	int		file1;
+	char	*tmp;
+	char	*tmp2;
+	int		ret;
+}	t_heredoc_var;
+
 
 int		g_err_code;
 void	free_func(char **args);

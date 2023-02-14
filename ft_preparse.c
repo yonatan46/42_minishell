@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_preparse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:42:54 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 10:20:24 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:39:58 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_check_loop_space(char *str, int *i)
 
 int	ft_check_count_red(char *str, int i, char c)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (str[i])
@@ -45,7 +45,7 @@ int	ft_check_count_red(char *str, int i, char c)
 				count++;
 		}
 		else
-			break;
+			break ;
 		i++;
 	}
 	if (count > 2)
