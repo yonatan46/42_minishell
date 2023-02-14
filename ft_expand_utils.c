@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:41:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 12:25:36 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:22:54 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ int	expand_util(t_exp_var *var, char *str)
 			return (1);
 		}
 		var->start = var->x;
-		while (str[var->x] != '$' && str[var->x] \
-		!= ' ' && str[var->x] && str[var->x] != '\"' && \
-		str[var->x] != '\'' && str[var->x] != '/' && \
-		str[var->x] != '=' && str[var->x] != '\\')
+		while (ft_isalpha(str[var->x]))
 			var->x++;
 		get_env_and_replace(var, str);
 	}
