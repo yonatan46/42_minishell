@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 20:41:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/06 13:54:33 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:43:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_list	*ft_lstnew(char *key, char *value, int index, int position)
 {
-	(void)position;
 	t_list	*node;
 
+	(void)position;
 	node = malloc (sizeof(t_list));
 	if (node)
 	{

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:55:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 09:22:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:49:59 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ void	check_and_set(t_exp_var *var, t_list *head, t_data *proc)
 	}
 	if (var->flag_oldpwd == 0)
 	{
-				/**
-				 * to be changed!!!!!!!!!!
-				*/
-		ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD"), \
+		ft_lstadd_back(&head, ft_lstnew(ft_strdup("OLDPWD="), \
 		ft_strdup(""), var->x, var->x));
 		var->x++;
 	}

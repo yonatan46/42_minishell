@@ -6,10 +6,13 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/14 13:01:11 by dkaratae         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/14 13:03:01 by yonamog2         ###   ########.fr       */
+>>>>>>> b1411a5ef34647d92664d2851bdcd52062f070cd
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -26,49 +29,49 @@
 
 typedef struct s_data
 {
-	char	*main_line;
-	char	pwd[1024];
-	t_list	*t_lst;
-	char	**res;
-	char	*result;
-	char	*copy;
-	char	**res1;
-	char	**path_split;
-	char	*path;
-	char	**res2;
-	int		fd[256][2];
-	int		tmp;
-	int		id;
-	int		flag_in;
-	int		flag_out;
-	int		id1;
-	int		x;
-	int		status;
-	int		flag;
-	int		counter;
-	int		cmd_len;
-	int		middle_cmd;
-	int		ac;
-	int		total_pipe;
-	char	**copy_env;
-	char	**tmp_2d;
-	t_list	**head;
-	int		pid1;
-	int		pid2;
-	int		check;
-	int		err_no;
-	int		tmp_file_fd;
-	int		index;
-	char	*pars;
-	char	**envp;
-	unsigned long long *res_atoi;
-	unsigned long long *copy_atoi;
+	char				*main_line;
+	char				pwd[1024];
+	t_list				*t_lst;
+	char				**res;
+	char				*result;
+	char				*copy;
+	char				**res1;
+	char				**path_split;
+	char				*path;
+	char				**res2;
+	int					fd[256][2];
+	int					tmp;
+	int					id;
+	int					flag_in;
+	int					flag_out;
+	int					id1;
+	int					x;
+	int					status;
+	int					flag;
+	int					counter;
+	int					cmd_len;
+	int					middle_cmd;
+	int					ac;
+	int					total_pipe;
+	char				**copy_env;
+	char				**tmp_2d;
+	t_list				**head;
+	int					pid1;
+	int					pid2;
+	int					check;
+	int					err_no;
+	int					tmp_file_fd;
+	int					index;
+	char				*pars;
+	char				**envp;
+	unsigned long long	*res_atoi;
+	unsigned long long	*copy_atoi;
 }	t_data;
 
 typedef struct s_red
 {
-	char	*red_sign;
-	char	*red_name;
+	char				*red_sign;
+	char				*red_name;
 }		t_red;
 
 /**
@@ -76,11 +79,11 @@ typedef struct s_red
 */
 typedef struct s_pipe
 {
-	int		cmd_len;//3
-	int		red_len;//5
-	char	*cmd;//ls
-	char	**arg;//ls, -la,NULL
-	t_red	**red;//< infile,, > outf...	..
+	int		cmd_len;
+	int		red_len;
+	char	*cmd;
+	char	**arg;
+	t_red	**red;
 	char	**f_cmd;
 }		t_pipe;
 
@@ -110,6 +113,17 @@ typedef struct s_heredoc_var
 	int		ret;
 }	t_heredoc_var;
 
+typedef struct s_pars_var
+{
+	int		z;
+	int		f;
+	int		k;
+	int		i;
+	int		j;
+	char	*ch;
+	char	*ch1;
+	char	*tmp;
+}	t_pars_var;
 
 int		g_err_code;
 void	free_func(char **args);
@@ -126,6 +140,7 @@ int		expand_util(t_exp_var *var, char *str);
 void	simple_free(void *str);
 void	first_process_util(t_data *proc, t_pipe *av, char **envp);
 void	last_process_util(t_data *proc, t_pipe *av, char **envp);
+void	expand_structs(t_pipe *f_struct, t_data *proc);
 /**
  * redirectin functions
 */
@@ -195,7 +210,7 @@ char	**ft_separate_sp_pipe(char *str, char c);
 /* ft_lexer */
 int		ft_count_arg(char **str);
 int		ft_count_quotes(char *str, char c);
-void	ft_delete_argquotes(t_pipe *f_struct, char *str, int *i, int *j);
+void	ft_delete_argquotes(t_pipe *f_struct, char *str, int i, int j);
 void	ft_delete_arg_quotes(t_pipe *f_struct);
 t_pipe	*ft_lexer(char *str, t_data	*proc);
 
@@ -279,7 +294,11 @@ void	terminate(char *m, t_data *proc, t_pipe *pipe);
 char	*expand_env_vars(const char *str);
 char	*expand_dollar_sign(const char *input);
 
+<<<<<<< HEAD
 
+=======
+void	ft_delete_cmd_quotes_two(t_pipe *f_struct);
+>>>>>>> b1411a5ef34647d92664d2851bdcd52062f070cd
 char	*ft_del_quotes_two(char *str, char c);
 int		ft_calc_redpipe(char *str, char c);
 char	*ft_check_pipe_after_red(char *str);

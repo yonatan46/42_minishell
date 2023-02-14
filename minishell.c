@@ -6,43 +6,11 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 11:39:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:57:58 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * handler_signal: a function to handle signal calls
- * @num: number of the signal status
-*/
-void	handler_signal(int num)
-{
-	if (num == SIGINT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		ft_putstr_fd("  \n", 2);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_err_code = 1;
-	}
-}
-
-void	child_signal_handler(int num)
-{
-	if (num == SIGINT)
-	{
-		ft_putstr_fd("\n", 2);
-		g_err_code = 130;
-	}
-	else if (num == SIGQUIT)
-	{
-		ft_putstr_fd("Quit: 3\n", 2);
-		g_err_code = 130;
-	}
-}
 
 /**
  * validat_init_singal: validate and initialize the envionment
@@ -91,6 +59,31 @@ int	validate_input(t_data *proc)
 }
 
 /**
+ * main_util: 
+*/
+int	main_util(t_data *proc, t_pipe *pipe)
+{
+	if (pipe->cmd_len >= 220)
+	{
+		ft_putstr_fd("Sorry too many command\n", 2);
+		exit(1);
+	}
+	if (check_and_update_heredoc(pipe, proc) == 1)
+	{
+		free_redirection(pipe);
+		ultimate_free(proc, pipe);
+		return (1);
+	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, handler_signal);
+	g_err_code = pipex(pipe->cmd_len, pipe, proc);
+	free_redirection(pipe);
+	ultimate_free(NULL, pipe);
+	unlink(".tmp");
+	return (0);
+}
+
+/**
  * main: where the main majic is happening,, take string ,validate, execute
  * @ac: number of arguments passed
  * @av: arguments passed
@@ -98,7 +91,6 @@ int	validate_input(t_data *proc)
 */
 int	main(int ac, char **av, char **env)
 {
-	int		x;
 	t_pipe	*pipe;
 	t_data	proc;
 
@@ -107,16 +99,12 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		signal(SIGINT, handler_signal);
-		// if (g_err_code == 0)
+		if (g_err_code == 0)
 			proc.main_line = readline \
 				("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");
-				/**
-				 * to be changed!!!!!!!!!!
-				*/
-				proc.main_line = expand(proc.main_line, &proc);
-		// else
-		// 	proc.main_line = readline \
-		// 			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
+		else
+			proc.main_line = readline \
+					("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
 		{
 			simple_free(proc.main_line);
@@ -124,25 +112,8 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		pipe = ft_lexer(proc.main_line, &proc);
-		if (pipe->cmd_len >= 220)
-		{
-			ft_putstr_fd("Sorry too many command\n", 2);
-			exit(1);
-		}
-		if (check_and_update_heredoc(pipe, &proc) == 1)
-		{
-			x = 0;
-			free_redirection(pipe);
-			ultimate_free(&proc, pipe);
+		if (main_util(&proc, pipe) == 1)
 			continue ;
-		}
-		signal(SIGINT, SIG_IGN);
-		signal(SIGINT, handler_signal);
-		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
-		x = 0;
-		free_redirection(pipe);
-		ultimate_free(NULL, pipe);
-		unlink(".tmp");
 	}
 	return (0);
 }
