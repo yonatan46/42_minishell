@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 15:10:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:01:45 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,24 @@ static void	tool(char *str, t_exp_var *var)
 
 static int	expand_util_4(char *str, t_exp_var *var)
 {
-	char		*tmp;
-
 	if (str[var->x] != '$')
 		tool(str, var);
 	else if (str[var->x] == '$')
 	{
 		if (str[var->x + 1] == '\0')
 		{
-			tmp = ft_substr(str, var->x, 1);
-			var->cp = ftt_strjoin(var->cp, tmp);
-			return (free(tmp), 1);
+			var->tmp_ex = ft_substr(str, var->x, 1);
+			var->cp = ftt_strjoin(var->cp, var->tmp_ex);
+			return (free(var->tmp_ex), 1);
 		}
 		else if (ft_isdigit(str[var->x + 1]) == 1)
 			var->x += 2;
-		else if (ft_isalpha(str[var->x + 1]) == 0 && str[var->x + 1] != '?' && str[var->x + 1] != '$')
+		else if (ft_isalpha(str[var->x + 1]) == 0 && \
+		str[var->x + 1] != '?' && str[var->x + 1] != '$')
 		{
-			tmp = ft_substr(str, var->x, 1);
-			var->cp = ftt_strjoin(var->cp, tmp);
-			free(tmp);
+			var->tmp_ex = ft_substr(str, var->x, 1);
+			var->cp = ftt_strjoin(var->cp, var->tmp_ex);
+			free(var->tmp_ex);
 			var->x++;
 		}
 		else

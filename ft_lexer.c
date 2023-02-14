@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 13:04:32 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:06:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,13 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 	str = ft_check_pipe_after_red(str);
 	str = ft_add_sp_redname(str);
 	pipes_num = ft_calc(str, '|');
-	vars = ft_clean_sp_struct(ft_separate_sp_pipe(str, '|'));
+	vars = ft_c_sp_struct(ft_separate_sp_pipe(str, '|'));
 	f_struct = ft_calloc(sizeof(t_pipe), pipes_num + 2);
 	while (vars[i])
 	{
 		f_struct[i].f_cmd = ft_separate_sp_pipe(vars[i], ' ');
 		f_struct[i].cmd_len = pipes_num + 1;
+		f_struct[i].arg_len = 0;
 		i++;
 	}
 	ft_count_struct(f_struct);

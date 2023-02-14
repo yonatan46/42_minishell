@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 22:27:15 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 21:46:44 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:11:03 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+void	simple_free(void *str);
 char	*ftt_strjoin(char *s1, char *s2);
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, int n);

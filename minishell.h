@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 15:55:13 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:06:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data
 	int					flag_out;
 	int					id1;
 	int					x;
+	int					i;
 	int					status;
 	int					flag;
 	int					counter;
@@ -88,6 +89,7 @@ typedef struct s_exp_var
 {
 	char		*cp;
 	char		*tmp;
+	char		*tmp_ex;
 	int			x;
 	int			y;
 	int			start;
@@ -134,7 +136,6 @@ void	child_signal_handler(int num);
 void	ultimate_free(t_data *data, t_pipe *pipe);
 void	comb_free(t_pipe *pipe, t_data *proc);
 int		expand_util(t_exp_var *var, char *str);
-void	simple_free(void *str);
 void	first_process_util(t_data *proc, t_pipe *av, char **envp);
 void	last_process_util(t_data *proc, t_pipe *av, char **envp);
 void	expand_structs(t_pipe *f_struct, t_data *proc);
@@ -252,9 +253,9 @@ int		ft_allocate_memory_red_arg(t_pipe *f_struct, int *i);
 
 /* ft_space */
 char	*ft_copy_after_clean_sp(char *str, int *i, int *k, int check_quote);
-char	*ft_clean_spaces(char *str);
+char	*ft_c_sp(char *str);
 int		ft_trim_space(char *str, char c);
-char	**ft_clean_sp_struct(char **str);
+char	**ft_c_sp_struct(char **str);
 
 /* minishell */
 int		main(int ac, char **av, char **env);

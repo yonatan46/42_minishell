@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:01:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 13:04:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:06:03 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,29 @@
 
 void	expand_structs(t_pipe *f_struct, t_data *proc)
 {
-	int	x;
-	int	i;
-
-	i = 0;
-	x = 0;
-	while (i < f_struct->cmd_len)
+	proc->i = -1;
+	proc->x = 0;
+	while (++proc->i < f_struct->cmd_len)
 	{
-		f_struct[i].cmd = expand(f_struct[i].cmd, proc);
-		x = 0;
-		while (f_struct[i].arg && f_struct[i].arg[x])
+		proc->res = ft_split(ft_c_sp(expand(f_struct[proc->i].cmd, proc)), ' ');
+		f_struct[proc->i].cmd = ft_strdup(proc->res[0]);
+			proc->x = 0;
+		while (f_struct[proc->i].arg && f_struct[proc->i].arg[proc->x])
 		{
-			f_struct[i].arg[x] = expand(f_struct[i].arg[x], proc);
-			x++;
+			f_struct[proc->i].arg[proc->x] = ft_c_sp(expand \
+			(f_struct[proc->i].arg[proc->x], proc));
+			proc->x++;
 		}
-		x = 0;
-		while (x < f_struct[i].red_len)
+		proc->x = 0;
+		while (proc->x < f_struct[proc->i].red_len)
 		{
-			f_struct[i].red[x]->red_sign = \
-			expand(f_struct[i].red[x]->red_sign, proc);
-			f_struct[i].red[x]->red_name = \
-			expand(f_struct[i].red[x]->red_name, proc);
-			x++;
+			f_struct[proc->i].red[proc->x]->red_sign = ft_c_sp \
+			(expand(f_struct[proc->i].red[proc->x]->red_sign, proc));
+			f_struct[proc->i].red[proc->x]->red_name = ft_c_sp \
+			(expand(f_struct[proc->i].red[proc->x]->red_name, proc));
+			proc->x++;
 		}
-		i++;
+		free_func(proc->res);
 	}
 }
 

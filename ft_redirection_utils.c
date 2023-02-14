@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:15:36 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 12:22:22 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:06:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_add_sp_redname(char *str)
 {
 	char	*new_str;
 
-	new_str = ft_clean_spaces(str);
+	new_str = ft_c_sp(str);
 	new_str = ft_add_sp_red_after(new_str);
 	new_str = ft_add_sp_red_before(new_str);
 	return (new_str);

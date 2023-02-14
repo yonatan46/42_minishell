@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 15:31:01 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:03:57 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,31 +79,27 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *prc)
 */
 int	ft_unset_check_and_unset(t_list **main_head, char **args)
 {
-	int		x;
-	t_list	*tmp;
-	char	*tmp_copy;
+	t_exp_var	var;
 
-	x = -1;
-	tmp_copy = NULL;
-	while (args[++x])
+	var.x = -1;
+	var.tmp_ex = NULL;
+	while (args[++var.x])
 	{
-		if (ft_strchr(args[x], '='))
+		if (ft_strchr(args[var.x], '='))
+			return (write(2, args[var.x], ft_strlen(args[var.x])), \
+			ft_putstr_fd(" : not a valid identifier\n", 2), 1);
+		var.tmp_list = *main_head;
+		while (var.tmp_list)
 		{
-			write(2, args[x], ft_strlen(args[x]));
-			return (ft_putstr_fd(" : not a valid identifier\n", 2), 1);
-		}
-		tmp = *main_head;
-		while (tmp)
-		{
-			if (ft_strchr(tmp->key, '='))
-				tmp_copy = ft_strjoin(args[x], "=");
+			if (ft_strchr(var.tmp_list->key, '='))
+				var.tmp_ex = ft_strjoin(args[var.x], "=");
 			else
-				tmp_copy = ft_strdup(args[x]);
-			if (strcmp(tmp->key, tmp_copy) == 0)
-				return (simple_free(tmp_copy), \
-				remove_element(main_head, tmp->index));
-			simple_free(tmp_copy);
-			tmp = tmp->next;
+				var.tmp_ex = ft_strdup(args[var.x]);
+			if (strcmp(var.tmp_list->key, var.tmp_ex) == 0)
+				return (simple_free(var.tmp_ex), \
+				remove_element(main_head, var.tmp_list->index));
+			simple_free(var.tmp_ex);
+			var.tmp_list = var.tmp_list->next;
 		}
 	}
 	return (0);

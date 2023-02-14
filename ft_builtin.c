@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:52:10 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 22:38:05 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:23:05 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	ft_print_echo(t_pipe *pipe, int x)
 	int	flag;
 
 	flag = 0;
-	while (pipe->arg[++x])
+	while (++x < pipe->arg_len)
 	{
-		if (check_nns(pipe->arg[x]) == 0 && flag == 0)
+		if ((check_nns(pipe->arg[x]) == 0 && flag == 0) || !pipe->arg[x])
 			continue ;
 		if (pipe->arg[x + 1] == NULL)
 			printf("%s", pipe->arg[x]);
@@ -40,7 +40,7 @@ void	ft_print_echo(t_pipe *pipe, int x)
 */
 void	ft_echo(t_pipe *pipe, t_data *proc, char **envp)
 {
-	if (pipe[proc->index].arg[1] == NULL || pipe[proc->index].arg[1][0] == '\0')
+	if (pipe[proc->index].arg_len == 1)
 	{
 		printf("\n");
 		free_func(envp);

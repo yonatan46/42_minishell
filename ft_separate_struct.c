@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_separate_struct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/05 15:16:00 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:14:30 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ft_copy_red_name(t_pipe *f_struct, int i, int j, int r)
 void	ft_copy_to_arg(t_pipe *f_struct, int i, int j, int *g)
 {
 	f_struct[i].arg[*g] = ft_strdup(f_struct[i].f_cmd[j]);
-		(*g)++;
+	f_struct[i].arg_len++;
+	(*g)++;
 }
 
 void	ft_copy_to_red_sign_name(t_pipe *f_struct, int i, int *j, int *r)
