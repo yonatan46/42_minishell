@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 10:33:18 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:22:37 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,12 @@ void	one_cmd_process(t_data *proc, t_pipe *av, char **envp)
 	}
 }
 
+/**
+ * set_signal_exe: set the singal and execute for one cmd
+ * @proc: struct that have all the variables i use
+ * @av: structure of the commands
+ * @envp: 2d array conataining the environment variables 
+*/
 int	set_signal_exe(t_pipe *av, t_data *proc, char **envp)
 {
 	signal(SIGINT, SIG_IGN);

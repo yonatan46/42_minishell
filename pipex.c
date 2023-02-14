@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 20:06:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:22:28 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	pipex(int ac, t_pipe *f_pipe, t_data *proc_inp)
 		ret = pipex_three_cmd(f_pipe, &proc, envp);
 	else
 		printf("Error : no command input\n");
-	if(envp)
+	if (envp)
 		free_func(envp);
 	return (ret);
 }

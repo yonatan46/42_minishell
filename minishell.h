@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 10:51:59 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:18:27 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void	ultimate_free(t_data *data, t_pipe *pipe);
 void	comb_free(t_pipe *pipe, t_data *proc);
 int		expand_util(t_exp_var *var, char *str);
 void	simple_free(void *str);
+void	first_process_util(t_data *proc, t_pipe *av, char **envp);
+void	last_process_util(t_data *proc, t_pipe *av, char **envp);
 /**
  * redirectin functions
 */

@@ -6,7 +6,7 @@
 #    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/11 16:02:02 by dkaratae          #+#    #+#              #
-#    Updated: 2023/02/14 10:42:03 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/14 11:19:10 by yonamog2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ FILES =		ft_expand.c\
 			ft_expand_utils.c \
 			ft_get_env.c \
 			ft_heredoc.c \
+			ft_more_cmd_proccess_util.c \
 # FILES = ft_input.c
 # FILES = try.c
 OBJ = $(FILES:.c=.o)

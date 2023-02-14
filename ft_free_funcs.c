@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:17:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 10:08:46 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:32:11 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ void	ultimate_free(t_data *data, t_pipe *pipe)
 		if (pipe[x].arg)
 			free_func(pipe[x].arg);
 		if (pipe[x].cmd)
-			free(pipe[x].cmd);
+			simple_free(pipe[x].cmd);
 		free_func(pipe[x].f_cmd);
 		x++;
 	}
-	free_list(*data->head);
-	free(data->head);
-	free(pipe);
+	if (data)
+	{
+		free_list(*data->head);
+		simple_free(data->head);
+		simple_free(pipe);
+	}
 }
 
 /**
@@ -50,12 +53,9 @@ void	free_list(t_list *head)
 	while (current != NULL)
 	{
 		next = current->next;
-		if (current->key)
-			free(current->key);
-		if (current->value)
-			free(current->value);
-		if (current)
-			free(current);
+		simple_free(current->key);
+		simple_free(current->value);
+		simple_free(current);
 		current = next;
 	}
 	head = NULL;
@@ -76,12 +76,12 @@ void	free_redirection(t_pipe *pipe)
 		i = 0;
 		while (i < pipe[x].red_len)
 		{
-			free(pipe[x].red[i]->red_name);
-			free(pipe[x].red[i]->red_sign);
-			free(pipe[x].red[i]);
+			simple_free(pipe[x].red[i]->red_name);
+			simple_free(pipe[x].red[i]->red_sign);
+			simple_free(pipe[x].red[i]);
 			i++;
 		}
-		free(pipe[x].red);
+		simple_free(pipe[x].red);
 		x++;
 	}
 }

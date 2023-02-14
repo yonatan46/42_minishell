@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 20:43:00 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:33:04 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	child_signal_handler(int num)
 		g_err_code = 130;
 	}
 }
+
 /**
  * validat_init_singal: validate and initialize the envionment
  * @ac: number of argument
@@ -126,49 +127,29 @@ int	main(int ac, char **av, char **env)
 		// 			("\001\033[1m\033[31m\002" "minishell {😡}-> " "\001\033[0m\002");
 		if (validate_input(&proc) == 1)
 		{
-			free(proc.main_line);
+			simple_free(proc.main_line);
 			g_err_code = 0;
 			continue ;
 		}
 		pipe = ft_lexer(proc.main_line, &proc);
-		if (pipe->cmd_len >= 200)
+		if (pipe->cmd_len >= 220)
 		{
-			printf("duhh\n");
+			ft_putstr_fd("Sorry too many command\n", 2);
 			exit(1);
 		}
 		if (check_and_update_heredoc(pipe, &proc) == 1)
 		{
 			x = 0;
-			while (x < pipe->cmd_len)
-			{
-				if (pipe[x].arg)
-					free_func(pipe[x].arg);
-				if (pipe[x].cmd)
-					free(pipe[x].cmd);
-				free_func(pipe[x].f_cmd);
-				x++;
-			}
 			free_redirection(pipe);
-			if (pipe)
-				free(pipe);
+			ultimate_free(&proc, pipe);
 			continue ;
 		}
 		signal(SIGINT, SIG_IGN);
 		signal(SIGINT, handler_signal);
 		g_err_code = pipex(pipe->cmd_len, pipe, &proc);
 		x = 0;
-		while (x < pipe->cmd_len)
-		{
-			if (pipe[x].arg)
-				free_func(pipe[x].arg);
-			if (pipe[x].cmd)
-				free(pipe[x].cmd);
-			free_func(pipe[x].f_cmd);
-			x++;
-		}
 		free_redirection(pipe);
-		if (pipe)
-			free(pipe);
+		ultimate_free(NULL, pipe);
 		unlink(".tmp");
 	}
 	return (0);
