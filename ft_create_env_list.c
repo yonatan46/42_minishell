@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:55:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 20:43:22 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:22:02 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	init_vars(t_exp_var *var)
 int	ft_linked_env_util_2(t_exp_var *var, t_list *head, \
 t_data *proc, char **env)
 {
-	char *tmp_2;
+	char	*tmp_2;
+
 	if (ft_strncmp(env[var->x], "PWD=", 4) == 0)
 	{
 		var->flag_pwd = 1;
