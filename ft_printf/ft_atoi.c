@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 17:46:38 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/09 21:41:56 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:53:34 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ int	ft_atoi(const char *str)
 	ft_util(res, sign);
 	return (res * sign);
 }
-

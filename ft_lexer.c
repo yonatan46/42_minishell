@@ -6,39 +6,11 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 12:29:30 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:04:32 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_count_arg(char **str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		count++;
-		i++;
-	}
-	return (count);
-}
-
-int	ft_count_quotes(char *str, char c)
-{
-	int	i;
-	int	count;
-
-	i = -1;
-	count = 0;
-	while (str[++i])
-		if (str[i] == c)
-			count++;
-	return (count);
-}
 
 int	ft_del_qt_util(t_pars_var *var, t_pipe *f_struct, char *str)
 {
@@ -102,7 +74,7 @@ void	ft_delete_arg_quotes(t_pipe *f_struct)
 char	*ft_check_pipe_after_red(char *str)
 {
 	t_pars_var	var;
-	int		check_quote;
+	int			check_quote;
 
 	check_quote = 0;
 	var.i = -1;
@@ -127,12 +99,9 @@ char	*ft_check_pipe_after_red(char *str)
 	return (var.tmp);
 }
 
-
 t_pipe	*ft_lexer(char *str, t_data	*proc)
 {
-	(void)proc;
 	int		i;
-	// int		x;
 	char	**vars;
 	int		pipes_num;
 	t_pipe	*f_struct;
@@ -150,35 +119,7 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 		i++;
 	}
 	ft_count_struct(f_struct);
-
-				/**
-				 * to be changed!!!!!!!!!!
-				*/
-	// i = 0;
-	// x = 0;
-	// while (i < f_struct->cmd_len)
-	// {
-	// 	f_struct[i].cmd = expand(f_struct[i].cmd, proc);
-	// 	// f_struct[i].cmd = expand_dollar_sign(f_struct[i].cmd);
-		
-	// 	x = 0;
-	// 	while (f_struct[i].arg && f_struct[i].arg[x])
-	// 	{
-	// 		f_struct[i].arg[x] = expand(f_struct[i].arg[x], proc);
-	// 		// f_struct[i].arg[x] = expand_dollar_sign(f_struct[i].arg[x]);
-	// 		x++;
-	// 	}
-	// 	x = 0;
-	// 	while (x < f_struct[i].red_len)
-	// 	{
-	// 		f_struct[i].red[x]->red_sign = expand(f_struct[i].red[x]->red_sign, proc);
-	// 		// f_struct[i].red[x]->red_sign = expand_dollar_sign(f_struct[i].red[x]->red_sign);
-	// 		f_struct[i].red[x]->red_name = expand(f_struct[i].red[x]->red_name, proc);
-	// 		// f_struct[i].red[x]->red_name = expand_dollar_sign(f_struct[i].red[x]->red_name);
-	// 		x++;
-	// 	}
-	// 	i++;
-	// }
+	expand_structs(f_struct, proc);
 	ft_delete_all_qoutes(f_struct);
 	free_func(vars);
 	if (str)

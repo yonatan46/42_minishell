@@ -6,10 +6,9 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 11:58:46 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:03:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -26,49 +25,49 @@
 
 typedef struct s_data
 {
-	char	*main_line;
-	char	pwd[1024];
-	t_list	*t_lst;
-	char	**res;
-	char	*result;
-	char	*copy;
-	char	**res1;
-	char	**path_split;
-	char	*path;
-	char	**res2;
-	int		fd[256][2];
-	int		tmp;
-	int		id;
-	int		flag_in;
-	int		flag_out;
-	int		id1;
-	int		x;
-	int		status;
-	int		flag;
-	int		counter;
-	int		cmd_len;
-	int		middle_cmd;
-	int		ac;
-	int		total_pipe;
-	char	**copy_env;
-	char	**tmp_2d;
-	t_list	**head;
-	int		pid1;
-	int		pid2;
-	int		check;
-	int		err_no;
-	int		tmp_file_fd;
-	int		index;
-	char	*pars;
-	char	**envp;
-	unsigned long long *res_atoi;
-	unsigned long long *copy_atoi;
+	char				*main_line;
+	char				pwd[1024];
+	t_list				*t_lst;
+	char				**res;
+	char				*result;
+	char				*copy;
+	char				**res1;
+	char				**path_split;
+	char				*path;
+	char				**res2;
+	int					fd[256][2];
+	int					tmp;
+	int					id;
+	int					flag_in;
+	int					flag_out;
+	int					id1;
+	int					x;
+	int					status;
+	int					flag;
+	int					counter;
+	int					cmd_len;
+	int					middle_cmd;
+	int					ac;
+	int					total_pipe;
+	char				**copy_env;
+	char				**tmp_2d;
+	t_list				**head;
+	int					pid1;
+	int					pid2;
+	int					check;
+	int					err_no;
+	int					tmp_file_fd;
+	int					index;
+	char				*pars;
+	char				**envp;
+	unsigned long long	*res_atoi;
+	unsigned long long	*copy_atoi;
 }	t_data;
 
 typedef struct s_red
 {
-	char	*red_sign;
-	char	*red_name;
+	char				*red_sign;
+	char				*red_name;
 }		t_red;
 
 /**
@@ -76,11 +75,11 @@ typedef struct s_red
 */
 typedef struct s_pipe
 {
-	int		cmd_len;//3
-	int		red_len;//5
-	char	*cmd;//ls
-	char	**arg;//ls, -la,NULL
-	t_red	**red;//< infile,, > outf...	..
+	int		cmd_len;
+	int		red_len;
+	char	*cmd;
+	char	**arg;
+	t_red	**red;
 	char	**f_cmd;
 }		t_pipe;
 
@@ -137,6 +136,7 @@ int		expand_util(t_exp_var *var, char *str);
 void	simple_free(void *str);
 void	first_process_util(t_data *proc, t_pipe *av, char **envp);
 void	last_process_util(t_data *proc, t_pipe *av, char **envp);
+void	expand_structs(t_pipe *f_struct, t_data *proc);
 /**
  * redirectin functions
 */
@@ -284,7 +284,6 @@ void	free_redirection(t_pipe *pipe);
 void	terminate(char *m, t_data *proc, t_pipe *pipe);
 char	*expand_env_vars(const char *str);
 char	*expand_dollar_sign(const char *input);
-
 
 void	ft_delete_cmd_quotes_two(t_pipe *f_struct);
 char	*ft_del_quotes_two(char *str, char c);
