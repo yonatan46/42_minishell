@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/12 15:03:42 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:50:04 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	re_index(t_list *head)
  * @head: the linked list which contains the env
  * @index: index of list to be removed from the linked list
 */
-void	remove_element(t_list **head, int index)
+int	remove_element(t_list **head, int index)
 {
 	t_list	*current;
 	t_list	*prev;
@@ -97,7 +97,7 @@ void	remove_element(t_list **head, int index)
 			current = current->next;
 		}
 	}
-	re_index(*head);
+	return (re_index(*head), 0);
 }
 
 /**

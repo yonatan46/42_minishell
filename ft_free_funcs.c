@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:17:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 22:41:50 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:51:56 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,10 @@ void	comb_free(t_pipe *pipe, t_data *proc)
 	free_func(proc->envp);
 	free_redirection(pipe);
 	ultimate_free(proc, pipe);
+}
+
+void	simple_free(char *str)
+{
+	if (str)
+		free(str);
 }

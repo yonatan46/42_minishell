@@ -6,7 +6,7 @@
 #    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/11 16:02:02 by dkaratae          #+#    #+#              #
-#    Updated: 2023/02/13 20:58:43 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/14 09:41:50 by yonamog2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ FILES =		ft_expand.c\
 			ft_two_more_cmd_proccess.c \
 			ft_atoi_modified.c \
 			ft_free_funcs.c \
+			ft_expand_utils.c \
 # FILES = ft_input.c
 # FILES = try.c
 OBJ = $(FILES:.c=.o)

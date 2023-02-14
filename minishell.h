@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/13 22:37:42 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:52:08 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ int		check_nns(char *str);
 void	child_signal_handler(int num);
 void	ultimate_free(t_data *data, t_pipe *pipe);
 void	comb_free(t_pipe *pipe, t_data *proc);
+int		expand_util(t_exp_var *var, char *str);
+void	simple_free(char *str);
 /**
  * redirectin functions
 */
@@ -133,7 +135,7 @@ int		ft_unset(t_pipe *pipe, t_data *proc);
 char	**linked_to_array(t_list *head);
 // void	free_func_one_cmd(char **args);
 void	free_func_one_cmd(t_pipe *av, t_data *proc, char **envp);
-void	remove_element(t_list **head, int index);
+int		remove_element(t_list **head, int index);
 void	ft_create_export(t_data *proc, char **env);
 int		chek_exp_a_rplc(t_list *head, char *replace);
 char	*ft_getenv(t_list *head, char *str);
@@ -153,6 +155,7 @@ void	ft_linked_env(t_data *proc, char **env);
 int		red_output(t_pipe *av, int x, t_data *proc);
 int		red_infile(t_pipe *av, int x, t_data *proc);
 int		red_append_mode(t_pipe *av, int x, t_data *proc);
+void	get_env_and_replace(t_exp_var *var, char *str);
 /**
  * PARSING PART
 */

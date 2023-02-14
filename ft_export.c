@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/13 19:59:34 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:55:04 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ void	ft_env_print_linked(t_data *proc)
 	exit(0);
 }
 
+int	ft_export_to_linked(t_pipe *pipe, t_data *prc)
+{
+	while (pipe->arg[++prc->x])
+	{
+		if (ft_validate_exprot(pipe->arg[prc->x]) == 1)
+			print_and_set_flag(pipe, prc);
+		else
+			chek_exp_a_rplc(*prc->head, pipe->arg[prc->x]);
+	}
+	return (prc->flag);
+}
 /**
  * ft_export_print_linked: is a function that does export like bash
  * it basically take the linked list and print it in sorted order
@@ -47,16 +58,7 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *prc)
 	prc->t_lst = *prc->head;
 	prc->x = 0;
 	if (pipe->arg[1])
-	{
-		while (pipe->arg[++prc->x])
-		{
-			if (ft_validate_exprot(pipe->arg[prc->x]) == 1)
-				print_and_set_flag(pipe, prc);
-			else
-				chek_exp_a_rplc(*prc->head, pipe->arg[prc->x]);
-		}
-		return (prc->flag);
-	}
+		return (ft_export_to_linked(pipe, prc));
 	prc->t_lst = *prc->head;
 	while (prc->t_lst)
 	{
@@ -69,8 +71,13 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *prc)
 	return (0);
 }
 
-int	ft_unset_check_and_unset(t_list **main_head, \
-char **args)
+/**
+ * ft_unset_check_and_unset: check if the identifier 
+ * is valid and remove it from the linked list
+ * @main_head: the head of the linked lsit
+ * @args: array of var names to be removed
+*/
+int	ft_unset_check_and_unset(t_list **main_head, char **args)
 {
 	int		x;
 	t_list	*tmp;
@@ -82,22 +89,16 @@ char **args)
 		if (ft_strchr(args[x], '='))
 		{
 			write(2, args[x], ft_strlen(args[x]));
-			ft_putstr_fd(" : not a valid identifier\n", 2);
-			return (1);
+			return (ft_putstr_fd(" : not a valid identifier\n", 2), 1);
 		}
 		tmp = *main_head;
 		while (tmp)
 		{
 			tmp_copy = ft_strjoin(args[x], "=");
 			if (strcmp(tmp->key, tmp_copy) == 0)
-			{
-				if (tmp_copy)
-					free(tmp_copy);
-				remove_element(main_head, tmp->index);
-				return (0);
-			}
-			if (tmp_copy)
-				free(tmp_copy);
+				return (simple_free(tmp_copy), \
+				remove_element(main_head, tmp->index));
+			simple_free(tmp_copy);
 			tmp = tmp->next;
 		}
 	}
@@ -105,7 +106,9 @@ char **args)
 }
 
 /**
- * ft_unset: remove from env variables
+ * ft_unset: validate and remove an element from list 
+ * @pipe: all the cmd , arg and redirections
+ * @proc: the struct containing variables to use
 */
 int	ft_unset(t_pipe *pipe, t_data *proc)
 {
