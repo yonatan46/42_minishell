@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 10:08:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:30:29 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ int	remove_element(t_list **head, int index)
 			if (current->index == index)
 			{
 				prev->next = current->next;
-				free(current->key);
-				free(current->value);
-				free(current);
+				simple_free(current->key);
+				simple_free(current->value);
+				simple_free(current);
 				break ;
 			}
 			prev = current;

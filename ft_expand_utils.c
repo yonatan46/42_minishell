@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:41:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 14:22:54 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:12:40 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ int	expand_util_2(t_exp_var *var, char *str)
 	if (str[var->x] == '?')
 	{
 		tmp = ft_itoa(g_err_code);
+		var->cp = ftt_strjoin(var->cp, tmp);
+		free(tmp);
+		var->x++;
+		return (1);
+	}
+	else if (str[var->x] == '$')
+	{
+		tmp = ft_itoa(getpid());
 		var->cp = ftt_strjoin(var->cp, tmp);
 		free(tmp);
 		var->x++;

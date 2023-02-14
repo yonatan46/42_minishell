@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 09:55:04 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:31:01 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	ft_unset_check_and_unset(t_list **main_head, char **args)
 	char	*tmp_copy;
 
 	x = -1;
+	tmp_copy = NULL;
 	while (args[++x])
 	{
 		if (ft_strchr(args[x], '='))
@@ -94,7 +95,10 @@ int	ft_unset_check_and_unset(t_list **main_head, char **args)
 		tmp = *main_head;
 		while (tmp)
 		{
-			tmp_copy = ft_strjoin(args[x], "=");
+			if (ft_strchr(tmp->key, '='))
+				tmp_copy = ft_strjoin(args[x], "=");
+			else
+				tmp_copy = ft_strdup(args[x]);
 			if (strcmp(tmp->key, tmp_copy) == 0)
 				return (simple_free(tmp_copy), \
 				remove_element(main_head, tmp->index));

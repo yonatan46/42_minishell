@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 09:44:05 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:10:35 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	expand_util_4(char *str, t_exp_var *var)
 		}
 		else if (ft_isdigit(str[var->x + 1]) == 1)
 			var->x += 2;
-		else if (ft_isalpha(str[var->x + 1]) == 0 && str[var->x + 1] != '?')
+		else if (ft_isalpha(str[var->x + 1]) == 0 && str[var->x + 1] != '?' && str[var->x + 1] != '$')
 		{
 			tmp = ft_substr(str, var->x, 1);
 			var->cp = ftt_strjoin(var->cp, tmp);

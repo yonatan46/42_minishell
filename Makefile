@@ -6,7 +6,7 @@
 #    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/11 16:02:02 by dkaratae          #+#    #+#              #
-#    Updated: 2023/02/14 13:03:50 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/14 15:29:09 by yonamog2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ CC = cc  -I/usr/local/Cellar/readline/8.1/include
 #for linux
 # CC = cc 
 
-CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
 all : $(NAME)
 	tput setaf 3
