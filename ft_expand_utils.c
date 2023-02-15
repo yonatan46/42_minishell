@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:41:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 19:23:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 10:59:43 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	expand_util_2(t_exp_var *var, char *str)
 int	expand_util(t_exp_var *var, char *str)
 {
 	var->x++;
-	if (var->flag_sq == 0)
+	if (var->flag_sq == 0 || var->flag_dq == 1)
 	{
 		if (expand_util_2(var, str) == 1)
 			return (1);

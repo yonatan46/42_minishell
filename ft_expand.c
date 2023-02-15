@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 19:22:10 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:49:23 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	expand_init_vars(t_exp_var *var, t_data *proc)
 	var->x = 0;
 	var->start = 0;
 	var->flag_sq = 0;
+	var->flag_dq = 0;
 	var->cp = NULL;
 	var->tmp = NULL;
 	var->tmp_list = *proc->head;
@@ -111,7 +112,9 @@ char	*expand(char *str, t_data *proc)
 		{
 			if (str[var.x] == '\'')
 				var.flag_sq = !var.flag_sq;
-			if (var.flag_sq == 1)
+			if (str[var.x] == '\"')
+				var.flag_dq = !var.flag_dq;
+			if (var.flag_sq == 1 && var.flag_dq == 0)
 			{
 				tool(str, &var);
 				continue ;
