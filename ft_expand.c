@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/15 11:49:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 13:25:23 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 	free(tmp);
 	if (var->tmp == NULL)
 	{
-		free(var->cp);
-		var->cp = NULL;
+		simple_free(var->cp);
+		var->cp = ftt_strjoin(var->cp, var->tmp);
 	}
 	else
 		var->cp = ftt_strjoin(var->cp, var->tmp);
@@ -64,10 +64,10 @@ static void	tool(char *str, t_exp_var *var)
 	free(tmp);
 	var->x++;
 }
+
 /***
  * expand_util_4: somthine
 */
-
 static int	expand_util_4(char *str, t_exp_var *var)
 {
 	if (str[var->x] != '$')
@@ -81,15 +81,13 @@ static int	expand_util_4(char *str, t_exp_var *var)
 			return (free(var->tmp_ex), 1);
 		}
 		else if (ft_isdigit(str[var->x + 1]) == 1)
-			var->x += 2;
-		else if (ft_isalpha(str[var->x + 1]) == 0 && \
-		str[var->x + 1] != '?' && str[var->x + 1] != '$')
 		{
-			var->tmp_ex = ft_substr(str, var->x, 1);
-			var->cp = ftt_strjoin(var->cp, var->tmp_ex);
-			free(var->tmp_ex);
-			var->x++;
+			var->x += 2;
 		}
+		else if (ft_isalpha(str[var->x + 1]) == 0 && \
+		str[var->x + 1] != '?' && str[var->x + 1] != '$' \
+		&& str[var->x + 1] != '\"' && str[var->x + 1] != '\'')
+			tool(str, var);
 		else
 			expand_util(var, str);
 	}
@@ -110,11 +108,8 @@ char	*expand(char *str, t_data *proc)
 		expand_init_vars(&var, proc);
 		while (str[var.x])
 		{
-			if (str[var.x] == '\'')
-				var.flag_sq = !var.flag_sq;
-			if (str[var.x] == '\"')
-				var.flag_dq = !var.flag_dq;
-			if (var.flag_sq == 1 && var.flag_dq == 0)
+			set_flag(&var, str);
+			if ((var.flag_sq == 1 || str[var.x] != '$'))
 			{
 				tool(str, &var);
 				continue ;

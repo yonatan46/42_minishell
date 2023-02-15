@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:41:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/15 10:59:43 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 13:25:53 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static	void	expand_util_3(t_exp_var *var, char *str)
 
 	if (str[var->x] == '\"' || str[var->x] == ' ')
 	{
-		tmp = ft_substr(str, var->x - 1, 2);
+		tmp = ft_substr(str, var->x, 2);
 		var->cp = ftt_strjoin(var->cp, tmp);
 		free(tmp);
 		var->x++;
@@ -52,15 +52,14 @@ int	expand_util_2(t_exp_var *var, char *str)
 		var->cp = ftt_strjoin(var->cp, tmp);
 		free(tmp);
 		var->x++;
+		set_flag(var, str);
 		return (1);
 	}
 	else if (str[var->x] == '$')
 	{
 		tmp = ft_itoa(getpid());
 		var->cp = ftt_strjoin(var->cp, tmp);
-		free(tmp);
-		var->x++;
-		return (1);
+		return (free(tmp), var->x++, 1);
 	}
 	else if (str[var->x] == ' ')
 	{
@@ -79,7 +78,7 @@ int	expand_util_2(t_exp_var *var, char *str)
 int	expand_util(t_exp_var *var, char *str)
 {
 	var->x++;
-	if (var->flag_sq == 0 || var->flag_dq == 1)
+	if (var->flag_sq == 0)
 	{
 		if (expand_util_2(var, str) == 1)
 			return (1);
@@ -89,9 +88,17 @@ int	expand_util(t_exp_var *var, char *str)
 			return (1);
 		}
 		var->start = var->x;
-		while (ft_isalpha(str[var->x]))
+		while (ft_isalnum(str[var->x]))
 			var->x++;
 		get_env_and_replace(var, str);
 	}
 	return (0);
+}
+
+void	set_flag(t_exp_var *var, char *str)
+{
+	if (str[var->x] == '\'' && var->flag_dq == 0)
+		var->flag_sq = !var->flag_sq;
+	else if (str[var->x] == '\"' && var->flag_sq == 0)
+		var->flag_dq = !var->flag_dq;
 }

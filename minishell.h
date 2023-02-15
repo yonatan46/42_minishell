@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/15 10:55:08 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:00:58 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int		expand_util(t_exp_var *var, char *str);
 void	first_process_util(t_data *proc, t_pipe *av, char **envp);
 void	last_process_util(t_data *proc, t_pipe *av, char **envp);
 void	expand_structs(t_pipe *f_struct, t_data *proc);
+void	set_flag(t_exp_var *var, char *str);
 /**
  * redirectin functions
 */
