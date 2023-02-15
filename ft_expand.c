@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/15 13:25:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 13:28:36 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 	free(tmp);
 	if (var->tmp == NULL)
 	{
-		simple_free(var->cp);
 		var->cp = ftt_strjoin(var->cp, var->tmp);
 	}
 	else
