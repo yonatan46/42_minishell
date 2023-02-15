@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/15 12:00:58 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:05:04 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	ft_pwd(t_data *data, t_pipe *pipe, char **envp);
 void	ft_exit(t_pipe *pipe, t_data *proc);
 // void	ft_store_env(char **env, t_data *pipe);
 int		ft_cd(t_pipe *pipe, t_data *proc);
-void	ft_env_print_linked(t_data *proc);
+void	ft_env_print_linked(t_data *proc, t_pipe *av);
 void	ft_linked_env(t_data *proc, char **env);
 int		ft_export_print_linked(t_pipe *pipe, t_data *proc);
 void	sort_list(t_list *head);
@@ -175,6 +175,7 @@ void	print_and_set_flag(t_pipe *pipe, t_data *proc);
 void	init_vars(t_exp_var *var);
 int		ft_linked_env_util_2(t_exp_var *var, t_list *head, \
 t_data *proc, char **env);
+void	free_one_exec(t_data *proc, t_pipe *pipe);
 int		ft_linked_env_util(t_exp_var *var, \
 t_list *head, t_data *proc, char **env);
 void	check_and_set(t_exp_var *var, t_list *head, t_data *proc);
@@ -299,4 +300,5 @@ void	ft_delete_cmd_quotes_two(t_pipe *f_struct);
 char	*ft_del_quotes_two(char *str, char c);
 int		ft_calc_redpipe(char *str, char c);
 char	*ft_check_pipe_after_red(char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 #endif

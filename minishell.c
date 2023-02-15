@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 17:06:35 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:07:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 */
 void	validat_init_singal(int ac, char **env, t_data *proc)
 {
+	signal(SIGQUIT, SIG_IGN);
 	if (ac > 1)
 		exit(write(2, "Error: execute like <./minishell>\n", 35));
 	g_err_code = 0;
@@ -54,7 +55,10 @@ int	validate_input(t_data *proc)
 		return (1);
 	add_history(proc->main_line);
 	if (ft_preparsing(proc->main_line))
+	{
+		g_err_code = 258;
 		return (ft_putstr_fd("Syntax error near unexpected token\n", 2), 1);
+	}
 	return (0);
 }
 
@@ -83,6 +87,12 @@ int	main_util(t_data *proc, t_pipe *pipe)
 	return (0);
 }
 
+void	sig_start(void)
+{
+	signal(SIGINT, handler_signal);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 /**
  * main: where the main majic is happening,, take string ,validate, execute
  * @ac: number of arguments passed
@@ -98,7 +108,7 @@ int	main(int ac, char **av, char **env)
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{
-		signal(SIGINT, handler_signal);
+		sig_start();
 		if (g_err_code == 0)
 			proc.main_line = readline \
 				("\001\033[32m\002" "minishell {😇}-> " "\001\033[0m\002");

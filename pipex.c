@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:21:08 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 13:10:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 */
 int	ft_check_builtin(char *cmd)
 {
-	if (strcmp(cmd, "exit") == 0)
+	if (ft_strcmp(cmd, "exit") == 0)
 		return (1);
-	else if (strcmp(cmd, "echo") == 0)
+	else if (ft_strcmp(cmd, "echo") == 0)
 		return (2);
-	else if (strcmp(cmd, "cd") == 0)
+	else if (ft_strcmp(cmd, "cd") == 0)
 		return (3);
-	else if (strcmp(cmd, "pwd") == 0)
+	else if (ft_strcmp(cmd, "pwd") == 0)
 		return (4);
-	else if (strcmp(cmd, "env") == 0)
+	else if (ft_strcmp(cmd, "env") == 0)
 		return (5);
-	else if (strcmp(cmd, "export") == 0)
+	else if (ft_strcmp(cmd, "export") == 0)
 		return (6);
-	else if (strcmp(cmd, "unset") == 0)
+	else if (ft_strcmp(cmd, "unset") == 0)
 		return (7);
 	return (0);
 }

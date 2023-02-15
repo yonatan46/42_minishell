@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:42:18 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 10:54:36 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	replace_heredocs_util(t_pipe *av, int *x, int *y, t_heredoc_var *var)
 		close(var->file1);
 		return (1);
 	}
-	else if (strcmp(var->tmp, var->tmp2) == 0)
+	else if (ft_strcmp(var->tmp, var->tmp2) == 0)
 	{
 		if (var->tmp2)
 			free(var->tmp2);
@@ -92,7 +92,7 @@ int	check_and_update_heredoc(t_pipe *av, t_data *proc)
 		y = 0;
 		while (y < av[x].red_len)
 		{
-			if (strcmp(av[x].red[y]->red_sign, "<<") == 0)
+			if (ft_strcmp(av[x].red[y]->red_sign, "<<") == 0)
 				if (replace_heredocs(av, &x, &y, proc) == 1)
 					return (1);
 			y++;

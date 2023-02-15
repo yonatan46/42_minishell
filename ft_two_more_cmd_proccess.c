@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:07:19 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 19:58:14 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:49:54 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	check_built_ins_and_exexute(t_data *proc, t_pipe *av, char **envp)
 	else if (proc->check == 4)
 		ft_pwd(proc, av, envp);
 	else if (proc->check == 5)
-		ft_env_print_linked(proc);
+		ft_env_print_linked(proc, av);
 	else if (proc->check == 6)
 		ret = ft_export_print_linked(av, proc);
 	else if (proc->check == 7)
@@ -89,13 +89,11 @@ void	middle_proc_execute(t_data *proc, t_pipe *av, char **envp, int counter)
 	{
 		proc->index = counter;
 		execve(tmp, av[counter].arg, envp);
+		simple_free(tmp);
 		free_func_one_cmd(av, proc, envp);
 	}
 	else
-	{
-		simple_free(tmp);
 		cmd_not_found(av, proc, counter);
-	}
 }
 
 /**

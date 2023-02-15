@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:48:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 17:03:57 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * @proc: is a structure that contains all variables plus 
  * the head to the linked list
 */
-void	ft_env_print_linked(t_data *proc)
+void	ft_env_print_linked(t_data *proc, t_pipe *av)
 {
 	t_list	*tmp;
 
@@ -28,6 +28,9 @@ void	ft_env_print_linked(t_data *proc)
 			printf("%s%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
+	free_func(proc->envp);
+	free_redirection(av);
+	ultimate_free(proc, av);
 	exit(0);
 }
 
@@ -58,17 +61,22 @@ int	ft_export_print_linked(t_pipe *pipe, t_data *prc)
 	prc->t_lst = *prc->head;
 	prc->x = 0;
 	if (pipe->arg[1])
-		return (ft_export_to_linked(pipe, prc));
-	prc->t_lst = *prc->head;
-	while (prc->t_lst)
+		prc->x = ft_export_to_linked(pipe, prc);
+	else
 	{
-		if (ft_strchr(prc->t_lst->key, '='))
-			printf("declare -x %s\"%s\"\n", prc->t_lst->key, prc->t_lst->value);
-		else
-			printf("declare -x %s\n", prc->t_lst->key);
-		prc->t_lst = prc->t_lst->next;
+		prc->t_lst = *prc->head;
+		while (prc->t_lst)
+		{
+			if (ft_strchr(prc->t_lst->key, '='))
+				printf("declare -x %s\"%s\"\n", \
+				prc->t_lst->key, prc->t_lst->value);
+			else
+				printf("declare -x %s\n", prc->t_lst->key);
+			prc->t_lst = prc->t_lst->next;
+		}
 	}
-	return (0);
+	free_one_exec(prc, pipe);
+	return (prc->x);
 }
 
 /**
@@ -95,7 +103,7 @@ int	ft_unset_check_and_unset(t_list **main_head, char **args)
 				var.tmp_ex = ft_strjoin(args[var.x], "=");
 			else
 				var.tmp_ex = ft_strdup(args[var.x]);
-			if (strcmp(var.tmp_list->key, var.tmp_ex) == 0)
+			if (ft_strcmp(var.tmp_list->key, var.tmp_ex) == 0)
 				return (simple_free(var.tmp_ex), \
 				remove_element(main_head, var.tmp_list->index));
 			simple_free(var.tmp_ex);
@@ -120,5 +128,6 @@ int	ft_unset(t_pipe *pipe, t_data *proc)
 	if (pipe->arg[1])
 		while (pipe->arg[++x])
 			res = ft_unset_check_and_unset(proc->head, &pipe->arg[x]);
+	free_one_exec(proc, pipe);
 	return (res);
 }

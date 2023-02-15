@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:07:03 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 10:27:56 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_getenv(t_list *head, char *str)
 	tmp_val = ft_strjoin(str, "=");
 	while (tmp)
 	{
-		if (strcmp(tmp->key, tmp_val) == 0)
+		if (ft_strcmp(tmp->key, tmp_val) == 0)
 			return (free(tmp_val), tmp->value);
 		tmp = tmp->next;
 	}

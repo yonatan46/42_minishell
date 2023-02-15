@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:18:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 11:18:15 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:34:06 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ void	first_process_util(t_data *proc, t_pipe *av, char **envp)
 		free_func_one_cmd(av, proc, envp);
 	}
 	else
-	{
-		simple_free(tmp);
 		cmd_not_found(av, proc, 0);
-	}
 }
 
 void	last_process_util(t_data *proc, t_pipe *av, char **envp)
@@ -45,8 +42,5 @@ void	last_process_util(t_data *proc, t_pipe *av, char **envp)
 		free_func_one_cmd(av, proc, envp);
 	}
 	else
-	{
-		simple_free(tmp);
 		cmd_not_found(av, proc, av->cmd_len - 1);
-	}
 }

@@ -24,11 +24,11 @@ void	red_first_proc(t_pipe *av, int *flag, t_data *proc)
 	x = 0;
 	while (x < av[proc->index].red_len)
 	{
-		if (strcmp(av->red[x]->red_sign, ">") == 0)
+		if (ft_strcmp(av->red[x]->red_sign, ">") == 0)
 			*flag = red_output(av, x, proc);
-		else if (strcmp(av->red[x]->red_sign, "<") == 0)
+		else if (ft_strcmp(av->red[x]->red_sign, "<") == 0)
 			red_infile(av, x, proc);
-		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
+		else if (ft_strcmp(av->red[x]->red_sign, ">>") == 0)
 			*flag = red_append_mode(av, x, proc);
 		x++;
 	}
@@ -45,11 +45,11 @@ void	red_one_cmd(t_pipe *av, t_data *proc)
 	x = 0;
 	while (x < av[proc->index].red_len)
 	{
-		if (strcmp(av->red[x]->red_sign, ">") == 0)
+		if (ft_strcmp(av->red[x]->red_sign, ">") == 0)
 			red_output(av, x, proc);
-		else if (strcmp(av->red[x]->red_sign, "<") == 0)
+		else if (ft_strcmp(av->red[x]->red_sign, "<") == 0)
 			red_infile(av, x, proc);
-		else if (strcmp(av->red[x]->red_sign, ">>") == 0)
+		else if (ft_strcmp(av->red[x]->red_sign, ">>") == 0)
 			red_append_mode(av, x, proc);
 		x++;
 	}
@@ -68,11 +68,11 @@ void	red_middle(t_pipe *av, int *flag_out, int *flag_in, t_data *proc)
 	x = -1;
 	while (++x < av[proc->index].red_len)
 	{
-		if (strcmp(av[proc->index].red[x]->red_sign, ">") == 0)
+		if (ft_strcmp(av[proc->index].red[x]->red_sign, ">") == 0)
 			*flag_out = red_output(av, x, proc);
-		else if (strcmp(av[proc->index].red[x]->red_sign, "<") == 0)
+		else if (ft_strcmp(av[proc->index].red[x]->red_sign, "<") == 0)
 			*flag_in = red_infile(av, x, proc);
-		else if (strcmp(av[proc->index].red[x]->red_sign, ">>") == 0)
+		else if (ft_strcmp(av[proc->index].red[x]->red_sign, ">>") == 0)
 			*flag_out = red_append_mode(av, x, proc);
 	}
 }
@@ -91,11 +91,11 @@ void	red_last_proc(t_pipe *av, int *flag, t_data *proc)
 	while (++x < av[av->cmd_len -1].red_len)
 	{
 		proc->index = av->cmd_len - 1;
-		if (strcmp(av[proc->index].red[x]->red_sign, ">") == 0)
+		if (ft_strcmp(av[proc->index].red[x]->red_sign, ">") == 0)
 			red_output(av, x, proc);
-		else if (strcmp(av[proc->index].red[x]->red_sign, "<") == 0)
+		else if (ft_strcmp(av[proc->index].red[x]->red_sign, "<") == 0)
 			*flag = red_infile(av, x, proc);
-		else if (strcmp(av[proc->index].red[x]->red_sign, ">>") == 0)
+		else if (ft_strcmp(av[proc->index].red[x]->red_sign, ">>") == 0)
 			red_append_mode(av, x, proc);
 	}
 }

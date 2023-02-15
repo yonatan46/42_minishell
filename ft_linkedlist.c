@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 15:30:29 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	sort_list(t_list *head)
 		compare = current->next;
 		while (compare != NULL)
 		{
-			if (strcmp(current->key, compare->key) > 0)
+			if (ft_strcmp(current->key, compare->key) > 0)
 			{
 				temp_content = current->key;
 				temp_value = current->value;

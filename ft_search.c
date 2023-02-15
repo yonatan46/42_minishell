@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:51:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 16:22:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:05:19 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,24 @@ int	check_nns(char *str)
 		if (str[x] != 'n')
 			return (1);
 	return (0);
+}
+
+void	free_one_exec(t_data *proc, t_pipe *pipe)
+{
+	if (pipe->cmd_len > 1)
+	{
+		free_func(proc->envp);
+		free_redirection(pipe);
+		ultimate_free(proc, pipe);
+	}
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return ((int)*s1 - *s2);
 }

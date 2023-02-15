@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:17:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 20:07:34 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:01:32 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ultimate_free(t_data *data, t_pipe *pipe)
 	{
 		free_list(*data->head);
 		simple_free(data->head);
-		simple_free(pipe);
 	}
+	simple_free(pipe);
 }
 
 /**
