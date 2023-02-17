@@ -14,7 +14,7 @@
 
 void	expand_structs_util(t_pipe *f_struct, t_data *proc)
 {
-	if (f_struct[proc->i].arg[1])
+	if (f_struct[proc->i].arg && f_struct[proc->i].arg[1])
 	{
 		f_struct[proc->i].cmd = expand(f_struct[proc->i].arg[1], proc);
 		f_struct[proc->i].arg[1] = NULL;
