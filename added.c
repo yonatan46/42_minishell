@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   added.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 07:03:17 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 20:04:38 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:19:50 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	terminate(char *m, t_data *proc, t_pipe *pipe)
 		perror(m);
 	else
 		perror(m);
+	close_pipes(proc);
 	free_redirection(pipe);
 	ultimate_free(proc, pipe);
 	exit(1);
