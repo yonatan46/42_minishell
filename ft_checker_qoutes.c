@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 10:07:23 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 11:51:14 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:20:00 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	ft_check_sem_pipe_two(char *str, int *i)
 /* check if the string has || or |; or ;; that it's error*/
 int	ft_check_sem_pipe(char *str, int i)
 {
+	if (ft_check_red_sp_nothing(str))
+		return (1);
 	if (str[i] == '|' && str[i + 1] == '|')
 		return (1);
 	else if (str[i] == '|' && str[i + 1] == ' ')

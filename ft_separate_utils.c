@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:14:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/05 15:59:54 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:21:48 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,24 @@ int	ft_allocate_memory_red_arg(t_pipe *f_struct, int *i)
 	else
 		f_struct[*i].arg = ft_calloc(sizeof(t_data), count_all + 1);
 	return (count_all);
+}
+
+int	ft_check_red_sp_nothing(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] == '<' || str[i] == '>') && str[i + 1] == ' ')
+		{
+			i++;
+			while (ft_isspace(str[i]))
+				i++;
+			if (str[i] == '\0')
+				return (1);
+		}
+		i++;
+	}
+	return (0);
 }
