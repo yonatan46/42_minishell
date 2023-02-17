@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:14:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/17 18:21:48 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:18:04 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	ft_check_red_sp_nothing(char *str)
 			while (ft_isspace(str[i]))
 				i++;
 			if (str[i] == '\0')
+				return (1);
+			else if (str[i] == '<' || str[i] == '>')
 				return (1);
 		}
 		i++;
