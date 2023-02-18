@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/18 15:36:50 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:44:31 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_copy_red_name(t_pipe *f_struct, int i, int j, int r)
 	int g;
 
 	g = -1;
+	f_struct[i].red[r]->flag = 0;
 	if (f_struct[i].f_cmd[j])
 		f_struct[i].red[r]->red_name = ft_strdup(f_struct[i].f_cmd[j]);
 	while (f_struct[i].red[r]->red_name[++g])
