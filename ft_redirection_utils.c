@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:15:36 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 17:06:02 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:22:40 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

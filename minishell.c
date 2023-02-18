@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/17 21:23:08 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:13:24 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 */
 int	validate_input(t_data *proc)
 {
-	char	**split;
+	// char	**split;
 
-	if (proc->main_line)
-	{
-		split = ft_split(proc->main_line, ' ');
-		if (split[0] == NULL)
-			return (free_func(split), 1);
-		free_func(split);
-	}
+
+	// if (proc->main_line)
+	// {
+	// 	split = ft_split(proc->main_line, ' ');
+	// 	if (split[0] == NULL)
+	// 		return (free_func(split), 1);
+	// 	free_func(split);
+	// }
+	
 	if (!proc->main_line)
 	{
 		printf("exit\n");

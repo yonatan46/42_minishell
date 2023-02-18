@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/17 18:20:58 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:06:34 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_red
 {
 	char				*red_sign;
 	char				*red_name;
+	int					flag;
 }		t_red;
 
 /**
