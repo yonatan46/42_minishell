@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:42:18 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/19 12:06:48 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:11:31 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,13 @@ int	replace_heredocs_util(t_pipe *av, int *x, int *y, t_heredoc_var *var)
 	}
 	else if (ft_strcmp(var->tmp, var->tmp2) == 0)
 	{
-		if (var->tmp2)
-			free(var->tmp2);
-		free(av[*x].red[*y]->red_name);
-		free(av[*x].red[*y]->red_sign);
+		simple_free(var->tmp2);
+		simple_free(av[*x].red[*y]->red_name);
+		simple_free(av[*x].red[*y]->red_sign);
 		av[*x].red[*y]->red_name = ft_strdup(".tmp");
 		av[*x].red[*y]->red_sign = ft_strdup("<");
 		close(var->file1);
-		free(var->tmp);
+		simple_free(var->tmp);
 		return (2);
 	}
 	return (0);
@@ -60,13 +59,8 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 		var.tmp = get_next_line(0);
 		if (var.tmp == NULL)
 			return (close(var.file1), 1);
-		if (av[*x].red[*y]->flag == 1)
-		{
-			ft_putstr_fd("dont change\n", 2);
-			ft_printf("|%s|\n",av[*x].red[*y]->red_name);
-		}
-		else
-			ft_putstr_fd("expand\n", 2);
+		if (av[*x].red[*y]->flag == 0)
+			var.tmp = expand_vars(var.tmp, proc);
 		var.tmp2 = ft_strjoin(av[*x].red[*y]->red_name, "\n");
 		var.ret = replace_heredocs_util(av, x, y, &var);
 		if (var.ret == 1)
@@ -76,11 +70,6 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 		simple_free(var.tmp2);
 		write(var.file1, var.tmp, ft_strlen(var.tmp));
 		simple_free(var.tmp);
-	}
-	if (var.tmp == NULL)
-	{
-		g_err_code = 0;
-		return (close(var.file1), 1);
 	}
 	return (0);
 }

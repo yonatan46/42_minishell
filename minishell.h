@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/18 15:06:34 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:07:28 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct s_pars_var
 }	t_pars_var;
 
 int		g_err_code;
+char	*expand_vars(char *str, t_data *proc);
 void	free_func(char **args);
 char	*ft_join_spltd(char *str);
 void	cmd_not_found(t_pipe *av, t_data *proc, int counter);
@@ -303,4 +304,7 @@ char	*ft_del_quotes_two(char *str, char c);
 int		ft_calc_redpipe(char *str, char c);
 char	*ft_check_pipe_after_red(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
+void	tool(char *str, t_exp_var *var);
+int		expand_util_4(char *str, t_exp_var *var);
+void	expand_init_vars(t_exp_var *var, t_data *proc);
 #endif

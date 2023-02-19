@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_separate_struct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/18 15:44:31 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:07:47 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_copy_red_sign(t_pipe *f_struct, int i, int j, int r)
 
 void	ft_copy_red_name(t_pipe *f_struct, int i, int j, int r)
 {
-	int g;
+	int	g;
 
 	g = -1;
 	f_struct[i].red[r]->flag = 0;
@@ -28,10 +28,11 @@ void	ft_copy_red_name(t_pipe *f_struct, int i, int j, int r)
 		f_struct[i].red[r]->red_name = ft_strdup(f_struct[i].f_cmd[j]);
 	while (f_struct[i].red[r]->red_name[++g])
 	{
-		if (f_struct[i].red[r]->red_name[g] == '\'' || f_struct[i].red[r]->red_name[g] == '\"')
+		if (f_struct[i].red[r]->red_name[g] == '\'' || \
+		f_struct[i].red[r]->red_name[g] == '\"')
 		{
 			f_struct[i].red[r]->flag = 1;
-			break;
+			break ;
 		}
 	}
 }

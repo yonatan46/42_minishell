@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:41:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/15 13:25:53 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:05:27 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,37 @@ int	expand_util(t_exp_var *var, char *str)
 	return (0);
 }
 
+/**
+ * set_flag: just set flag based on the quote status
+ * @var: the struture containing the variables for the expansion
+ * @str: the string to be expanded from
+*/
 void	set_flag(t_exp_var *var, char *str)
 {
 	if (str[var->x] == '\'' && var->flag_dq == 0)
 		var->flag_sq = !var->flag_sq;
 	else if (str[var->x] == '\"' && var->flag_sq == 0)
 		var->flag_dq = !var->flag_dq;
+}
+
+char	*expand_vars(char *str, t_data *proc)
+{
+	t_exp_var	var;
+
+	var.x = 0;
+	expand_init_vars(&var, proc);
+	while (str[var.x])
+	{
+		if (str[var.x] != '$')
+		{
+			tool(str, &var);
+			continue ;
+		}
+		var.start = var.x;
+		if (expand_util_4(str, &var) == 1)
+			break ;
+		if (str[var.x] == '\0')
+			break ;
+	}
+	return (var.cp);
 }

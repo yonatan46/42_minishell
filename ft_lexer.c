@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/18 15:45:50 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:55:26 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,21 +106,21 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 	int		pipes_num;
 	t_pipe	*f_struct;
 
-	i = 0;
+	i = -1;
 	str = ft_check_pipe_after_red(str);
 	str = ft_add_sp_redname(str);
 	pipes_num = ft_calc(str, '|');
 	vars = ft_c_sp_struct(ft_separate_sp_pipe(str, '|'));
 	f_struct = ft_calloc(sizeof(t_pipe), pipes_num + 2);
-	while (vars[i])
+	while (vars[++i])
 	{
+		vars[i] = expand(vars[i], proc);
+		vars[i] = ft_add_sp_redname(vars[i]);
 		f_struct[i].f_cmd = ft_separate_sp_pipe(vars[i], ' ');
 		f_struct[i].cmd_len = pipes_num + 1;
 		f_struct[i].arg_len = 0;
-		i++;
 	}
 	ft_count_struct(f_struct);
-	expand_structs(f_struct, proc);
 	ft_delete_all_qoutes(f_struct);
 	free_func(vars);
 	simple_free(str);

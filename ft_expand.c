@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/15 13:28:36 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:03:46 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	expand_init_vars(t_exp_var *var, t_data *proc)
  * tool: get the string,, join it with the mainm then free tmp
 */
 
-static void	tool(char *str, t_exp_var *var)
+void	tool(char *str, t_exp_var *var)
 {
 	char		*tmp;
 
@@ -67,7 +67,7 @@ static void	tool(char *str, t_exp_var *var)
 /***
  * expand_util_4: somthine
 */
-static int	expand_util_4(char *str, t_exp_var *var)
+int	expand_util_4(char *str, t_exp_var *var)
 {
 	if (str[var->x] != '$')
 		tool(str, var);
