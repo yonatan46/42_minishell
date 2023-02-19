@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:45:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 19:55:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:27:38 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static int	ft_cd_util(t_pipe *pipe, char *pwd, t_data *proc)
 		{
 			tmp = ft_strjoin("OLDPWD=", pwd);
 			chek_exp_a_rplc(*proc->head, tmp);
-			free(tmp);
+			simple_free(tmp);
 		}
 		pwd = getcwd(proc->pwd, 1024);
 		tmp = ft_strjoin("PWD=", pwd);
 		if (pwd)
 		{
 			proc->x = chek_exp_a_rplc(*proc->head, tmp);
-			return (free(tmp), proc->x);
+			return (simple_free(tmp), proc->x);
 		}
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: \
 		cannot access parent directories: No such file or directory\n", 2);
@@ -64,14 +64,14 @@ static	int	ft_cd_util_3(char *pwd, t_data *proc)
 		tmp = ft_strjoin("OLDPWD=", pwd);
 		chek_exp_a_rplc(*proc->head, tmp);
 		if (tmp)
-			free(tmp);
+			simple_free(tmp);
 	}
 	pwd = getcwd(proc->pwd, 1024);
 	if (pwd)
 	{
 		tmp = ft_strjoin("PWD=", pwd);
 		proc->x = chek_exp_a_rplc(*proc->head, tmp);
-		return (free(tmp), proc->x);
+		return (simple_free(tmp), proc->x);
 	}
 	return (1);
 }
@@ -99,7 +99,7 @@ static	int	ft_cd_util_2(char *pwd, t_data *proc)
 			write(2, tmp, ft_strlen(tmp));
 			perror(" ");
 		}
-		return (free(tmp), 1);
+		return (simple_free(tmp), 1);
 	}
 	return (0);
 }

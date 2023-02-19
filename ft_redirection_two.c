@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:07:25 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/06 18:35:45 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:30:25 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_add_sp_red_after(char *str)
 			new_str[v[1]++] = str[v[0]++];
 	}
 	new_str[v[1]] = '\0';
-	free(str);
+	simple_free(str);
 	return (new_str);
 }
 
@@ -106,6 +106,6 @@ char	*ft_add_sp_red_before(char *str)
 			new_str[v[1]++] = str[v[0]++];
 	}
 	new_str[v[1]] = '\0';
-	free(str);
+	simple_free(str);
 	return (new_str);
 }

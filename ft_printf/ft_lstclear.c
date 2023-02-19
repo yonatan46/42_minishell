@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 08:14:45 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/04 22:24:24 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:30:29 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 		{
 			tmp = (*lst)->next;
 			del((*lst)->key);
-			free(*lst);
+			simple_free(*lst);
 			*lst = tmp;
 		}
 	}	

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:50:22 by yonamog2          #+#    #+#             */
-/*   Updated: 2022/11/15 06:00:41 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:30:44 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_uns_print(unsigned int n)
 	{
 		num = ft_uitoa(n);
 		len += ft_printstr(num);
-		free(num);
+		simple_free(num);
 	}
 	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:42:18 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/19 14:11:31 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:29:19 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	replace_heredocs_util(t_pipe *av, int *x, int *y, t_heredoc_var *var)
 {
 	if (var->tmp == NULL)
 	{
-		if (var->tmp2)
-			free(var->tmp2);
+		simple_free(var->tmp2);
 		g_err_code = 0;
 		close(var->file1);
 		return (1);

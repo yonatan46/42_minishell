@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:01:48 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/14 19:25:15 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:30:10 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ char	*ft_del_quotes_two(char *str, char c)
 			ch[j++] = str[i];
 	}
 	ch[j] = '\0';
-	free(str);
+	simple_free(str);
 	return (ch);
 }

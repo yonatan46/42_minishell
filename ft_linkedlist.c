@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:54:06 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:29:57 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	first_element(t_list **head)
 
 	current = *head;
 	*head = current->next;
-	free(current);
+	simple_free(current);
 }
 
 /**

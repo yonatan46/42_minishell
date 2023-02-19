@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/19 14:06:51 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:25:23 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ void	validat_init_singal(int ac, char **env, t_data *proc)
 */
 int	validate_input(t_data *proc)
 {
+	proc->x = 0;
+	if (proc->main_line && ft_isspace(proc->main_line[0]))
+	{
+		while (proc->main_line && ft_isspace(proc->main_line[proc->x]))
+			proc->x++;
+		if (proc->main_line[proc->x] == '\0')
+			return (simple_free(proc->main_line), 1);
+	}
 	if (!proc->main_line)
 	{
 		printf("exit\n");

@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:17:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/15 17:01:32 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:31:18 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ void	simple_free(void *str)
 {
 	if (str)
 		free(str);
-str = NULL;
+	str = NULL;
 }

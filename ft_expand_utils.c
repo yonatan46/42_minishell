@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:41:59 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/19 14:05:27 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:28:13 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static	void	expand_util_3(t_exp_var *var, char *str)
 	{
 		tmp = ft_substr(str, var->x, 2);
 		var->cp = ftt_strjoin(var->cp, tmp);
-		free(tmp);
+		simple_free(tmp);
 		var->x++;
 	}
 	else
 	{
 		tmp = ft_substr(str, var->x - 1, 1);
 		var->cp = ftt_strjoin(var->cp, tmp);
-		free(tmp);
+		simple_free(tmp);
 	}
 	var->x++;
 }
@@ -50,7 +50,7 @@ int	expand_util_2(t_exp_var *var, char *str)
 	{
 		tmp = ft_itoa(g_err_code);
 		var->cp = ftt_strjoin(var->cp, tmp);
-		free(tmp);
+		simple_free(tmp);
 		var->x++;
 		set_flag(var, str);
 		return (1);
@@ -59,7 +59,7 @@ int	expand_util_2(t_exp_var *var, char *str)
 	{
 		tmp = ft_itoa(getpid());
 		var->cp = ftt_strjoin(var->cp, tmp);
-		return (free(tmp), var->x++, 1);
+		return (simple_free(tmp), var->x++, 1);
 	}
 	else if (str[var->x] == ' ')
 	{

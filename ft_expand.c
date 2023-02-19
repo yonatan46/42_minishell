@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/19 14:03:46 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:28:26 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_env_and_replace(t_exp_var *var, char *str)
 
 	tmp = ft_substr(str, var->start, var->x - var->start);
 	var->tmp = ft_getenv(var->tmp_list, tmp);
-	free(tmp);
+	simple_free(tmp);
 	if (var->tmp == NULL)
 	{
 		var->cp = ftt_strjoin(var->cp, var->tmp);
@@ -51,7 +51,7 @@ void	expand_init_vars(t_exp_var *var, t_data *proc)
 }
 
 /**
- * tool: get the string,, join it with the mainm then free tmp
+ * tool: get the string,, join it with the mainm then simple_free tmp
 */
 
 void	tool(char *str, t_exp_var *var)
@@ -60,7 +60,7 @@ void	tool(char *str, t_exp_var *var)
 
 	tmp = ft_substr(str, var->x, 1);
 	var->cp = ftt_strjoin(var->cp, tmp);
-	free(tmp);
+	simple_free(tmp);
 	var->x++;
 }
 
@@ -77,7 +77,7 @@ int	expand_util_4(char *str, t_exp_var *var)
 		{
 			var->tmp_ex = ft_substr(str, var->x, 1);
 			var->cp = ftt_strjoin(var->cp, var->tmp_ex);
-			return (free(var->tmp_ex), 1);
+			return (simple_free(var->tmp_ex), 1);
 		}
 		else if (ft_isdigit(str[var->x + 1]) == 1)
 		{
@@ -119,7 +119,7 @@ char	*expand(char *str, t_data *proc)
 			if (str[var.x] == '\0')
 				break ;
 		}
-		return (free(str), var.cp);
+		return (simple_free(str), var.cp);
 	}
 	return (NULL);
 }

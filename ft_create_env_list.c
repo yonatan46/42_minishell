@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 11:55:07 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 12:49:59 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:28:03 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_data *proc, char **env)
 		ft_strlen(env[var->x]) - var->y);
 		ft_lstadd_back(&head, ft_lstnew(ft_substr(env[var->x], 0, var->y + 1), \
 		ft_itoa(ft_atoi(tmp_2) + 1), var->x, var->x));
-		free(tmp_2);
+		simple_free(tmp_2);
 		var->x++;
 		return (1);
 	}

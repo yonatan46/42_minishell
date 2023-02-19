@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:07:03 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:30:52 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ char	*ft_getenv(t_list *head, char *str)
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, tmp_val) == 0)
-			return (free(tmp_val), tmp->value);
+			return (simple_free(tmp_val), tmp->value);
 		tmp = tmp->next;
 	}
-	free(tmp_val);
+	simple_free(tmp_val);
 	return (NULL);
 }
 
@@ -55,7 +55,7 @@ char	*get_next_line(int fd)
 		if (*(tmp++) == '\n')
 			break ;
 	if (copy[0] == '\0')
-		return (free(copy), NULL);
+		return (simple_free(copy), NULL);
 	else
 		return (copy);
 }

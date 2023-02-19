@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/19 13:55:26 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:29:49 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_del_qt_util(t_pars_var *var, t_pipe *f_struct, char *str)
 		var->ch1 = ft_substr(str, var->k, var->f);
 		var->tmp = f_struct[var->i].arg[var->j];
 		f_struct[var->i].arg[var->j] = ft_strjoin(var->ch1, var->ch);
-		free(var->ch);
-		free(var->ch1);
+		simple_free(var->ch);
+		simple_free(var->ch1);
 	}
 	else if (str[var->z] == '\"')
 	{
@@ -31,13 +31,12 @@ int	ft_del_qt_util(t_pars_var *var, t_pipe *f_struct, char *str)
 		var->ch1 = ft_substr(str, var->k, var->f);
 		var->tmp = f_struct[var->i].arg[var->j];
 		f_struct[var->i].arg[var->j] = ft_strjoin(var->ch1, var->ch);
-		free(var->ch);
-		free(var->ch1);
+		simple_free(var->ch);
+		simple_free(var->ch1);
 	}
 	if (str[var->z] == '\0')
 		return (1);
-	if (var->tmp)
-		free(var->tmp);
+	simple_free(var->tmp);
 	return (0);
 }
 
@@ -53,8 +52,7 @@ void	ft_delete_argquotes(t_pipe *f_struct, char *str, int i, int j)
 	while (str[++var.z])
 		if (ft_del_qt_util(&var, f_struct, str) == 1)
 			break ;
-	if (var.tmp)
-		free(var.tmp);
+	simple_free(var.tmp);
 }
 
 void	ft_delete_arg_quotes(t_pipe *f_struct)

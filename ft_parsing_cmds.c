@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:00:23 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:30:05 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,8 @@ char	*parsing(t_data *proc, char **envp, char *s)
 		proc->result = ft_strjoin(proc->path, s);
 		if (access(proc->result, 0) == 0)
 			return (free_short(proc->path, proc->path_split), proc->result);
-		if (proc->path)
-			free(proc->path);
-		free(proc->result);
+		simple_free(proc->path);
+		simple_free(proc->result);
 	}
 	return (free_short(NULL, proc->path_split), NULL);
 }
