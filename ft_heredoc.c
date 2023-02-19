@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:42:18 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/15 18:05:16 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:06:48 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	replace_heredocs_util(t_pipe *av, int *x, int *y, t_heredoc_var *var)
 			free(var->tmp2);
 		free(av[*x].red[*y]->red_name);
 		free(av[*x].red[*y]->red_sign);
-		av[*x].red[*y]->red_name = ft_strdup(".var->tmp");
+		av[*x].red[*y]->red_name = ft_strdup(".tmp");
 		av[*x].red[*y]->red_sign = ft_strdup("<");
 		close(var->file1);
 		free(var->tmp);
@@ -58,6 +58,15 @@ int	replace_heredocs(t_pipe *av, int *x, int *y, t_data *proc)
 	{
 		signal(SIGINT, SIG_IGN);
 		var.tmp = get_next_line(0);
+		if (var.tmp == NULL)
+			return (close(var.file1), 1);
+		if (av[*x].red[*y]->flag == 1)
+		{
+			ft_putstr_fd("dont change\n", 2);
+			ft_printf("|%s|\n",av[*x].red[*y]->red_name);
+		}
+		else
+			ft_putstr_fd("expand\n", 2);
 		var.tmp2 = ft_strjoin(av[*x].red[*y]->red_name, "\n");
 		var.ret = replace_heredocs_util(av, x, y, &var);
 		if (var.ret == 1)

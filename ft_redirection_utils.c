@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:15:36 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/18 15:22:40 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:09:15 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_isspace(char ch)
 {
 	if (ch == ' ' || ch == '\n' || ch == '\t' || \
-		ch == '\v' || ch == '\f' || ch == '\r')
+		ch == '\v' || ch == '\f' )
 		return (1);
 	return (0);
 }

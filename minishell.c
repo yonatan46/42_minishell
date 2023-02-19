@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/18 15:13:24 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/19 12:03:28 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main_util(t_data *proc, t_pipe *pipe)
 	if (check_and_update_heredoc(pipe, proc) == 1)
 	{
 		free_redirection(pipe);
-		ultimate_free(proc, pipe);
+		ultimate_free(NULL, pipe);
 		return (1);
 	}
 	signal(SIGINT, SIG_IGN);
