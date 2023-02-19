@@ -97,10 +97,44 @@ char	*ft_check_pipe_after_red(char *str)
 	return (var.tmp);
 }
 
+void ft_print_cmd(t_pipe *f_struct)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (f_struct[i].arg || f_struct[i].red)
+	{
+	printf("---------<Structure = %i>--------\n", i);
+		printf("CMD = %s\n", f_struct[i].cmd);	
+		j =	0;
+		while (f_struct[i].arg && f_struct[i].arg[j])
+		{
+			printf("	ARG = %s\n", f_struct[i].arg[j]);
+			j++;
+		}
+		j =	0;
+		while (f_struct[i].red && f_struct[i].red[j])
+		{
+			printf("		SIGN = %s\n", f_struct[i].red[j]->red_sign);
+			printf("		NAME = %s\n", f_struct[i].red[j]->red_name);
+			j++;
+		}
+		i++;
+	}
+	printf("----------------------------------\n");
+ }
+
+// char	**update_array(char **arr, char *str)
+// {
+
+// }
 t_pipe	*ft_lexer(char *str, t_data	*proc)
 {
 	int		i;
+	int		x;
 	char	**vars;
+	char	*tmp;
 	int		pipes_num;
 	t_pipe	*f_struct;
 
@@ -112,13 +146,24 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 	f_struct = ft_calloc(sizeof(t_pipe), pipes_num + 2);
 	while (vars[++i])
 	{
-		vars[i] = expand(vars[i], proc);
-		vars[i] = ft_add_sp_redname(vars[i]);
+		// vars[i] = expand(vars[i], proc);
+		// vars[i] = ft_add_sp_redname(vars[i]);
 		f_struct[i].f_cmd = ft_separate_sp_pipe(vars[i], ' ');
+		x = 0;
+		while (f_struct[i].f_cmd[x])
+		{
+			tmp = ft_strdup(f_struct[i].f_cmd[x]);
+			f_struct[i].f_cmd[x] = expand(f_struct[i].f_cmd[x], proc);
+			f_struct[i].f_cmd[x] = ft_add_sp_redname(f_struct[i].f_cmd[x]);
+			if(ft_strcmp(tmp, f_struct[i].f_cmd[x]))
+				f_struct[i].f_cmd = update_array(f_struct[i].f_cmd, f_struct[i].f_cmd[x]);
+			x++;
+		}
 		f_struct[i].cmd_len = pipes_num + 1;
 		f_struct[i].arg_len = 0;
 	}
 	ft_count_struct(f_struct);
+	ft_print_cmd(f_struct);
 	ft_delete_all_qoutes(f_struct);
 	free_func(vars);
 	simple_free(str);

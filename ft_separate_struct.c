@@ -64,8 +64,8 @@ void	ft_count_struct(t_pipe *f_struct)
 		v[5] = ft_allocate_memory_red_arg(f_struct, &v[0]);
 		while (f_struct[v[0]].f_cmd[++v[1]])
 		{
-			if (f_struct[v[0]].f_cmd[v[1]][0] == '<' || \
-			f_struct[v[0]].f_cmd[v[1]][0] == '>')
+			if ((ft_strcmp(f_struct[v[0]].f_cmd[v[1]], ">") == 0 || ft_strcmp(f_struct[v[0]].f_cmd[v[1]], "<") == 0\
+			|| ft_strcmp(f_struct[v[0]].f_cmd[v[1]], ">>") == 0 || ft_strcmp(f_struct[v[0]].f_cmd[v[1]], "<<") == 0))
 				ft_copy_to_red_sign_name(f_struct, v[0], &v[1], &v[2]);
 			else if (v[5] >= 1 && v[4] == 0)
 			{
@@ -78,3 +78,6 @@ void	ft_count_struct(t_pipe *f_struct)
 		}
 	}
 }
+
+
+
