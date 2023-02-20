@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/11 16:02:02 by dkaratae          #+#    #+#              #
-#    Updated: 2023/02/20 10:23:01 by yonamog2         ###   ########.fr        #
+#    Updated: 2023/02/20 13:15:14 by dkaratae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,8 +81,8 @@ $(NAME): $(OBJ)
 	tput setaf 7
 	cd ft_printf && make
 #for mac
-# $(CC)  -L /usr/local/Cellar/readline/8.1/lib -lreadline $(OBJ) $(CFLAGS) ./ft_printf/libft.a  -o $(NAME)
-	$(CC)  $(OBJ) $(CFLAGS) -L/usr/local/lib -I/usr/local/include -lreadline ./ft_printf/libft.a -o $(NAME)
+	$(CC)  -L /usr/local/Cellar/readline/8.1/lib -lreadline $(OBJ) $(CFLAGS) ./ft_printf/libft.a  -o $(NAME)
+# $(CC)  $(OBJ) $(CFLAGS) -L/usr/local/lib -I/usr/local/include -lreadline ./ft_printf/libft.a -o $(NAME)
 	tput setaf 3
 	printf "done compiling!\n"
 	tput setaf 7

@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:14:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/17 21:18:04 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:22:07 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	ft_check_red_sp_nothing(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '|')
+			return (1);
 		if ((str[i] == '<' || str[i] == '>') && str[i + 1] == ' ')
 		{
 			i++;
