@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/19 14:07:28 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:36:35 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,8 @@ void	ft_count_struct(t_pipe *f_struct);
 int		ft_count_red_pipe(char **str, int count_all, int count_red);
 int		ft_allocate_memory_red_arg(t_pipe *f_struct, int *i);
 int		ft_check_red_sp_nothing(char *str);
+int		ft_check_red_pipe_dub(char *str);
+void	ft_check_loop_space_dub(char *str, int *i);
 
 /* ft_space */
 char	*ft_copy_after_clean_sp(char *str, int *i, int *k, int check_quote);

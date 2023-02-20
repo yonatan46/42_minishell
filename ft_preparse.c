@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 14:42:54 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/17 18:23:06 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:38:01 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	ft_check_red_pipe(char *str)
 	int	i;
 
 	i = -1;
+	if (ft_check_red_pipe_dub(str))
+		return (1);
 	while (str[++i])
 	{
 		if (str[i] == '>')

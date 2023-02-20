@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/19 14:29:49 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:30:06 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,35 @@ char	*ft_check_pipe_after_red(char *str)
 	return (var.tmp);
 }
 
+void ft_print_cmd(t_pipe *f_struct)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (f_struct[i].arg || f_struct[i].red)
+	{
+	printf("---------<Structure = %i>--------\n", i);
+		printf("CMD = %s\n", f_struct[i].cmd);	
+		j =	0;
+		while (f_struct[i].arg && f_struct[i].arg[j])
+		{
+			printf("	ARG = %s\n", f_struct[i].arg[j]);
+			j++;
+		}
+		j =	0;
+		while (f_struct[i].red && f_struct[i].red[j])
+		{
+			printf("		SIGN = %s\n", f_struct[i].red[j]->red_sign);
+			printf("		NAME = %s\n", f_struct[i].red[j]->red_name);
+			j++;
+		}
+		i++;
+	}
+	printf("----------------------------------\n");
+ }
+
+
 t_pipe	*ft_lexer(char *str, t_data	*proc)
 {
 	int		i;
@@ -120,6 +149,7 @@ t_pipe	*ft_lexer(char *str, t_data	*proc)
 	}
 	ft_count_struct(f_struct);
 	ft_delete_all_qoutes(f_struct);
+	// ft_print_cmd(f_struct);
 	free_func(vars);
 	simple_free(str);
 	return (f_struct);
