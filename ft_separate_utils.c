@@ -6,7 +6,7 @@
 /*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:14:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/20 13:22:07 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:36:08 by dkaratae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,36 @@ int	ft_check_red_sp_nothing(char *str)
 				return (1);
 		}
 		i++;
+	}
+	return (0);
+}
+
+void	ft_check_loop_space_dub(char *str, int *i)
+{
+	++(*i);
+	while (ft_isspace(str[++(*i)]))
+		(*i)++;
+}
+
+int	ft_check_red_pipe_dub(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '>' && str[i + 1] == ' ')
+		{
+			ft_check_loop_space_dub(str, &i);
+				if (str[i] == '|')
+					return (1);
+		}
+		else if (str[i] == '<' && str[i + 1] == ' ')
+		{
+			ft_check_loop_space_dub(str, &i);
+			if (str[i] == '|')
+				return (1);
+		}
 	}
 	return (0);
 }
