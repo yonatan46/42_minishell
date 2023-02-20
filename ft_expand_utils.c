@@ -127,5 +127,6 @@ char	*expand_vars(char *str, t_data *proc)
 		if (str[var.x] == '\0')
 			break ;
 	}
+	free(str);
 	return (var.cp);
 }

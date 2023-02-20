@@ -58,8 +58,8 @@ CC = cc  -I/usr/local/Cellar/readline/8.1/include
 #for linux
 # CC = cc 
 
-CFLAGS = -Wall -Werror -Wextra 
-#-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 
+#-fsanitize=address
 
 all : $(NAME)
 	tput setaf 3
