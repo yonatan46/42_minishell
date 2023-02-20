@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/20 16:21:50 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:47:09 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,4 +313,5 @@ int		expand_util_4(char *str, t_exp_var *var);
 void	expand_init_vars(t_exp_var *var, t_data *proc);
 void	extra(t_pars_var *var, char *str);
 int		check_red_name(char *str);
+void	do_operation(t_data *proc, t_pipe *av);
 #endif

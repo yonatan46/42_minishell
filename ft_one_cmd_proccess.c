@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 13:03:36 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/20 14:34:42 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:48:23 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,21 +114,17 @@ int	pipex_one_cmd(t_pipe *av, t_data *proc, char **envp)
 	proc->index = 0;
 	proc->envp = envp;
 	if (av[0].cmd && ft_strcmp(av[0].cmd, "cd") == 0)
-	{
-		proc->dont = 1;
-		if (av->red_len > 0)
-			red_one_cmd(av, proc);
-		return (ft_cd(av, proc));
-	}
+		return (do_operation(proc, av), ft_cd(av, proc));
 	else if (av[0].cmd && ft_strcmp(av[0].cmd, "exit") == 0)
 	{
+		do_operation(proc, av);
 		ft_exit(av, proc);
 		return (1);
 	}
 	else if (av[0].cmd && ft_strcmp(av[0].cmd, "unset") == 0)
-		return (ft_unset(av, proc));
+		return (do_operation(proc, av), ft_unset(av, proc));
 	else if (av[0].cmd && ft_strcmp(av[0].cmd, "export") == 0)
-		return (ft_export_print_linked(av, proc));
+		return (do_operation(proc, av), ft_export_print_linked(av, proc));
 	else
 		return (set_signal_exe (av, proc, envp));
 	return (0);

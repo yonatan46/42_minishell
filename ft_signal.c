@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:51:00 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 12:51:13 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:47:14 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,11 @@ void	child_signal_handler(int num)
 		ft_putstr_fd("Quit: 3\n", 2);
 		g_err_code = 130;
 	}
+}
+
+void	do_operation(t_data *proc, t_pipe *av)
+{
+	proc->dont = 1;
+	if (av->red_len > 0)
+		red_one_cmd(av, proc);
 }
