@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:51:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/15 18:05:19 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:23:32 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,12 @@ int	ft_strcmp(const char *s1, const char *s2)
 		s2++;
 	}
 	return ((int)*s1 - *s2);
+}
+
+int	check_red_name(char *str)
+{
+	if ((ft_strcmp(str, ">") == 0 || ft_strcmp(str, "<") == 0 \
+	|| ft_strcmp(str, ">>") == 0 || ft_strcmp(str, "<<") == 0))
+		return (1);
+	return (0);
 }

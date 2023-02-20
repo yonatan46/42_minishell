@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/20 15:48:15 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:21:50 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ char	*ft_copy_after_clean_sp(char *str, int *i, int *k, int check_quote);
 char	*ft_c_sp(char *str);
 int		ft_trim_space(char *str, char c);
 char	**ft_c_sp_struct(char **str);
+void	free_two(void *str1, void *str2);
 
 /* minishell */
 int		main(int ac, char **av, char **env);
@@ -310,4 +311,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	tool(char *str, t_exp_var *var);
 int		expand_util_4(char *str, t_exp_var *var);
 void	expand_init_vars(t_exp_var *var, t_data *proc);
+void	extra(t_pars_var *var, char *str);
+int		check_red_name(char *str);
 #endif

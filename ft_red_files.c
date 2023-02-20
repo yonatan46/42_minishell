@@ -99,3 +99,9 @@ void	red_last_proc(t_pipe *av, int *flag, t_data *proc)
 			red_append_mode(av, x, proc);
 	}
 }
+
+void	extra(t_pars_var *var, char *str)
+{
+	var->ch = ft_del_quotes(str, &var->z, '\"');
+	var->ch1 = ft_substr(str, 0, var->f);
+}

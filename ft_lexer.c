@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:53:15 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/20 15:49:12 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:18:49 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ char	*ft_check_pipe_after_red(char *str)
 	var.tmp[var.j] = '\0';
 	return (var.tmp);
 }
-
 
 t_pipe	*ft_lexer(char *str, t_data	*proc)
 {

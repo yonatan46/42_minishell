@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:01:48 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/20 15:54:00 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:17:39 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,20 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 		var.f = var.z;
 		if (str[var.z] == '\'')
 		{
-			var.ch = ft_del_quotes(str, &var.z, '\'');
-			var.ch1 = ft_substr(str, 0, var.f);
+			extra(&var, str);
 			simple_free(f_struct[*i].red[*j]->red_name);
 			f_struct[*i].red[*j]->red_name = ft_strjoin(var.ch1, var.ch);
-			simple_free(var.ch);
-			simple_free(var.ch1);
+			free_two(var.ch, var.ch1);
 		}
 		else if (str[var.z] == '\"')
 		{
-			var.ch = ft_del_quotes(str, &var.z, '\"');
-			var.ch1 = ft_substr(str, 0, var.f);
+			extra(&var, str);
 			simple_free(f_struct[*i].red[*j]->red_name);
 			f_struct[*i].red[*j]->red_name = ft_strjoin(var.ch1, var.ch);
-			simple_free(var.ch);
-			simple_free(var.ch1);
+			free_two(var.ch, var.ch1);
 		}
-		if ((int)ft_strlen(f_struct[*i].red[*j]->red_name) < var.z || str[var.z] == '\0')
+		if ((int)ft_strlen(f_struct[*i].red[*j]->red_name) < \
+		var.z || str[var.z] == '\0')
 			break ;
 	}
 }

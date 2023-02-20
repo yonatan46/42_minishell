@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:04:57 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/19 13:55:13 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:15:11 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,10 @@ char	**ft_c_sp_struct(char **str)
 		i++;
 	}
 	return (str);
+}
+
+void	free_two(void *str1, void *str2)
+{
+	simple_free(str1);
+	simple_free(str2);
 }

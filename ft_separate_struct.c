@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:07:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/20 15:52:22 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:21:59 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ void	ft_count_struct(t_pipe *f_struct)
 		v[5] = ft_allocate_memory_red_arg(f_struct, &v[0]);
 		while (f_struct[v[0]].f_cmd[++v[1]])
 		{
-			if ((ft_strcmp(f_struct[v[0]].f_cmd[v[1]], ">") == 0 || ft_strcmp(f_struct[v[0]].f_cmd[v[1]], "<") == 0 \
-			|| ft_strcmp(f_struct[v[0]].f_cmd[v[1]], ">>") == 0 || ft_strcmp(f_struct[v[0]].f_cmd[v[1]], "<<") == 0))
+			if (check_red_name(f_struct[v[0]].f_cmd[v[1]]) == 1)
 				ft_copy_to_red_sign_name(f_struct, v[0], &v[1], &v[2]);
 			else if (v[5] >= 1 && v[4] == 0)
 			{
