@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:51:25 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/20 16:23:32 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:36:38 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_nns(char *str)
 	x = 0;
 	if (!str)
 		return (1);
-	if (str[x] != '-')
+	if (str[x] != '-' || str[x + 1] != 'n')
 		return (1);
 	while (str[++x])
 		if (str[x] != 'n')
