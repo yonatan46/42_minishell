@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_separate_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkaratae <dkaratae@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:14:29 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/20 14:36:08 by dkaratae         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:52:36 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int	ft_check_red_pipe_dub(char *str)
 		if (str[i] == '>' && str[i + 1] == ' ')
 		{
 			ft_check_loop_space_dub(str, &i);
-				if (str[i] == '|')
-					return (1);
+			if (str[i] == '|')
+				return (1);
 		}
 		else if (str[i] == '<' && str[i + 1] == ' ')
 		{
