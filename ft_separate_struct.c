@@ -20,12 +20,15 @@ void	ft_copy_red_sign(t_pipe *f_struct, int i, int j, int r)
 
 void	ft_copy_red_name(t_pipe *f_struct, int i, int j, int r)
 {
+	(void)j;
 	int	g;
 
 	g = -1;
 	f_struct[i].red[r]->flag = 0;
 	if (f_struct[i].f_cmd[j])
+	{
 		f_struct[i].red[r]->red_name = ft_strdup(f_struct[i].f_cmd[j]);
+	}
 	while (f_struct[i].red[r]->red_name[++g])
 	{
 		if (f_struct[i].red[r]->red_name[g] == '\'' || \

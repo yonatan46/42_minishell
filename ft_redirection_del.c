@@ -48,6 +48,7 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 		{
 			var.ch = ft_del_quotes(str, &var.z, '\'');
 			var.ch1 = ft_substr(str, 0, var.f);
+			simple_free(f_struct[*i].red[*j]->red_name);
 			f_struct[*i].red[*j]->red_name = ft_strjoin(var.ch1, var.ch);
 			simple_free(var.ch);
 			simple_free(var.ch1);
@@ -56,11 +57,12 @@ void	ft_copy_redname(t_pipe *f_struct, char *str, int *i, int *j)
 		{
 			var.ch = ft_del_quotes(str, &var.z, '\"');
 			var.ch1 = ft_substr(str, 0, var.f);
+			simple_free(f_struct[*i].red[*j]->red_name);
 			f_struct[*i].red[*j]->red_name = ft_strjoin(var.ch1, var.ch);
 			simple_free(var.ch);
 			simple_free(var.ch1);
 		}
-		if (str[var.z] == '\0')
+		if ((int)ft_strlen(f_struct[*i].red[*j]->red_name) < var.z || str[var.z] == '\0')
 			break ;
 	}
 }
