@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:12 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/19 14:25:23 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:46:19 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	main(int ac, char **av, char **env)
 	t_data	proc;
 
 	(void)av;
+	proc.dont = 0;
 	validat_init_singal(ac, env, &proc);
 	while (1)
 	{

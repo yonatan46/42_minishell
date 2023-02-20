@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:02:17 by dkaratae          #+#    #+#             */
-/*   Updated: 2023/02/19 14:07:28 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:34:37 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_data
 	int					err_no;
 	int					tmp_file_fd;
 	int					index;
+	int					dont;
 	char				*pars;
 	char				**envp;
 	unsigned long long	*res_atoi;

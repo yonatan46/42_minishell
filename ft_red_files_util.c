@@ -6,7 +6,7 @@
 /*   By: yonamog2 <yonamog2@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:48:29 by yonamog2          #+#    #+#             */
-/*   Updated: 2023/02/14 10:55:30 by yonamog2         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:46:15 by yonamog2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	red_output(t_pipe *av, int x, t_data *proc)
 			O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (file1 == -1)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
-	dup2(file1, STDOUT_FILENO);
+	if (proc->dont == 0)
+		dup2(file1, STDOUT_FILENO);
 	close(file1);
 	return (1);
 }
@@ -42,7 +43,8 @@ int	red_infile(t_pipe *av, int x, t_data *proc)
 	file1 = open(av[proc->index].red[x]->red_name, O_RDONLY);
 	if (file1 == -1)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
-	dup2(file1, STDIN_FILENO);
+	if (proc->dont == 0)
+		dup2(file1, STDIN_FILENO);
 	close(file1);
 	return (1);
 }
@@ -60,7 +62,8 @@ int	red_append_mode(t_pipe *av, int x, t_data *proc)
 	O_CREAT | O_APPEND, 0777);
 	if (file1 == -1)
 		terminate(av[proc->index].red[x]->red_name, proc, av);
-	dup2(file1, STDOUT_FILENO);
+	if (proc->dont == 0)
+		dup2(file1, STDOUT_FILENO);
 	close(file1);
 	return (1);
 }
