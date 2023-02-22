@@ -1,4 +1,4 @@
-# **************************************************************************** #
+**************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -81,8 +81,8 @@ $(NAME): $(OBJ)
 	tput setaf 7
 	cd ft_printf && make
 #for mac
-	$(CC)  -L /usr/local/Cellar/readline/8.1/lib -lreadline $(OBJ) $(CFLAGS) ./ft_printf/libft.a  -o $(NAME)
-# $(CC)  $(OBJ) $(CFLAGS) -L/usr/local/lib -I/usr/local/include -lreadline ./ft_printf/libft.a -o $(NAME)
+# $(CC)  -L /usr/local/Cellar/readline/8.1/lib -lreadline $(OBJ) $(CFLAGS) ./ft_printf/libft.a  -o $(NAME)
+	$(CC)  $(OBJ) $(CFLAGS) -L/usr/local/lib -I/usr/local/include -lreadline ./ft_printf/libft.a -o $(NAME)
 	tput setaf 3
 	printf "done compiling!\n"
 	tput setaf 7
